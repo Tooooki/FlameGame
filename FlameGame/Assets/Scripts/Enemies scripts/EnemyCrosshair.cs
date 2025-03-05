@@ -2,15 +2,28 @@ using UnityEngine;
 
 public class EnemyCrosshair : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject crosshair;
+
+    private Vector2 crosshairPosition = Vector2.zero;
+
+    private Rigidbody2D rb;
+
+    private void Awake()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.CompareTag("Player"))
+        {
+            crosshairPosition = collision.transform.position;
+            Debug.Log("attack incoming");
+        }
+    }
+    private void FixedUpdate()
+    {
+        crosshair.transform.position = crosshairPosition;
     }
 }
