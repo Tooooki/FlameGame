@@ -2,7 +2,7 @@
 - Project name: FlameGame
 - Unity version: Unity 6000.0.40f1
 - Active game object:
-  - Name: PLAYER
+  - Name: ENEMY
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
