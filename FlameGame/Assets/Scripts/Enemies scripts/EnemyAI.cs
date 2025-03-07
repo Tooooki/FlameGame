@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 direction = (Player.transform.position - transform.position).normalized;
+        Vector3 direction = (Player.transform.position - transform.position).normalized;
 
         rb.linearVelocity = direction * enemyFollowSpeed;
     }

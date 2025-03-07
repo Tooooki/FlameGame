@@ -1,13 +1,20 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyCrosshair : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject crosshair;
+    [SerializeField] private float dashStr = 20f;
+    [SerializeField] private float delay = 1f;
 
-    private Vector2 crosshairPosition = Vector2.zero;
+    private Vector3 crosshairPosition = Vector3.zero;
 
     private Rigidbody2D rb;
+
+    public UnityEvent OnBegin;
+    public UnityEvent OnDone;
 
     private void Awake()
     {
@@ -18,12 +25,26 @@ public class EnemyCrosshair : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            crosshairPosition = collision.transform.position;
+            crosshairPosition = player.transform.position;
             Debug.Log("attack incoming");
+            OnBegin?.Invoke();
+            rb.linearVelocity = Vector3.zero;
+            StartCoroutine(Reset());
         }
     }
+
     private void FixedUpdate()
     {
         crosshair.transform.position = crosshairPosition;
+        rb.AddForce(rb.linearVelocity.normalized * -1 * 15f, ForceMode2D.Force);
+    }
+
+    private IEnumerator Reset()
+    {
+        yield return new WaitForSeconds(0.25f);
+        Vector3 direction = (crosshairPosition - transform.position).normalized;
+        rb.AddForce(direction * dashStr, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(2f);
+        OnDone?.Invoke();
     }
 }
