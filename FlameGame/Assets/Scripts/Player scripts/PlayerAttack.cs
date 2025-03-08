@@ -43,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
         clone.SetActive(true);
         cloneRb = clone.GetComponent<Rigidbody2D>();
         Vector3 direction = (mouseGamePos - clone.transform.position);
-        cloneRb.linearVelocity = direction.normalized * 10f;
+        cloneRb.linearVelocity = direction.normalized * 20f;
 
     }
 }

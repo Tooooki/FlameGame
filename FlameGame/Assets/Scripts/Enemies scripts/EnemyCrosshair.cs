@@ -25,6 +25,7 @@ public class EnemyCrosshair : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            StopAllCoroutines();
             crosshairPosition = player.transform.position;
             Debug.Log("attack incoming");
             OnBegin?.Invoke();
@@ -36,7 +37,7 @@ public class EnemyCrosshair : MonoBehaviour
     private void FixedUpdate()
     {
         crosshair.transform.position = crosshairPosition;
-        rb.AddForce(rb.linearVelocity.normalized * -1 * 15f, ForceMode2D.Force);
+        rb.AddForce(rb.linearVelocity.normalized * -1 * 30f, ForceMode2D.Force);
     }
 
     private IEnumerator Reset()
@@ -45,6 +46,22 @@ public class EnemyCrosshair : MonoBehaviour
         Vector3 direction = (crosshairPosition - transform.position).normalized;
         rb.AddForce(direction * dashStr, ForceMode2D.Impulse);
         yield return new WaitForSeconds(2f);
+        OnDone?.Invoke();
+    }
+
+    public void Knockback(GameObject sender)
+    {
+        StopAllCoroutines();
+        OnBegin?.Invoke();
+        rb.linearVelocity = Vector3.zero;
+        StartCoroutine(GotHit(sender));
+    }
+
+    private IEnumerator GotHit(GameObject sendder)
+    {
+        Vector3 knockbackDirection = (transform.position - sendder.transform.position).normalized;
+        rb.AddForce(knockbackDirection * 20f, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(1f);
         OnDone?.Invoke();
     }
 }

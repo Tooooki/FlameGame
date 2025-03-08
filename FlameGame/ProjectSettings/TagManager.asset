@@ -10,6 +10,7 @@ TagManager:
   - GroundAttack
   - Immunity
   - walls
+  - EnemyHitbox
   layers:
   - Default
   - TransparentFX
