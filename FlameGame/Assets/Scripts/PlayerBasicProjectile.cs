@@ -8,7 +8,8 @@ public class PlayerBasicProjectile : MonoBehaviour
     [SerializeField] private GameObject self;
     [SerializeField] private CircleCollider2D collider;
 
-    private GameObject whatHitU;
+    private GameObject projectile;
+    private GameObject enemyShoot;
     
     public UnityEvent OnWallHit;
     public UnityEvent OnEnemyHit;
@@ -35,7 +36,6 @@ public class PlayerBasicProjectile : MonoBehaviour
     {
         if (collision.CompareTag("walls"))
         {
-            Debug.Log("Miss");
             OnWallHit?.Invoke();
             rb.linearVelocity = Vector3.zero;
             collider.enabled = false;
@@ -45,13 +45,13 @@ public class PlayerBasicProjectile : MonoBehaviour
         
         if (collision.CompareTag("EnemyHitbox"))
         {
-            Debug.Log("Hit");
             OnEnemyHit?.Invoke();
             rb.linearVelocity = Vector3.zero;
             collider.enabled = false;
-            whatHitU = collision.gameObject.transform.parent.gameObject;
-            enemyScript = whatHitU.GetComponent<EnemyCrosshair>();
-            enemyScript.Knockback(whatHitU);
+            enemyShoot = collision.gameObject.transform.parent.gameObject;
+            projectile = rb.gameObject;
+            enemyScript = enemyShoot.GetComponent<EnemyCrosshair>();
+            enemyScript.Knockback(projectile);
             Destroy(self, 0.2f);
         }
     }

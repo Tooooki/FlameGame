@@ -60,8 +60,11 @@ public class EnemyCrosshair : MonoBehaviour
     private IEnumerator GotHit(GameObject sendder)
     {
         Vector3 knockbackDirection = (transform.position - sendder.transform.position).normalized;
-        rb.AddForce(knockbackDirection * 20f, ForceMode2D.Impulse);
+        rb.AddForce(knockbackDirection * 10f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(1f);
+        transform.position = new Vector3(Random.Range(-32.0f, 32.0f), Random.Range(-17.0f, 17.0f));
         OnDone?.Invoke();
+        //Destroy()
+        
     }
 }
