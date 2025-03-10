@@ -11,6 +11,7 @@ TagManager:
   - Immunity
   - walls
   - EnemyHitbox
+  - PlayerHitbox
   layers:
   - Default
   - TransparentFX

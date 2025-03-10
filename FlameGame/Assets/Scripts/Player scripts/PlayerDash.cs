@@ -14,6 +14,8 @@ public class Dash : MonoBehaviour
     public UnityEvent OnBegin;
     public UnityEvent OnDone;
 
+    PlayerIframes IframesScript;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,6 +27,9 @@ public class Dash : MonoBehaviour
         {
             canDash = false;
             OnBegin?.Invoke();
+            IframesScript = GetComponent<PlayerIframes>();
+            Debug.Log("dodge 2");
+            IframesScript.Iframes();
             rb.AddForce(rb.linearVelocity.normalized * strength, ForceMode2D.Impulse);
             StartCoroutine(Reset());
         }
