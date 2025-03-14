@@ -1,8 +1,9 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+
 public class Card : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer cardRenderer;
+    [SerializeField] SpriteRenderer cardImageRenderer;
     [SerializeField] TextMeshPro cardTextRenderer;
     private CardSO cardInfo;
     public void Setup(CardSO card)
@@ -12,3 +13,4 @@ public class Card : MonoBehaviour
         cardTextRenderer.text = card.cardText;
     }
 }
+

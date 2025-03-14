@@ -1,5 +1,4 @@
 using UnityEngine;
-
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
 public class CardSO : ScriptableObject
 {
@@ -15,3 +14,4 @@ public enum CardEffect
 {
     Powerup1
 }
+

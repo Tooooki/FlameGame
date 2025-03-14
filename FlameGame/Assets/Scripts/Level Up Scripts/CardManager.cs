@@ -1,12 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
     [SerializeField] GameObject cardSelectionUI;
     [SerializeField] GameObject cardPrefab;
-    [SerializeField] Transform cardPostionOne;
-    [SerializeField] Transform cardPostionTwo;
-    [SerializeField] Transform cardPostionThree;
+    [SerializeField] Transform cardPositionOne;
+    [SerializeField] Transform cardPositionTwo;
+    [SerializeField] Transform cardPositionThree;
     [SerializeField] List<CardSO> deck;
 
     GameObject cardOne, cardTwo, cardThree;
@@ -21,8 +22,8 @@ public class CardManager : MonoBehaviour
         List<CardSO> randomizedCards = new List<CardSO>();
 
         List<CardSO> availableCards = new List<CardSO>();
-        availableCards.RemoveAll(cardOne => 
-            cardOne.isUnique && alreadySelectedCards.Contains(card) 
+        availableCards.RemoveAll(card => 
+            card.isUnique && alreadySelectedCards.Contains(card) 
             // || card.unlockLevel > GameManager.Instance.GetCurrentLevel() to jest jesli dodamy prog levelowy dla niektorych kart
         );
 
@@ -32,7 +33,7 @@ public class CardManager : MonoBehaviour
             return;
         }
 
-        while (randomizedCards.count < 3)
+        while (randomizedCards.Count < 3)
         {
             CardSO randomCard = availableCards[Random.Range(0, availableCards.Count)];
             if(!alreadySelectedCards.Contains(randomCard))
@@ -42,16 +43,16 @@ public class CardManager : MonoBehaviour
         }
 
         cardOne = InstantiateCard(randomizedCards[0], cardPositionOne);
-        cardTwo = InstantiateCard(randomizedCards[1], cardPositionOne);
-        cardThree = InstantiateCard(randomizedCards[2], cardPositionOne);
+        cardTwo = InstantiateCard(randomizedCards[1], cardPositionTwo);
+        cardThree = InstantiateCard(randomizedCards[2], cardPositionThree);
     }
 
     GameObject InstantiateCard(CardSO cardSO, Transform position)
     {
-        GameObject card = Instantiate(cardPrefab, position.positon, Quaternion.identity, position);
+        GameObject cardGo = Instantiate(cardPrefab, position.position, Quaternion.identity, position);
         Card card = cardGo.GetComponent<Card>();
         card.Setup(cardSO);
         return cardGo;
 
-    }
+    } 
 } 

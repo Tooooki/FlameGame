@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Powerup1
   m_EditorClassIdentifier: 
   cardImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  cardText: Power Up 1
+  cardText: Dziala
   effectType: 0
   effectValue: 0
   isUnique: 0
