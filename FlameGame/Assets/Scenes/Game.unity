@@ -689,7 +689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &218436985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1888,7 +1888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &534102389
 Transform:
   m_ObjectHideFlags: 0
@@ -2610,7 +2610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &805367097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2901,7 +2901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &872490253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3632,7 +3632,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4793a384c56e545b1ae0b527d64497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 0}
+  roomPrefab: {fileID: 6912438237825820557, guid: 2e5e49a6ffbd8354cae9d08cdfa269f0, type: 3}
+  startroomPrefab: {fileID: 6912438237825820557, guid: 0411e4734d5e4294199746f7d72c997c, type: 3}
+  bossroomPrefab: {fileID: 6912438237825820557, guid: 85b0b296ef75a4c47b1c7c878676330e, type: 3}
+  maxRooms: 40
+  minRooms: 30
+  gridSizeX: 40
+  gridSizeY: 40
 --- !u!1 &1162104538
 GameObject:
   m_ObjectHideFlags: 0
@@ -4069,7 +4075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1329800050
 MonoBehaviour:
   m_ObjectHideFlags: 0
