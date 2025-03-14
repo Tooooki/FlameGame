@@ -13,6 +13,11 @@ public class CardManager : MonoBehaviour
     GameObject cardOne, cardTwo, cardThree;
 
     List<CardSO> alreadySelectedCards = new List<CardSO>();
+
+    void Start()
+    {
+        RandomizeNewCards();
+    }
     void RandomizeNewCards()
     {
         if(cardOne != null) Destroy(cardOne);
@@ -21,7 +26,7 @@ public class CardManager : MonoBehaviour
 
         List<CardSO> randomizedCards = new List<CardSO>();
 
-        List<CardSO> availableCards = new List<CardSO>();
+        List<CardSO> availableCards = new List<CardSO>(deck);
         availableCards.RemoveAll(card => 
             card.isUnique && alreadySelectedCards.Contains(card) 
             // || card.unlockLevel > GameManager.Instance.GetCurrentLevel() to jest jesli dodamy prog levelowy dla niektorych kart
