@@ -14,7 +14,7 @@ public class PlayerDeath : MonoBehaviour
     void Start()
     {
         playerHealth = playerStartingHealth;
-        InvokeRepeating(OncePerSecound, 0, 1.0f);
+        InvokeRepeating("OncePerSecound", 0, 1.0f);
     }
 
     void Update()
