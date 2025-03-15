@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerDeath : MonoBehaviour
 {
     public float playerHealth;
+
+    [SerializeField] private GameObject playerFloatingHealthBar;
+
     [SerializeField] private float basicEnemyDamage = 20f;
     [SerializeField] private float passiveDegeneration = 1f;
     [SerializeField] private float playerStartingHealth = 100f;
@@ -23,7 +27,10 @@ public class PlayerDeath : MonoBehaviour
         {
             Debug.Log("player died");
             transform.position = Vector3.zero;
+            playerHealth = playerStartingHealth;
         }
+
+        //playerFloatingHealthBar.transform.localScale = new Vector3 (playerHealth / (100 / 3), 0.5f, 1f);
     }
 
     private void OncePerSecound()
