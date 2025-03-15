@@ -8,26 +8,25 @@ using System.Linq;
 public class RoomManager : MonoBehaviour
 {
     [SerializeField] GameObject roomPrefab;
-    [SerializeField] GameObject startroomPrefab;
-    [SerializeField] GameObject bossroomPrefab;
+    [SerializeField] GameObject boss;
+    [SerializeField] private int maxRooms = 15;
+    [SerializeField] private int minRooms = 10;
 
-    [SerializeField] private int maxRooms = 40;
-    [SerializeField] private int minRooms = 30;
-
-    [SerializeField] private int gridSizeX = 40;
-    [SerializeField] private int gridSizeY = 40;
-
-    int roomWidth = 80;
+    int roomWidth = 80; 
     int roomHeight = 48;
+
+    [SerializeField] int gridSizeX = 10;
+    [SerializeField] int gridSizeY = 10;
 
     private List<GameObject> roomObjects = new List<GameObject>();
 
     private Queue<Vector2Int> roomQueue = new Queue<Vector2Int>();
 
-    private bool generationComplete = false;
-
     private int[,] roomGrid;
+
     private int roomCount;
+
+    private bool generationComplete = false;
 
     private void Start()
     {
@@ -40,7 +39,7 @@ public class RoomManager : MonoBehaviour
 
     private void Update()
     {
-        if(roomQueue.Count > 0 && roomCount < maxRooms && !generationComplete)
+        if (roomQueue.Count > 0 && roomCount < maxRooms && !generationComplete)
         {
             Vector2Int roomIndex = roomQueue.Dequeue();
             int gridX = roomIndex.x;
@@ -48,16 +47,20 @@ public class RoomManager : MonoBehaviour
 
             TryGenerateRoom(new Vector2Int(gridX - 1, gridY));
             TryGenerateRoom(new Vector2Int(gridX + 1, gridY));
-            TryGenerateRoom(new Vector2Int(gridX, gridY - 1));
             TryGenerateRoom(new Vector2Int(gridX, gridY + 1));
+            TryGenerateRoom(new Vector2Int(gridX, gridY - 1));
         }
-        else if(!generationComplete)
+        else if (roomCount < minRooms)
+        {
+            Debug.Log("roomCount was less than the minimum amount of rooms. trying again");
+            RegenerateRooms();
+        }
+        else if (!generationComplete)
         {
             Debug.Log($"Generation complete, {roomCount} rooms created");
             generationComplete = true;
-            //GameObject lastRoom = roomObjects.Last();
-            //Instantiate(bossroomPrefab, lastRoom.transform.position, Quaternion.identity);
-            //BOOS ROOM GENERATION
+            GameObject lastRoom = roomObjects.Last();
+            Instantiate(boss, lastRoom.transform.position, Quaternion.identity);
         }
     }
 
@@ -69,8 +72,31 @@ public class RoomManager : MonoBehaviour
         roomGrid[x, y] = 1;
         roomCount++;
         var initialRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
-        initialRoom.name = $"Room-{roomCount}";
+        initialRoom.name = $"StartRoom";
         initialRoom.GetComponent<Room>().RoomIndex = roomIndex;
+        roomObjects.Add(initialRoom);
+    }
+
+    private void GenerateBossRoom(Vector2Int roomIndex)
+    {
+        int x = roomIndex.x;
+        int y = roomIndex.y;
+
+        roomQueue.Enqueue(roomIndex);
+
+        roomGrid[x, y] = 1;
+        roomCount++;
+
+        var bossRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+
+        bossRoom.name = $"StartRoom";
+        bossRoom.GetComponent<Room>().RoomIndex = roomIndex;
+
+        roomObjects.Add(bossRoom);
+
+        OpenDoors(bossRoom, x, y);
+
+        Debug.Log("boss room generated");
     }
 
     private bool TryGenerateRoom(Vector2Int roomIndex)
@@ -80,8 +106,7 @@ public class RoomManager : MonoBehaviour
 
         if (roomCount >= maxRooms)
             return false;
-
-        if (Random.value < 0.5f && roomIndex != Vector2Int.zero)
+        if (Random.value < 0.6f && roomIndex != Vector2Int.zero)
             return false;
 
         if (CountAdjacentRooms(roomIndex) > 1)
@@ -101,7 +126,20 @@ public class RoomManager : MonoBehaviour
         return true;
     }
 
-    private void OpenDoors(GameObject room, int x, int y)
+    private void RegenerateRooms()
+    {
+        roomObjects.ForEach(Destroy);
+        roomObjects.Clear();
+        roomGrid = new int[gridSizeX, gridSizeY];
+        roomQueue.Clear();
+        roomCount = 0;
+        generationComplete = false;
+
+        Vector2Int initialRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeY / 2);
+        StartRoomGenerationFromRoom(initialRoomIndex);
+    }
+
+    void OpenDoors(GameObject room, int x, int y)
     {
         Room newRoomScript = room.GetComponent<Room>();
 
@@ -110,22 +148,22 @@ public class RoomManager : MonoBehaviour
         Room topRoomScript = GetRoomScriptAt(new Vector2Int(x, y + 1));
         Room bottomRoomScript = GetRoomScriptAt(new Vector2Int(x, y - 1));
 
-        if(x > 0 && roomGrid[x - 1, y] != 0)
+        if (x > 0 && roomGrid[x - 1, y] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.left);
             leftRoomScript.OpenDoor(Vector2Int.right);
         }
-        if(x < gridSizeX - 1 && roomGrid[x + 1, y] != 0)
+        if (x < gridSizeX - 1 && roomGrid[x + 1, y] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.right);
             rightRoomScript.OpenDoor(Vector2Int.left);
         }
-        if(y > 0 && roomGrid[x, y - 1] != 0)
+        if (y > 0 && roomGrid[x, y - 1] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.down);
             bottomRoomScript.OpenDoor(Vector2Int.up);
         }
-        if(y < gridSizeY - 1 && roomGrid[x, y + 1] != 0)
+        if (y < gridSizeY - 1 && roomGrid[x, y + 1] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.up);
             topRoomScript.OpenDoor(Vector2Int.down);
@@ -152,7 +190,6 @@ public class RoomManager : MonoBehaviour
         if (y < gridSizeY - 1 && roomGrid[x, y + 1] != 0) count++;
 
         return count;
-
     }
 
     private Vector3 GetPositionFromGridIndex(Vector2Int gridIndex)
@@ -169,7 +206,7 @@ public class RoomManager : MonoBehaviour
 
         for (int x = 0; x < gridSizeX; x++)
         {
-            for(int y = 0; y < gridSizeY; y++)
+            for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 position = GetPositionFromGridIndex(new Vector2Int(x, y));
                 Gizmos.DrawWireCube(position, new Vector3(roomWidth, roomHeight, 1));
