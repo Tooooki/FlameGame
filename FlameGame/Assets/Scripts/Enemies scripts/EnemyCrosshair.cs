@@ -16,6 +16,9 @@ public class EnemyCrosshair : MonoBehaviour
     public UnityEvent OnBegin;
     public UnityEvent OnDone;
 
+    public HealthBar pHealth;
+    public float damage;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -66,5 +69,13 @@ public class EnemyCrosshair : MonoBehaviour
         OnDone?.Invoke();
         //Destroy()
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            pHealth.health -= damage;
+        }
     }
 }

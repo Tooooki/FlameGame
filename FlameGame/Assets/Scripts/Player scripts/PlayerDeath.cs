@@ -2,9 +2,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+
 public class PlayerDeath : MonoBehaviour
 {
     public float playerHealth;
+    public float maxHealth;
 
     [SerializeField] private GameObject playerFloatingHealthBar;
 
@@ -17,12 +19,14 @@ public class PlayerDeath : MonoBehaviour
 
     void Start()
     {
+        
         playerHealth = playerStartingHealth;
         InvokeRepeating("OncePerSecound", 0, 1.0f);
     }
 
     void Update()
     {
+        
         if(playerHealth <= 0)
         {
             Debug.Log("player died");
@@ -30,7 +34,7 @@ public class PlayerDeath : MonoBehaviour
             playerHealth = playerStartingHealth;
         }
 
-        //playerFloatingHealthBar.transform.localScale = new Vector3 (playerHealth / (100 / 3), 0.5f, 1f);
+       // playerFloatingHealthBar.transform.localScale = new Vector3 (playerHealth / (100 / 3), 0.5f, 1f);
     }
 
     private void OncePerSecound()
@@ -43,7 +47,6 @@ public class PlayerDeath : MonoBehaviour
         if (collision.CompareTag("EnemyHitbox"))
         {
             Debug.Log("player got hit");
-            playerHealth = playerHealth - basicEnemyDamage;
         }
     }
 }
