@@ -12,5 +12,11 @@ public class Card : MonoBehaviour
         cardImageRenderer.sprite = card.cardImage;
         cardTextRenderer.text = card.cardText;
     }
+
+    void OnMouseDown()
+    {
+        Debug.Log("Nacisnieto Karte");
+        CardManager.Instance.SelectCard(cardInfo);
+    }
 }
 
