@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     void Update() //for testing
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.L))
         {
             ChangeState(GameState.CardSelection);
             currentLevel++;
