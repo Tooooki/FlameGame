@@ -14,10 +14,33 @@ public class CardManager : MonoBehaviour
 
     List<CardSO> alreadySelectedCards = new List<CardSO>();
 
-    void Start()
+    public static CardManager Instance;
+
+
+    void Awake()
     {
-        RandomizeNewCards();
+        Instance = this;
+
+        if(GameManager.Instance != null)
+            GameManager.Instance.OnStateChanged += HandleGameStateChanged;
     }
+
+    void OnDisable()
+    {
+         if(GameManager.Instance != null)
+            GameManager.Instance.OnStateChanged -= HandleGameStateChanged;
+    }
+    
+    
+    private void HandleGameStateChanged(GameManager.GameState state)
+    {
+        if(state == GameManager.GameState.CardSelection)
+        {
+            RandomizeNewCards();
+        }
+    }
+    
+
     void RandomizeNewCards()
     {
         if(cardOne != null) Destroy(cardOne);
@@ -28,8 +51,8 @@ public class CardManager : MonoBehaviour
 
         List<CardSO> availableCards = new List<CardSO>(deck);
         availableCards.RemoveAll(card => 
-            card.isUnique && alreadySelectedCards.Contains(card) 
-            // || card.unlockLevel > GameManager.Instance.GetCurrentLevel() to jest jesli dodamy prog levelowy dla niektorych kart
+            card.isUnique && alreadySelectedCards.Contains(card) || 
+            card.unlockLevel > GameManager.Instance.GetCurrentLevel() //to jest jesli dodamy prog levelowy dla niektorych kart
         );
 
         if(availableCards.Count < 3)
@@ -41,7 +64,7 @@ public class CardManager : MonoBehaviour
         while (randomizedCards.Count < 3)
         {
             CardSO randomCard = availableCards[Random.Range(0, availableCards.Count)];
-            if(!alreadySelectedCards.Contains(randomCard))
+            if(!randomizedCards.Contains(randomCard))
             {
                 randomizedCards.Add(randomCard);
             }
@@ -60,4 +83,25 @@ public class CardManager : MonoBehaviour
         return cardGo;
 
     } 
+
+    public void SelectCard(CardSO selectedCard)
+    {
+        if(alreadySelectedCards.Contains(selectedCard))
+        {
+            alreadySelectedCards.Add(selectedCard);
+        }
+        GameManager.Instance.ChangeState(GameManager.GameState.Playing);
+    }
+
+    public void ShowCardSelection()
+    {
+        cardSelectionUI.SetActive(true);
+    }
+
+
+    public void HideCardSelection()
+    {
+        cardSelectionUI.SetActive(false);
+    }
+
 } 
