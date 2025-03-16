@@ -9,6 +9,9 @@ public class EnemyCrosshair : MonoBehaviour
     [SerializeField] private float dashStr = 20f;
     [SerializeField] private float delay = 1f;
 
+    [SerializeField] private float enemyHealth;
+    [SerializeField] private float enemyStartingHealth = 100f;
+
     private Vector3 crosshairPosition = Vector3.zero;
 
     private Rigidbody2D rb;
@@ -20,6 +23,7 @@ public class EnemyCrosshair : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        enemyHealth = enemyStartingHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,6 +36,14 @@ public class EnemyCrosshair : MonoBehaviour
             OnBegin?.Invoke();
             rb.linearVelocity = Vector3.zero;
             StartCoroutine(Reset());
+        }
+    }
+
+    private void Update()
+    {
+        if(enemyHealth <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -62,8 +74,9 @@ public class EnemyCrosshair : MonoBehaviour
     {
         Vector3 knockbackDirection = (transform.position - sendder.transform.position).normalized;
         rb.AddForce(knockbackDirection * 10f, ForceMode2D.Impulse);
+        enemyHealth = enemyHealth - 25f;
         yield return new WaitForSeconds(1f);
-        transform.position = new Vector3(Random.Range(-32.0f, 32.0f), Random.Range(-17.0f, 17.0f));
+        //transform.position = new Vector3(Random.Range(-32.0f, 32.0f), Random.Range(-17.0f, 17.0f));
         OnDone?.Invoke();
         //Destroy()
         

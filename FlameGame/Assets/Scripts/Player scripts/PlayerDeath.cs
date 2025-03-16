@@ -9,13 +9,25 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private float basicEnemyDamage = 20f;
     [SerializeField] private float passiveDegeneration = 1f;
     [SerializeField] private float playerStartingHealth = 100f;
+    [SerializeField] private float knockbackStrength;
 
     [SerializeField] private Image healthBar;
+
+    private Rigidbody2D rb;
+
+    PlayerIframes IframesScript;
 
 
     void Start()
     {
         playerHealth = playerStartingHealth;
+    }
+
+
+    private void Awake()
+    {
+        rb = GetComponentInParent<Rigidbody2D>();
+        IframesScript = GetComponentInParent<PlayerIframes>();
         InvokeRepeating("OncePerSecound", 0, 1.0f);
     }
 
@@ -25,7 +37,7 @@ public class PlayerDeath : MonoBehaviour
         if(playerHealth <= 0)
         {
             Debug.Log("player died");
-            transform.position = Vector3.zero;
+            rb.transform.position = new Vector3(0, 0, 0);
             playerHealth = playerStartingHealth;
         }
 
@@ -45,6 +57,9 @@ public class PlayerDeath : MonoBehaviour
         {
             Debug.Log("player got hit");
             playerHealth = playerHealth - basicEnemyDamage;
+            IframesScript.Iframes();
+            //Vector3 enemyPos = new Vector3(collision.transform.position.x, collision.transform.position.y).normalized;
+            //rb.AddForce((rb.transform.position.normalized - enemyPos) * knockbackStrength, ForceMode2D.Impulse);
         }
     }
 }
