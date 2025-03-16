@@ -16,8 +16,6 @@ public class EnemyCrosshair : MonoBehaviour
     public UnityEvent OnBegin;
     public UnityEvent OnDone;
 
-    public HealthBar pHealth;
-    public float damage;
 
     private void Awake()
     {
@@ -75,7 +73,7 @@ public class EnemyCrosshair : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            pHealth.health -= damage;
+            
         }
     }
 }
