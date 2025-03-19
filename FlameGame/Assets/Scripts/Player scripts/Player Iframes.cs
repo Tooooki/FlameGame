@@ -26,7 +26,6 @@ public class PlayerIframes : MonoBehaviour
         //if (IsImmune = false)
         
         StopAllCoroutines();
-        Debug.Log("dodge 3");
         StartCoroutine(IframesTiming());
         
     }

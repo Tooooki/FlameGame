@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,8 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 mouseScreenPosition;
     private Vector3 mouseWorldPosition;
     private Vector3 mouseGamePos;
+    private bool haveAmmo = true;
+    private float shootCooldown = 0.75f;
 
     private void Awake()
     {
@@ -37,13 +40,22 @@ public class PlayerAttack : MonoBehaviour
 
     private void PlayerBasicShoot()
     {
-        
-        GameObject clone;
-        clone = Instantiate(projectile, transform.position, Quaternion.identity);
-        clone.SetActive(true);
-        cloneRb = clone.GetComponent<Rigidbody2D>();
-        Vector3 direction = (mouseGamePos - clone.transform.position);
-        cloneRb.linearVelocity = direction.normalized * 20f;
+        if(haveAmmo)
+        {
+            GameObject clone;
+            clone = Instantiate(projectile, transform.position, Quaternion.identity);
+            clone.SetActive(true);
+            cloneRb = clone.GetComponent<Rigidbody2D>();
+            Vector3 direction = (mouseGamePos - clone.transform.position);
+            cloneRb.linearVelocity = direction.normalized * 20f;
+            haveAmmo = false;
+            StartCoroutine(ShootCooldown());
+        }
+    }
 
+    private IEnumerator ShootCooldown()
+    {
+        yield return new WaitForSeconds(shootCooldown);
+        haveAmmo = true;
     }
 }

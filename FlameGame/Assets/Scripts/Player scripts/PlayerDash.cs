@@ -28,7 +28,6 @@ public class Dash : MonoBehaviour
             canDash = false;
             OnBegin?.Invoke();
             IframesScript = GetComponent<PlayerIframes>();
-            Debug.Log("dodge 2");
             IframesScript.Iframes();
             rb.AddForce(rb.linearVelocity.normalized * strength, ForceMode2D.Impulse);
             StartCoroutine(Reset());
