@@ -6,11 +6,15 @@ public class EnemyCrosshair : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject crosshair;
+    [SerializeField] private GameObject gameManager;
+
     [SerializeField] private float dashStr = 20f;
     [SerializeField] private float delay = 1f;
 
     [SerializeField] private float enemyHealth;
     [SerializeField] private float enemyStartingHealth = 100f;
+
+    public float xpFromBasicEnemy = 30f;
 
     private Vector3 crosshairPosition = Vector3.zero;
 
@@ -19,11 +23,14 @@ public class EnemyCrosshair : MonoBehaviour
     public UnityEvent OnBegin;
     public UnityEvent OnDone;
 
+    Experience expScript;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         enemyHealth = enemyStartingHealth;
+        expScript = gameManager.GetComponent<Experience>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,6 +50,7 @@ public class EnemyCrosshair : MonoBehaviour
     {
         if(enemyHealth <= 0)
         {
+            expScript.GetExp(xpFromBasicEnemy);
             Destroy(gameObject);
         }
     }
