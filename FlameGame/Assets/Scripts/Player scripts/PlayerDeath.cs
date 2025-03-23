@@ -5,10 +5,10 @@ using UnityEngine.UI;
 public class PlayerDeath : MonoBehaviour
 {
     public float playerHealth;
-
+    public float playerMaxHealth = 100f;
     [SerializeField] private float basicEnemyDamage = 20f;
     [SerializeField] private float passiveDegeneration = 1f;
-    [SerializeField] private float playerStartingHealth = 100f;
+    
     [SerializeField] private float knockbackStrength;
 
     [SerializeField] private Image healthBar;
@@ -20,7 +20,7 @@ public class PlayerDeath : MonoBehaviour
 
     void Start()
     {
-        playerHealth = playerStartingHealth;
+        playerHealth = playerMaxHealth;
     }
 
 
@@ -37,10 +37,10 @@ public class PlayerDeath : MonoBehaviour
         if(playerHealth <= 0)
         {
             rb.transform.position = new Vector3(0, 0, 0);
-            playerHealth = playerStartingHealth;
+            playerHealth = playerMaxHealth;
         }
 
-        healthBar.transform.localScale = new Vector3(playerHealth / 100, healthBar.transform.localScale.y);
+        healthBar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, healthBar.transform.localScale.y);
     }
 
 

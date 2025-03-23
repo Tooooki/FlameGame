@@ -15,6 +15,8 @@ public class PlayerAttack : MonoBehaviour
     private bool haveAmmo = true;
     private float shootCooldown = 0.75f;
 
+    public float projectileSpeed = 30f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -47,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
             clone.SetActive(true);
             cloneRb = clone.GetComponent<Rigidbody2D>();
             Vector3 direction = (mouseGamePos - clone.transform.position);
-            cloneRb.linearVelocity = direction.normalized * 20f;
+            cloneRb.linearVelocity = direction.normalized * projectileSpeed;
             haveAmmo = false;
             StartCoroutine(ShootCooldown());
         }

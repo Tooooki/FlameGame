@@ -13,6 +13,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int maxRooms = 15;
     [SerializeField] private int minRooms = 10;
 
+    Loadingprocess loadingScript;
+
     int roomWidth = 80; 
     int roomHeight = 48;
 
@@ -27,7 +29,7 @@ public class RoomManager : MonoBehaviour
 
     private int roomCount;
 
-    private bool generationComplete = false;
+    public bool generationComplete = false;
 
     private void Start()
     {
@@ -36,6 +38,8 @@ public class RoomManager : MonoBehaviour
 
         Vector2Int initialRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeY / 2);
         StartRoomGenerationFromRoom(initialRoomIndex);
+
+        loadingScript = GetComponent<Loadingprocess>();
     }
 
     private void Update()
@@ -62,6 +66,7 @@ public class RoomManager : MonoBehaviour
             generationComplete = true;
             GameObject lastRoom = roomObjects.Last();
             Instantiate(boss, lastRoom.transform.position, Quaternion.identity);
+            loadingScript.OnGameLoaded();
         }
     }
 
