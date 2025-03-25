@@ -12,6 +12,7 @@ TagManager:
   - walls
   - EnemyHitbox
   - PlayerHitbox
+  - Healing
   layers:
   - Default
   - TransparentFX

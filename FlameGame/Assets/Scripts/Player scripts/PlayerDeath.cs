@@ -6,6 +6,7 @@ public class PlayerDeath : MonoBehaviour
 {
     public float playerHealth;
     public float playerMaxHealth = 100f;
+    public float healingValue = 15f;
     [SerializeField] private float basicEnemyDamage = 20f;
     [SerializeField] private float passiveDegeneration = 1f;
     
@@ -58,6 +59,20 @@ public class PlayerDeath : MonoBehaviour
             //IframesScript.Iframes();
             Vector3 enemyPos = new Vector3(collision.transform.position.x, collision.transform.position.y).normalized;
             rb.AddForce((rb.transform.position.normalized - enemyPos) * knockbackStrength, ForceMode2D.Impulse);
+        }
+        
+        if (collision.CompareTag("Healing"))
+        {
+            if(playerMaxHealth - playerHealth >= 15 && playerMaxHealth - playerHealth < playerMaxHealth)
+            {
+                playerHealth = playerHealth + healingValue;
+                Destroy(collision.gameObject);
+            } 
+            else if(playerMaxHealth - playerHealth < 15)
+            {
+                playerHealth = playerMaxHealth;
+                Destroy(collision.gameObject);
+            }
         }
     }
 }
