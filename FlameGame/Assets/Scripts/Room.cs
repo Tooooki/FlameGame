@@ -10,22 +10,22 @@ public class Room : MonoBehaviour
     {
         if (direction == Vector2Int.up)
         {
-            topDoor.SetActive(true);
+            //topDoor.SetActive(true);
             topWall.SetActive(false);
         }
         if (direction == Vector2Int.down)
         {
-            bottomDoor.SetActive(true);
+            //bottomDoor.SetActive(true);
             bottomWall.SetActive(false);
         }
         if (direction == Vector2Int.left)
         {
-            leftDoor.SetActive(true);
+            //leftDoor.SetActive(true);
             leftWall.SetActive(false);
         }
         if (direction == Vector2Int.right)
         {
-            rightDoor.SetActive(true);
+            //rightDoor.SetActive(true);
             rightWall.SetActive(false);
         }
     }
