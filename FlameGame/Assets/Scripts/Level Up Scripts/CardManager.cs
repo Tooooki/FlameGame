@@ -32,7 +32,7 @@ public class CardManager : MonoBehaviour
     }
     
     
-    private void HandleGameStateChanged(GameManager.GameState state)
+    public void HandleGameStateChanged(GameManager.GameState state)
     {
         if(state == GameManager.GameState.CardSelection)
         {
@@ -51,7 +51,7 @@ public class CardManager : MonoBehaviour
 
         List<CardSO> availableCards = new List<CardSO>(deck);
         availableCards.RemoveAll(card => 
-            card.isUnique && alreadySelectedCards.Contains(card) || 
+            card.isUnique && alreadySelectedCards.Contains(card) ||
             card.unlockLevel > GameManager.Instance.GetCurrentLevel() //to jest jesli dodamy prog levelowy dla niektorych kart
         );
 
@@ -81,7 +81,6 @@ public class CardManager : MonoBehaviour
         Card card = cardGo.GetComponent<Card>();
         card.Setup(cardSO);
         return cardGo;
-
     } 
 
     public void SelectCard(CardSO selectedCard)

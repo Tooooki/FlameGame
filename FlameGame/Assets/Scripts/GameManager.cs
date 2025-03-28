@@ -3,6 +3,7 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private bool Rogas;
     public static GameManager Instance;
     int currentLevel = 0;
     GameState currentState;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleStateChanged()
     {
+        CardManager.Instance.HandleGameStateChanged(currentState);
         switch (currentState)
         {
             case GameState.Playing:

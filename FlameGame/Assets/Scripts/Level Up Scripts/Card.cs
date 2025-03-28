@@ -19,4 +19,3 @@ public class Card : MonoBehaviour
         CardManager.Instance.SelectCard(cardInfo);
     }
 }
-
