@@ -4,10 +4,21 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     [SerializeField] GameObject topDoor, bottomDoor, leftDoor, rightDoor, topWall, bottomWall, leftWall, rightWall;
+    [SerializeField] GameObject enemyPrefab;
 
+    bool roomActive, didSpawnEnemy = false;
+
+    private int enemyCount;//
     private bool up, down, left, right = false;
 
     public Vector2Int RoomIndex { get; set; }
+
+    GAMEGLOBALMANAGEMENT gameManagementScript;
+
+    private void Awake()
+    {
+        gameManagementScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+    }
 
     public void OpenDoor(Vector2Int direction)
     {
@@ -39,12 +50,16 @@ public class Room : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(doorClose());
+        if(roomActive == false)
+        {
+            StartCoroutine(doorClose());
+
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
+        roomActive = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -54,7 +69,16 @@ public class Room : MonoBehaviour
 
     private IEnumerator doorClose()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        
+        if(didSpawnEnemy == false)
+        {
+            GameObject enemy = Instantiate(enemyPrefab, new Vector3(transform.position.x + 25, transform.position.y + 12), Quaternion.identity);
+            didSpawnEnemy = true;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
         if(up)
         {
             topDoor.SetActive(true);
@@ -71,16 +95,18 @@ public class Room : MonoBehaviour
         {
             rightDoor.SetActive(true);
         }
+
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.O))
+        if(gameManagementScript.existingEnemies == 0)
         {
             topDoor.SetActive(false);
             bottomDoor.SetActive(false);
             leftDoor.SetActive(false);
             rightDoor.SetActive(false);
+
         }
     }
 }

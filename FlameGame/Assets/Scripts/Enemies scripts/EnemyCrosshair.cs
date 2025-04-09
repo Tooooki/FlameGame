@@ -4,9 +4,9 @@ using UnityEngine.Events;
 
 public class EnemyCrosshair : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    private GameObject player;
     [SerializeField] private GameObject crosshair;
-    [SerializeField] private GameObject gameManager;
+    private GameObject gameManager;
 
     [SerializeField] private float dashStr = 20f;
     [SerializeField] private float delay = 1f;
@@ -30,6 +30,10 @@ public class EnemyCrosshair : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         enemyHealth = enemyStartingHealth;
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
+
         expScript = gameManager.GetComponent<Experience>();
     }
 

@@ -8,20 +8,18 @@ using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField] GameObject NroomPrefab;
-    [SerializeField] GameObject DroomPrefab;
-    [SerializeField] GameObject TroomPrefab;
+    [SerializeField] GameObject NroomPrefab, DroomPrefab, TroomPrefab, StartRoomPrefab;
     [SerializeField] GameObject boss;
-    [SerializeField] private int maxRooms = 15;
-    [SerializeField] private int minRooms = 10;
+    [SerializeField] private int maxRooms = 40;
+    [SerializeField] private int minRooms = 30;
 
     Loadingprocess loadingScript;
 
     int roomWidth = 80; 
     int roomHeight = 48;
 
-    [SerializeField] int gridSizeX = 10;
-    [SerializeField] int gridSizeY = 10;
+    [SerializeField] int gridSizeX = 40;
+    [SerializeField] int gridSizeY = 40;
 
     private List<GameObject> roomObjects = new List<GameObject>();
 
@@ -79,7 +77,7 @@ public class RoomManager : MonoBehaviour
         int y = roomIndex.y;
         roomGrid[x, y] = 1;
         roomCount++;
-        var initialRoom = Instantiate(NroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+        var initialRoom = Instantiate(StartRoomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         initialRoom.name = $"StartRoom";
         initialRoom.GetComponent<Room>().RoomIndex = roomIndex;
         roomObjects.Add(initialRoom);
@@ -97,6 +95,8 @@ public class RoomManager : MonoBehaviour
             return false;
 
         if (CountAdjacentRooms(roomIndex) > 1)
+            return false;
+        if (roomGrid[x, y] != 0)
             return false;
 
         roomQueue.Enqueue(roomIndex);

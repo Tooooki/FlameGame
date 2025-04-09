@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private GameObject Player;
+    private GameObject Player;
 
     [SerializeField] private float enemyFollowSpeed = 5f;
 
@@ -11,6 +11,8 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void FixedUpdate()

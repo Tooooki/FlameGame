@@ -13,6 +13,7 @@ TagManager:
   - EnemyHitbox
   - PlayerHitbox
   - Healing
+  - GameManager
   layers:
   - Default
   - TransparentFX
