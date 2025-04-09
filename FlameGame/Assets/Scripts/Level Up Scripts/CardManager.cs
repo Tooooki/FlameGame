@@ -95,12 +95,14 @@ public class CardManager : MonoBehaviour
     public void ShowCardSelection()
     {
         cardSelectionUI.SetActive(true);
+        Time.timeScale = 0;
     }
 
 
     public void HideCardSelection()
     {
         cardSelectionUI.SetActive(false);
+        Time.timeScale = 1;
     }
 
 } 

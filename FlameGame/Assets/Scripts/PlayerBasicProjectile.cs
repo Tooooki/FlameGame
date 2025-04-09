@@ -39,6 +39,7 @@ public class PlayerBasicProjectile : MonoBehaviour
             OnWallHit?.Invoke();
             rb.linearVelocity = Vector3.zero;
             collider.enabled = false;
+
             Destroy(self, 0.2f);
         }
         

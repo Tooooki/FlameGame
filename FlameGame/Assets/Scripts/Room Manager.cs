@@ -8,7 +8,9 @@ using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField] GameObject roomPrefab;
+    [SerializeField] GameObject NroomPrefab;
+    [SerializeField] GameObject DroomPrefab;
+    [SerializeField] GameObject TroomPrefab;
     [SerializeField] GameObject boss;
     [SerializeField] private int maxRooms = 15;
     [SerializeField] private int minRooms = 10;
@@ -57,7 +59,6 @@ public class RoomManager : MonoBehaviour
         }
         else if (roomCount < minRooms)
         {
-            Debug.Log("roomCount was less than the minimum amount of rooms. trying again");
             RegenerateRooms();
         }
         else if (!generationComplete)
@@ -65,7 +66,8 @@ public class RoomManager : MonoBehaviour
             Debug.Log($"Generation complete, {roomCount} rooms created");
             generationComplete = true;
             GameObject lastRoom = roomObjects.Last();
-            Instantiate(boss, lastRoom.transform.position, Quaternion.identity);
+            GameObject BOSS = Instantiate(boss, lastRoom.transform.position, Quaternion.identity);
+            BOSS.SetActive(true);
             loadingScript.OnGameLoaded();
         }
     }
@@ -77,33 +79,12 @@ public class RoomManager : MonoBehaviour
         int y = roomIndex.y;
         roomGrid[x, y] = 1;
         roomCount++;
-        var initialRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+        var initialRoom = Instantiate(NroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         initialRoom.name = $"StartRoom";
         initialRoom.GetComponent<Room>().RoomIndex = roomIndex;
         roomObjects.Add(initialRoom);
     }
 
-    private void GenerateBossRoom(Vector2Int roomIndex)
-    {
-        int x = roomIndex.x;
-        int y = roomIndex.y;
-
-        roomQueue.Enqueue(roomIndex);
-
-        roomGrid[x, y] = 1;
-        roomCount++;
-
-        var bossRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
-
-        bossRoom.name = $"StartRoom";
-        bossRoom.GetComponent<Room>().RoomIndex = roomIndex;
-
-        roomObjects.Add(bossRoom);
-
-        OpenDoors(bossRoom, x, y);
-
-        Debug.Log("boss room generated");
-    }
 
     private bool TryGenerateRoom(Vector2Int roomIndex)
     {
@@ -122,14 +103,41 @@ public class RoomManager : MonoBehaviour
         roomGrid[x, y] = 1;
         roomCount++;
 
-        var newRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
-        newRoom.GetComponent<Room>().RoomIndex = roomIndex;
-        newRoom.name = $"Room-{roomCount}";
-        roomObjects.Add(newRoom);
+        int whichRoom = Random.Range(1, 11);
 
-        OpenDoors(newRoom, x, y);
+        if(whichRoom == 1)
+        {
+            var newRoom = Instantiate(TroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+            newRoom.GetComponent<Room>().RoomIndex = roomIndex;
+            newRoom.name = $"Room-{roomCount}";
+            roomObjects.Add(newRoom);
 
-        return true;
+            OpenDoors(newRoom, x, y);
+
+            return true;
+        }
+        else if(whichRoom == 2)
+        {
+            var newRoom = Instantiate(DroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+            newRoom.GetComponent<Room>().RoomIndex = roomIndex;
+            newRoom.name = $"Room-{roomCount}";
+            roomObjects.Add(newRoom);
+
+            OpenDoors(newRoom, x, y);
+
+            return true;
+        }
+        else
+        {
+            var newRoom = Instantiate(NroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+            newRoom.GetComponent<Room>().RoomIndex = roomIndex;
+            newRoom.name = $"Room-{roomCount}";
+            roomObjects.Add(newRoom);
+
+            OpenDoors(newRoom, x, y);
+
+            return true;
+        }
     }
 
     private void RegenerateRooms()
