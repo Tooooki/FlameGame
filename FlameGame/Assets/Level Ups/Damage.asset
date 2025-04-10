@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a8f22ddc7d0ecb469d8bd7207e4c008, type: 3}
-  m_Name: Powerup2
+  m_Name: Damage
   m_EditorClassIdentifier: 
   cardImage: {fileID: 0}
-  cardText: Power up 2
-  effectType: 1
-  effectValue: 10
+  cardText: +Damage
+  effectType: 0
+  effectValue: 5
   isUnique: 0
   unlockLevel: 0

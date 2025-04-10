@@ -12,8 +12,8 @@ public class CardSO : ScriptableObject
 
 public enum CardEffect
 {
-    Powerup1,
-    Powerup2,
-    Powerup3
+    Damage,
+    Health,
+    Reload
 }
 
