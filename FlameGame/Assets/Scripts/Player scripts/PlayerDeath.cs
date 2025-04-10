@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 public class PlayerDeath : MonoBehaviour
 {
     public float playerHealth;
@@ -13,6 +14,8 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private float knockbackStrength;
 
     [SerializeField] private Image healthBar;
+
+    [SerializeField] private GameObject healingPotion;
 
     private Rigidbody2D rb;
 
@@ -59,6 +62,9 @@ public class PlayerDeath : MonoBehaviour
             //IframesScript.Iframes();
             Vector3 enemyPos = new Vector3(collision.transform.position.x, collision.transform.position.y).normalized;
             rb.AddForce((rb.transform.position.normalized - enemyPos) * knockbackStrength, ForceMode2D.Impulse);
+
+            GameObject healItem = Instantiate(healingPotion, transform.position, Quaternion.identity);
+            StartCoroutine(healPotionSpawnDelay(healItem));
         }
         
         if (collision.CompareTag("Healing"))
@@ -74,5 +80,11 @@ public class PlayerDeath : MonoBehaviour
                 Destroy(collision.gameObject);
             }
         }
+    }
+
+    private IEnumerator healPotionSpawnDelay(GameObject healItem)
+    {
+        yield return new WaitForSeconds(1f);
+        healItem.GetComponent<BoxCollider2D>().enabled = true;
     }
 }
