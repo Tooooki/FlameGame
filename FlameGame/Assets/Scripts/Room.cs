@@ -50,21 +50,31 @@ public class Room : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(roomActive == false)
+        if (collision.CompareTag("Player"))
         {
-            StartCoroutine(doorClose());
+            if(roomActive == false)
+            {
+                StartCoroutine(doorClose());
 
+            }
         }
+        
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        roomActive = true;
+        if (collision.CompareTag("Player"))
+        {
+            roomActive = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        StopAllCoroutines();
+        if (collision.CompareTag("Player"))
+        {
+            StopAllCoroutines();
+        }
     }
 
     private IEnumerator doorClose()
@@ -106,7 +116,6 @@ public class Room : MonoBehaviour
             bottomDoor.SetActive(false);
             leftDoor.SetActive(false);
             rightDoor.SetActive(false);
-
         }
     }
 }
