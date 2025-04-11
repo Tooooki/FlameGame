@@ -16,4 +16,3 @@ public enum CardEffect
     Health,
     Reload
 }
-
