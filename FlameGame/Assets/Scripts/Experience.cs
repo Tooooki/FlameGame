@@ -7,7 +7,7 @@ public class Experience : MonoBehaviour
     public float expAmount;
 
     private float expNeeded;
-    private int Level;
+    public int Level;
 
     [SerializeField] private Image expBar;
     [SerializeField] private TMP_Text textLevel;

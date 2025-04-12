@@ -12,7 +12,7 @@ public class CardManager : MonoBehaviour
 
     GameObject cardOne, cardTwo, cardThree;
 
-    List<CardSO> alreadySelectedCards = new List<CardSO>();
+    public List<CardSO> alreadySelectedCards = new List<CardSO>();
 
     public static CardManager Instance;
 
@@ -85,7 +85,7 @@ public class CardManager : MonoBehaviour
 
     public void SelectCard(CardSO selectedCard)
     {
-        if(alreadySelectedCards.Contains(selectedCard))
+        if(!alreadySelectedCards.Contains(selectedCard))
         {
             alreadySelectedCards.Add(selectedCard);
         }
