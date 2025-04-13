@@ -1,9 +1,19 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+
 
 public class EnemyCrosshair : MonoBehaviour
 {
+    [SerializeField] private GameObject healthBarPrefab;
+
+    private Slider healthSlider;
+    private GameObject healthBarInstance;
+
+
+
+
     private GameObject player;
     [SerializeField] private GameObject crosshair;
     private GameObject gameManager;
@@ -35,6 +45,13 @@ public class EnemyCrosshair : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
 
         expScript = gameManager.GetComponent<Experience>();
+
+        healthBarInstance = Instantiate(healthBarPrefab, transform);
+        healthBarInstance.transform.localPosition = new Vector3(0, 2f, 0); // adjust above enemy head
+
+        healthSlider = healthBarInstance.GetComponentInChildren<Slider>();
+        healthSlider.maxValue = enemyStartingHealth;
+        healthSlider.value = enemyHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -57,6 +74,17 @@ public class EnemyCrosshair : MonoBehaviour
             expScript.GetExp(xpFromBasicEnemy);
             Destroy(gameObject);
         }
+
+        if (healthSlider != null)
+            healthSlider.value = enemyHealth;
+
+        if (enemyHealth <= 0)
+        {
+            expScript.GetExp(xpFromBasicEnemy);
+            Destroy(healthBarInstance);
+            Destroy(gameObject);
+        }
+
     }
 
     private void FixedUpdate()
