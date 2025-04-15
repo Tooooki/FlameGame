@@ -6350,6 +6350,7 @@ GameObject:
   - component: {fileID: 534102398}
   - component: {fileID: 534102399}
   - component: {fileID: 534102400}
+  - component: {fileID: 534102401}
   m_Layer: 9
   m_Name: PLAYER
   m_TagString: Player
@@ -6597,6 +6598,19 @@ MonoBehaviour:
   gridPosX: 0
   gridPosY: 0
   cam: {fileID: 1768403735}
+--- !u!114 &534102401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534102388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae817e561409154cb520d82ade92992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletDamage: 25
 --- !u!1 &546303728
 GameObject:
   m_ObjectHideFlags: 0
@@ -13786,7 +13800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1797360943}
   Player: {fileID: 534102388}
-  enemyRunner: {fileID: 0}
+  enemyRunner: {fileID: 4300347555681904611, guid: 2a0ae2482481a764e9963cf8936b1310, type: 3}
   enemyShooter: {fileID: 0}
   enemyTank: {fileID: 0}
   enemyAssassin: {fileID: 0}

@@ -1,40 +1,29 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
-
+using UnityEngine.Events;
 
 public class EnemyCrosshair : MonoBehaviour
 {
     [SerializeField] private GameObject healthBarPrefab;
-
     private Slider healthSlider;
     private GameObject healthBarInstance;
 
-
-
-
     private GameObject player;
-    [SerializeField] private GameObject crosshair;
     private GameObject gameManager;
+    [SerializeField] private GameObject crosshair;
 
     [SerializeField] private float dashStr = 20f;
-    [SerializeField] private float delay = 1f;
-
     [SerializeField] private float enemyHealth;
     [SerializeField] private float enemyStartingHealth = 100f;
 
     public float xpFromBasicEnemy = 30f;
-
     private Vector3 crosshairPosition = Vector3.zero;
 
     private Rigidbody2D rb;
-
     public UnityEvent OnBegin;
     public UnityEvent OnDone;
-
     Experience expScript;
-
 
     private void Awake()
     {
@@ -43,7 +32,6 @@ public class EnemyCrosshair : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
-
         expScript = gameManager.GetComponent<Experience>();
 
         healthBarInstance = Instantiate(healthBarPrefab, transform);
@@ -62,29 +50,15 @@ public class EnemyCrosshair : MonoBehaviour
             crosshairPosition = player.transform.position;
             Debug.Log("attack incoming");
             OnBegin?.Invoke();
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity = Vector2.zero;
             StartCoroutine(Reset());
         }
     }
 
     private void Update()
     {
-        if(enemyHealth <= 0)
-        {
-            expScript.GetExp(xpFromBasicEnemy);
-            Destroy(gameObject);
-        }
-
         if (healthSlider != null)
             healthSlider.value = enemyHealth;
-
-        if (enemyHealth <= 0)
-        {
-            expScript.GetExp(xpFromBasicEnemy);
-            Destroy(healthBarInstance);
-            Destroy(gameObject);
-        }
-
     }
 
     private void FixedUpdate()
@@ -102,31 +76,38 @@ public class EnemyCrosshair : MonoBehaviour
         OnDone?.Invoke();
     }
 
-    public void Knockback(GameObject sender)
+    public void Knockback(GameObject sender, float damage)
     {
         StopAllCoroutines();
         OnBegin?.Invoke();
-        rb.linearVelocity = Vector3.zero;
-        StartCoroutine(GotHit(sender));
+        rb.linearVelocity = Vector2.zero;
+        StartCoroutine(GotHit(sender, damage));  // Pass damage to GotHit
     }
 
-    private IEnumerator GotHit(GameObject sendder)
+    private IEnumerator GotHit(GameObject sender, float damageToTake)
     {
-        Vector3 knockbackDirection = (transform.position - sendder.transform.position).normalized;
+        // Calculate knockback direction
+        Vector3 knockbackDirection = (transform.position - sender.transform.position).normalized;
         rb.AddForce(knockbackDirection * 10f, ForceMode2D.Impulse);
-        enemyHealth = enemyHealth - 25f;
-        yield return new WaitForSeconds(1f);
-        //transform.position = new Vector3(Random.Range(-32.0f, 32.0f), Random.Range(-17.0f, 17.0f));
+
+        // Apply the damage to the enemy's health
+        enemyHealth -= damageToTake;
+
+        // If enemy health is 0 or less, handle the enemy's death
+        if (enemyHealth <= 0)
+        {
+            Die();
+        }
+
+        yield return new WaitForSeconds(1f);  // Simulate delay after hit
         OnDone?.Invoke();
-        //Destroy()
-        
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void Die()
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            
-        }
+        // Handle death (e.g., award XP, destroy enemy object)
+        expScript.GetExp(xpFromBasicEnemy);
+        Destroy(healthBarInstance);
+        Destroy(gameObject);
     }
 }
