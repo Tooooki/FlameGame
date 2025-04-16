@@ -21,7 +21,8 @@ public class PlayerHealthReaction : MonoBehaviour
 
     void Update()
     {
-        
+        playerLight.falloffIntensity = 1 - healthScript.playerHealth / (10 * healthScript.playerMaxHealth) * 4;
+        playerLight.intensity = healthScript.playerHealth / healthScript.playerMaxHealth;
 
         if(healthScript.playerHealth >= healthScript.playerMaxHealth / 5 * 4)
         {
