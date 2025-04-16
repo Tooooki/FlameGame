@@ -15,6 +15,6 @@ MonoBehaviour:
   cardImage: {fileID: 0}
   cardText: +Health
   effectType: 1
-  effectValue: 5
+  effectValue: 50
   isUnique: 0
   unlockLevel: 0
