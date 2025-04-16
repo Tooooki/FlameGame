@@ -735,9 +735,9 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       scalar: 0.125
-      minScalar: 5
+      minScalar: 0.0001
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1607,21 +1607,30 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 1
-          inSlope: -1
-          outSlope: -1
-          tangentMode: 34
+          value: 0.17567444
+          inSlope: 5.952099
+          outSlope: 5.952099
+          tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0
+          outWeight: 0.47105438
+        - serializedVersion: 3
+          time: 0.24580912
+          value: 1
+          inSlope: -0.9838839
+          outSlope: -0.9838839
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 1
+          outWeight: 0.18211405
         - serializedVersion: 3
           time: 1
           value: 0
-          inSlope: -1
-          outSlope: -1
-          tangentMode: 34
+          inSlope: -2.0818093
+          outSlope: -2.0818093
+          tangentMode: 0
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.103282616
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -1929,15 +1938,15 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0, b: 0, a: 1}
-        key1: {r: 1, g: 0.859602, b: 0, a: 0.9823529}
+        key1: {r: 1, g: 0.85882354, b: 0, a: 0.9823529}
         key2: {r: 0, g: 0, b: 0, a: 0.078431375}
-        key3: {r: 0, g: 0, b: 0, a: 0}
+        key3: {r: 0, g: 0, b: 0, a: 0.078431375}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 32575
+        ctime1: 35466
         ctime2: 0
         ctime3: 0
         ctime4: 0
@@ -1947,7 +1956,7 @@ ParticleSystem:
         atime0: 0
         atime1: 11565
         atime2: 65535
-        atime3: 0
+        atime3: 59174
         atime4: 0
         atime5: 0
         atime6: 0
@@ -6344,7 +6353,6 @@ GameObject:
   - component: {fileID: 534102392}
   - component: {fileID: 534102391}
   - component: {fileID: 534102390}
-  - component: {fileID: 534102396}
   - component: {fileID: 534102394}
   - component: {fileID: 534102395}
   - component: {fileID: 534102398}
@@ -6504,52 +6512,6 @@ MonoBehaviour:
   cursor: {fileID: 370481558}
   projectile: {fileID: 1814806231}
   projectileSpeed: 30
---- !u!61 &534102396
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534102388}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 1024
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2, y: 3}
-  m_EdgeRadius: 0
 --- !u!114 &534102398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8027,8 +7989,9 @@ GameObject:
   m_Component:
   - component: {fileID: 921366614}
   - component: {fileID: 921366615}
+  - component: {fileID: 921366616}
   m_Layer: 9
-  m_Name: Light 2D
+  m_Name: CandleLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8101,6 +8064,20 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &921366616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921366613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a461dd5ab5bca2c48a767ee82e8ce045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CandleLight: {fileID: 921366615}
+  CandleFlame: {fileID: 109604115}
 --- !u!43 &995604441
 Mesh:
   m_ObjectHideFlags: 0
@@ -17294,6 +17271,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 490, y: 6}
   m_Pivot: {x: 0.5, y: 0}
+<<<<<<< Updated upstream
 --- !u!1001 &6299303458811403115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17415,6 +17393,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09ff97bd98234e548aa2dedd464c8cf2, type: 3}
+=======
+>>>>>>> Stashed changes
 --- !u!114 &6445647454623906956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17772,4 +17752,3 @@ SceneRoots:
   - {fileID: 4003240736969349995}
   - {fileID: 1483602548}
   - {fileID: 1797360947}
-  - {fileID: 6299303458811403115}
