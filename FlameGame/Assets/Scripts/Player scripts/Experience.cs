@@ -35,6 +35,8 @@ public class Experience : MonoBehaviour
             expNeeded = 100 + (Level * 50);
             healthScript.playerMaxHealth = healthScript.playerMaxHealth + 20;
             healthScript.playerHealth = healthScript.playerMaxHealth;
+
+            GameManager.Instance.ChangeState(GameManager.GameState.CardSelection); // show cards!
         }
         else
         {
