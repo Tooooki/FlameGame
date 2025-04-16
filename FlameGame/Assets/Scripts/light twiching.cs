@@ -31,8 +31,7 @@ public class lighttwiching : MonoBehaviour
 
         float saveLight = CandleLight.intensity;
         ParticleSystem.MinMaxCurve saveFlame = psMain.startLifetime;
-        Debug.Log(saveFlame);
-        CandleLight.intensity = CandleLight.intensity + Random.Range(-0.15f, 0f);
+        CandleLight.intensity = CandleLight.intensity + Random.Range(-0.1f, 0f);
         psMain.startLifetime = new ParticleSystem.MinMaxCurve(CandleLight.intensity / 8);
         yield return new WaitForSeconds(0.1f);
         CandleLight.intensity = saveLight;
