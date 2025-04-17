@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class EnemyShooterAI : MonoBehaviour
 {
-    public bool canMove = false;
-    public float moveX, moveY = 5;
+    public bool canMove = false, swich = false, runAway = false;
 
     GameObject target;
     private Vector3 targetDirection;
@@ -18,56 +17,60 @@ public class EnemyShooterAI : MonoBehaviour
 
     private void Awake()
     {
-        InvokeRepeating("movement", 0f, 2f);
         target = GameObject.FindGameObjectWithTag("Player");
+
+        InvokeRepeating("movement", 0f, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(canMove)
+        //NIE RUSZAC!!!
+        targetDirection = (target.transform.position - transform.position).normalized * -1;
+
+        if (canMove == true && runAway == false)
         {
-            targetDirection = (target.transform.position - transform.position).normalized * -1;
-            if(targetDirection.x > 0 && targetDirection.y > 0)
-            {
-                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(targetDirection.x - 1f, targetDirection.y - 1f).normalized * 4f;
-
-            }
-            else if(targetDirection.x < 0 && targetDirection.y > 0)
-            {
-                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(targetDirection.x + 1, targetDirection.y - 1f).normalized * 4f;
-
-            }
-            else if (targetDirection.x > 0 && targetDirection.y < 0)
-            {
-                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(targetDirection.x - 1, targetDirection.y + 1f).normalized * 4f;
-
-            }
-            else if (targetDirection.x < 0 && targetDirection.y < 0)
-            {
-                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(targetDirection.x + 1, targetDirection.y + 1f).normalized * 4f;
-
-            }
-
-
-
+            if (swich)
+                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(-targetDirection.y, targetDirection.x) * 5;
+            else
+                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(targetDirection.y, -targetDirection.x) * 5;
+        }
+        else if(canMove == true && runAway == true)
+        {
+            GetComponent<Rigidbody2D>().linearVelocity = targetDirection * 5;
         }
         else
         {
-            GetComponent<Rigidbody2D>().linearVelocity = new Vector3(0f, 0f);
+            
+        }
+        //ZAAWANSOWANA MATEMATYKA!!!
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+            runAway = true;
+
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+            runAway = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "walls")
+        {
+            swich = !swich;
         }
     }
 
     private void movement()
     {
-        StartCoroutine(movePerSecound());
-        moveX = moveX * -1;
-        moveY = 0;
-    }
-
-    private IEnumerator movePerSecound()
-    {
-        
-        yield return new WaitForSeconds(1f);
+        if(Random.Range(0, 2) == 0)
+        {
+            swich = !swich;
+        }
     }
 }

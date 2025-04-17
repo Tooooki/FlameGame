@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 2749458281807826088}
   - component: {fileID: 8266860152731051090}
   - component: {fileID: 372750298265534248}
+  - component: {fileID: 1767259490591241532}
   m_Layer: 0
   m_Name: EnemyShooter
   m_TagString: Untagged
@@ -148,6 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f88f6f88e320d4fbe3adf1a874278a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 0
+  swich: 0
 --- !u!50 &2749458281807826088
 Rigidbody2D:
   serializedVersion: 5
@@ -274,3 +277,39 @@ MonoBehaviour:
     - rid: 6355830710211182593
       type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
+--- !u!58 &1767259490591241532
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941702327274538964}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 8
