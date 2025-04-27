@@ -23,6 +23,7 @@ public class CardManager : MonoBehaviour
     private float slowDownTime = 2f;
     private float moveThreshold = 50f;
 
+
     void Awake()
     {
         Instance = this;
@@ -118,7 +119,6 @@ public class CardManager : MonoBehaviour
         cardTwo.transform.position = cardPositionTwo.position;
         cardThree.transform.position = cardPositionThree.position;
     }
-
     void RandomizeNewCards()
     {
         availableCards = new List<CardSO>(deck);
@@ -178,8 +178,9 @@ public class CardManager : MonoBehaviour
         {
             PlayerStats stats = playerGO.GetComponent<PlayerStats>();
             PlayerDeath health = playerGO.transform.Find("Hitbox").GetComponent<PlayerDeath>();
+            PlayerAttack attack = playerGO.GetComponent<PlayerAttack>(); 
 
-            if (stats != null && health != null)
+            if (stats != null && health != null && attack != null) 
             {
                 switch (selectedCard.effectType)
                 {
@@ -190,7 +191,7 @@ public class CardManager : MonoBehaviour
                         health.playerHealth = Mathf.Min(health.playerHealth + selectedCard.effectValue, health.playerMaxHealth);
                         break;
                     case CardEffect.Reload:
-                        // Future reload logic
+                        attack.shootCooldown = Mathf.Max(attack.shootCooldown - selectedCard.effectValue, 0.1f);
                         break;
                 }
             }

@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 mouseWorldPosition;
     private Vector3 mouseGamePos;
     private bool haveAmmo = true;
-    private float shootCooldown = 0.75f;
+    public float shootCooldown = 0.75f;
 
     public float projectileSpeed = 30f;
 
