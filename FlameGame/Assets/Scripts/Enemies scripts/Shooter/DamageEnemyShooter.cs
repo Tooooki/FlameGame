@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class DamageEnemyShooter : MonoBehaviour
@@ -17,7 +16,7 @@ public class DamageEnemyShooter : MonoBehaviour
 
     void Update()
     {
-        if(shooterHP <= 0)
+        if (shooterHP <= 0)
         {
             Die();
         }

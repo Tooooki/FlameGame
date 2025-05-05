@@ -4,54 +4,75 @@ using UnityEngine.Events;
 
 public class Dash : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    [SerializeField] private float strength = 40f;
-    [SerializeField] private float delay = 0.1f;
-
-    public bool canDash = true;
-    public float cooldownValue = 1.5f;
-
     public UnityEvent OnBegin;
     public UnityEvent OnDone;
 
-    PlayerIframes IframesScript;
+    public bool canDash = true;
+
+    public float dashVelocity = 20f, dashDuration = 1f, dashCooldown = 1f;
+    private float durationCounter;
+
+
+    GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
     }
 
-    public void PlayDash()
+    private IEnumerator PlayDash(Vector2 dir)
     {
-        if(canDash)
+        canDash = false;
+
+        GAME.Player.GetComponent<PlayerMovement>().enabled = false;
+
+        durationCounter = dashDuration;
+
+        while (durationCounter > 0f)
         {
-            canDash = false;
-            OnBegin?.Invoke();
-            IframesScript = GetComponent<PlayerIframes>();
-            IframesScript.Iframes();
-            rb.AddForce(rb.linearVelocity.normalized * strength, ForceMode2D.Impulse);
-            StartCoroutine(Reset());
+            durationCounter -= Time.deltaTime;
+
+            GAME.Player.GetComponent<Rigidbody2D>().linearVelocity = dir * dashVelocity;
+
+            yield return null;
         }
-        
-    }
-    
-    private IEnumerator Reset()
-    {
-        yield return new WaitForSeconds(delay);
-        OnDone?.Invoke();
-        StartCoroutine(Cooldown());
+
+        GAME.Player.GetComponent<PlayerMovement>().enabled = true;
+
+        StartCoroutine(PlayDashCooldown());
     }
 
-    private IEnumerator Cooldown()
+    private IEnumerator PlayDashCooldown()
     {
-        yield return new WaitForSeconds(cooldownValue);
+        yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
+
     void Update()
     {
-        if (Input.GetKeyUp("space"))
+        if (Input.GetKeyUp("space") && canDash && GAME.dashAbility)
         {
-            PlayDash();
+            Vector2 direction = new Vector2(0f, 0f);
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                direction.y = 1f;
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                direction.y = -1f;
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                direction.x = -1f;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                direction.x = 1f;
+            }
+
+            StartCoroutine(PlayDash(direction));
         }
     }
 }

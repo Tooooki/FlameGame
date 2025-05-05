@@ -42,7 +42,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void PlayerBasicShoot()
     {
-        if(haveAmmo)
+        if (haveAmmo)
         {
             GameObject clone;
             clone = Instantiate(projectile, transform.position, Quaternion.identity);

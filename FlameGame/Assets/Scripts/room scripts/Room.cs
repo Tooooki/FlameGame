@@ -6,19 +6,27 @@ public class Room : MonoBehaviour
 {
     [SerializeField] GameObject topDoor, bottomDoor, leftDoor, rightDoor, topWall, bottomWall, leftWall, rightWall;
     [SerializeField] GameObject enemyRunnerPrefab, enemyShooterPrefab;
+    public List<GameObject> clutter;
+    public List<GameObject> activeClutter;
+    public int maxClutter = 10, minClutter = 4, clutterCount, startClutter;
 
     bool roomActive, didSpawnEnemy = false;
 
-    private int enemyCount;//
     private bool up, down, left, right = false;
+
+    public bool clutterReady = false;
+
+    private int randomClutterIndex;
 
     public Vector2Int RoomIndex { get; set; }
 
-    GAMEGLOBALMANAGEMENT gameManagementScript;
+    GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
-        gameManagementScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+        startClutter = Random.Range(minClutter, maxClutter + 1);
+        clutterCount = 0;
     }
 
     public void OpenDoor(Vector2Int direction)
@@ -53,13 +61,13 @@ public class Room : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if(roomActive == false)
+            if (roomActive == false)
             {
                 StartCoroutine(doorClose());
 
             }
         }
-        
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -80,9 +88,9 @@ public class Room : MonoBehaviour
 
     private IEnumerator doorClose()
     {
-        yield return new WaitForSeconds(1f);
-        
-        if(didSpawnEnemy == false)
+        yield return new WaitForSeconds(0f);
+
+        if (didSpawnEnemy == false)
         {
             int RandomEnemyCount = Random.Range(1, 5);
             Vector3 enemySlotUR = new Vector3(transform.position.x + 25, transform.position.y + 12);
@@ -91,9 +99,9 @@ public class Room : MonoBehaviour
             Vector3 enemySlotDL = new Vector3(transform.position.x - 25, transform.position.y - 12);
             bool URtaken = false, ULtaken = false, DRtaken = false, DLtaken = false;
 
-            if(RandomEnemyCount >= 1 && !URtaken)
+            if (RandomEnemyCount >= 1 && !URtaken)
             {
-                if(Random.Range(0, 2) == 0)
+                if (Random.Range(0, 2) == 0)
                 {
                     GameObject enemy = Instantiate(enemyRunnerPrefab, enemySlotUR, Quaternion.identity);
                 }
@@ -145,9 +153,9 @@ public class Room : MonoBehaviour
             didSpawnEnemy = true;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0f);
 
-        if(up)
+        if (up)
         {
             topDoor.SetActive(true);
         }
@@ -168,12 +176,24 @@ public class Room : MonoBehaviour
 
     private void Update()
     {
-        if(gameManagementScript.existingEnemiesCount == 0)
+        if (GAME.existingEnemiesCount == 0)
         {
             topDoor.SetActive(false);
             bottomDoor.SetActive(false);
             leftDoor.SetActive(false);
             rightDoor.SetActive(false);
+        }
+
+        if (activeClutter.Count < startClutter && clutterReady)
+        {
+            GameObject clutterItem;
+            int randomClutterIndex = Random.Range(0, clutter.Count - 1);
+            if(randomClutterIndex == -1)
+            {
+                randomClutterIndex = 0;
+            }
+            clutterItem = Instantiate(clutter[randomClutterIndex], new Vector3(Random.Range(-28f, 28f), Random.Range(-12f, 12f)), Quaternion.identity, transform.parent);
+            activeClutter.Add(clutterItem);
         }
     }
 }

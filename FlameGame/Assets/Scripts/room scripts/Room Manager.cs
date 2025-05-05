@@ -1,10 +1,6 @@
-using Mono.Cecil;
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using System.Linq;
-using UnityEngine.UI;
+using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
@@ -15,7 +11,7 @@ public class RoomManager : MonoBehaviour
 
     Loadingprocess loadingScript;
 
-    int roomWidth = 80; 
+    int roomWidth = 80;
     int roomHeight = 48;
 
     [SerializeField] int gridSizeX = 40;
@@ -105,7 +101,7 @@ public class RoomManager : MonoBehaviour
 
         int whichRoom = Random.Range(1, 11);
 
-        if(whichRoom == 1)
+        if (whichRoom == 1)
         {
             var newRoom = Instantiate(TroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
             newRoom.GetComponent<Room>().RoomIndex = roomIndex;
@@ -116,7 +112,7 @@ public class RoomManager : MonoBehaviour
 
             return true;
         }
-        else if(whichRoom == 2)
+        else if (whichRoom == 2)
         {
             var newRoom = Instantiate(DroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
             newRoom.GetComponent<Room>().RoomIndex = roomIndex;

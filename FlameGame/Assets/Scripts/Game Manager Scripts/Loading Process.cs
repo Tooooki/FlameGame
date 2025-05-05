@@ -1,13 +1,14 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Loadingprocess : MonoBehaviour
 {
     RoomManager roomScript;
 
+    private bool wasGenerationComplete;
+
     [SerializeField] private GameObject loadingScreen, Player, enemyRunner, enemyShooter, enemyTank, enemyAssassin, Camera;
 
-    
+
     void Start()
     {
         roomScript = GetComponent<RoomManager>();
@@ -15,36 +16,44 @@ public class Loadingprocess : MonoBehaviour
 
     void Update()
     {
-        if(roomScript.generationComplete == true)
+        if (roomScript.generationComplete == true)
         {
             loadingScreen.SetActive(false);
-        }else
+        }
+        else
         {
             loadingScreen.SetActive(true);
         }
 
-        if(Input.GetKeyDown(KeyCode.P))
+        if (!wasGenerationComplete && roomScript.generationComplete)
+        {
+            OnGameLoaded();
+        }
+
+        wasGenerationComplete = roomScript.generationComplete;
+
+        if (Input.GetKeyDown(KeyCode.P))
         {
             GameObject spawnedEnemy;
             Vector3 enemySpawnPos = new Vector3(0, 0, 0);
             float enemySpawnPosX = 0, enemySpawnPosY = 0;
             int randomSideOfTheRoom = Random.Range(1, 5);
-            if(randomSideOfTheRoom == 1)
+            if (randomSideOfTheRoom == 1)
             {
                 enemySpawnPosX = 0;
                 enemySpawnPosY = 13;
             }
-            else if(randomSideOfTheRoom == 2)
+            else if (randomSideOfTheRoom == 2)
             {
                 enemySpawnPosX = 0;
                 enemySpawnPosY = -13;
             }
-            else if(randomSideOfTheRoom == 3)
+            else if (randomSideOfTheRoom == 3)
             {
                 enemySpawnPosX = 30;
                 enemySpawnPosY = 0;
             }
-            else if(randomSideOfTheRoom == 4)
+            else if (randomSideOfTheRoom == 4)
             {
                 enemySpawnPosX = -30;
                 enemySpawnPosY = 0;
@@ -58,5 +67,10 @@ public class Loadingprocess : MonoBehaviour
     public void OnGameLoaded()
     {
         Player.SetActive(true);
+
+        foreach(GameObject room in GameObject.FindGameObjectsWithTag("Room"))
+        {
+            //room.GetComponent<Room>().clutterReady = true;
+        }
     }
 }

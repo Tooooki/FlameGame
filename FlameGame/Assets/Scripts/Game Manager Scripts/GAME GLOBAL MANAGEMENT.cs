@@ -33,7 +33,7 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
 
 
     //---------------------- Player Abilities -------------------------------------------------------------------------------
-
+    public bool dashAbility = true;                    //Dash
 
 
 

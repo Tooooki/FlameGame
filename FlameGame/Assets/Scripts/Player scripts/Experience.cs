@@ -25,7 +25,7 @@ public class Experience : MonoBehaviour
     void Update()
     {
         textLevel.SetText(GAME.playerLevel.ToString());
-        if(GAME.playerCurrentExperience >= GAME.playerExperienceToNextLevel)
+        if (GAME.playerCurrentExperience >= GAME.playerExperienceToNextLevel)
         {
             GAME.playerLevel++;
             GAME.playerCurrentExperience -= GAME.playerExperienceToNextLevel;

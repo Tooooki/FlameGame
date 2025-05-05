@@ -1,6 +1,5 @@
-using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 
 public class PlayerInRooms : MonoBehaviour
@@ -21,7 +20,7 @@ public class PlayerInRooms : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,27 +29,27 @@ public class PlayerInRooms : MonoBehaviour
         gridPosX = Mathf.RoundToInt(transform.position.x / 80);
         gridPosY = Mathf.RoundToInt(transform.position.y / 48);
 
-        if(ismoving == false) 
+        if (ismoving == false)
         {
             if (cam.transform.position != new Vector3(gridPosX * 80, gridPosY * 48, -10))
             {
                 timer = 0f;
                 ismoving = true;
             }
-               
+
         }
-        
+
         timer += Time.deltaTime;
 
-        if(ismoving)
+        if (ismoving)
             cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(gridPosX * 80, gridPosY * 48, -10), (timer / transitionDuration));
 
-        if(cam.transform.position == new Vector3(gridPosX * 80, gridPosY * 48, -10))
+        if (cam.transform.position == new Vector3(gridPosX * 80, gridPosY * 48, -10))
         {
             ismoving = false;
         }
 
-        if(isCameraShaking)
+        if (isCameraShaking)
         {
             InvokeRepeating("shaking", 0, 0.02f);
         }
@@ -59,7 +58,7 @@ public class PlayerInRooms : MonoBehaviour
             CancelInvoke("shaking");
         }
 
-        
+
     }
 
     private void shaking()

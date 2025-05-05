@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using Unity.VisualScripting;
 public class PlayerBasicProjectile : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -53,7 +52,7 @@ public class PlayerBasicProjectile : MonoBehaviour
             projectileCollider.enabled = false;
             Destroy(self, 0.2f);
         }
-        
+
         if (collision.CompareTag("EnemyHitbox"))
         {
             OnEnemyHit?.Invoke();
@@ -67,12 +66,13 @@ public class PlayerBasicProjectile : MonoBehaviour
             {
                 // Apply damage to the enemy (pass BulletDamage)
                 enemyScript.Knockback(gameObject, GAME.playerBasicAttackDamage);  // Pass BulletDamage to Knockback method
-            }else
+            }
+            else
             {
                 collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>().LoseHP(GAME.playerBasicAttackDamage);
             }
 
-                Destroy(self, 0.2f);
+            Destroy(self, 0.2f);
         }
     }
 }

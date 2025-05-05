@@ -10,20 +10,20 @@ public class EnemyShooterAttack : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     private void Awake()
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
-        
+
         InvokeRepeating("RandomizeShooting", 0f, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void RandomizeShooting()

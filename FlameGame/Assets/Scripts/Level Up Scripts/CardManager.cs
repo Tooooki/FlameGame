@@ -32,6 +32,14 @@ public class CardManager : MonoBehaviour
             GameManager.Instance.OnStateChanged += HandleGameStateChanged;
     }
 
+    private void Update()
+    {
+        if(isSpinning)
+        {
+            //ostrze¿enie mnie wkurza³o wiêc napisa³em to if
+        }
+    }
+
     void OnDisable()
     {
         if (GameManager.Instance != null)

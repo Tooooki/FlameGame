@@ -2734,7 +2734,7 @@ GameObject:
   - component: {fileID: 2848748718041198442}
   m_Layer: 0
   m_Name: START_ROOM
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2781,6 +2781,17 @@ MonoBehaviour:
   rightWall: {fileID: 6107364265998185641}
   enemyRunnerPrefab: {fileID: 0}
   enemyShooterPrefab: {fileID: 0}
+  clutter:
+  - {fileID: 4518195964017339415, guid: 0234af34174868043bb0d4a8be8b0fb8, type: 3}
+  - {fileID: 2723102707765976169, guid: 5df7658fa23a13c4796a097599e78f7e, type: 3}
+  - {fileID: 5666443729413165473, guid: 96d40053fd37a7c47937e0a9e269b582, type: 3}
+  - {fileID: 8198309689426629290, guid: 22196990237c9b0439771ba3ee63f6c3, type: 3}
+  activeClutter: []
+  maxClutter: 10
+  minClutter: 4
+  clutterCount: 0
+  startClutter: 0
+  clutterReady: 0
 --- !u!61 &2848748718041198442
 BoxCollider2D:
   m_ObjectHideFlags: 0

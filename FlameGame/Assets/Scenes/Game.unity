@@ -10691,7 +10691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &534102389
 Transform:
   m_ObjectHideFlags: 0
@@ -10771,16 +10771,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c967579172b2c54aa16c2b238b78947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 40
-  delay: 0.1
-  canDash: 1
-  cooldownValue: 1.5
   OnBegin:
     m_PersistentCalls:
       m_Calls: []
   OnDone:
     m_PersistentCalls:
       m_Calls: []
+  canDash: 1
+  dashVelocity: 50
+  dashDuration: 0.15
+  dashCooldown: 5
 --- !u!114 &534102392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17461,7 +17461,7 @@ GameObject:
   - component: {fileID: 1354395592}
   - component: {fileID: 1354395593}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GAME MANAGER
   m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17583,6 +17583,7 @@ MonoBehaviour:
   enemyShooterProjectileVelocity: 20
   enemyShooterMoveVelocity: 5
   enemyShooterExperienceDrop: 30
+  dashAbility: 1
 --- !u!1 &1376903672
 GameObject:
   m_ObjectHideFlags: 0

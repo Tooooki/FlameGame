@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyShooterAI : MonoBehaviour
@@ -14,7 +13,7 @@ public class EnemyShooterAI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     private void Awake()
@@ -38,13 +37,13 @@ public class EnemyShooterAI : MonoBehaviour
             else
                 GetComponent<Rigidbody2D>().linearVelocity = new Vector3(targetDirection.y, -targetDirection.x) * 5;
         }
-        else if(canMove == true && runAway == true)
+        else if (canMove == true && runAway == true)
         {
             GetComponent<Rigidbody2D>().linearVelocity = targetDirection * 5;
         }
         else
         {
-            
+
         }
         //ZAAWANSOWANA MATEMATYKA!!!
     }
@@ -78,7 +77,7 @@ public class EnemyShooterAI : MonoBehaviour
 
     private void movement()
     {
-        if(Random.Range(0, 2) == 0)
+        if (Random.Range(0, 2) == 0)
         {
             swich = !swich;
         }

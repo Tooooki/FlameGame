@@ -14,6 +14,8 @@ TagManager:
   - PlayerHitbox
   - Healing
   - GameManager
+  - Clutter
+  - Room
   layers:
   - Default
   - TransparentFX
