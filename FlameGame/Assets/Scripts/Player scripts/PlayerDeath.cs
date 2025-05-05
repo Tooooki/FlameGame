@@ -23,6 +23,8 @@ public class PlayerDeath : MonoBehaviour
     PlayerIframes IframesScript;
     PlayerInRooms CameraScript;
 
+    GAMEGLOBALMANAGEMENT GAME;
+
 
     void Start()
     {
@@ -35,6 +37,7 @@ public class PlayerDeath : MonoBehaviour
         rb = GetComponentInParent<Rigidbody2D>();
         IframesScript = GetComponentInParent<PlayerIframes>();
         CameraScript = GetComponentInParent<PlayerInRooms>();
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
         InvokeRepeating("OncePerSecound", 0, 1.0f);
     }
 
@@ -65,7 +68,7 @@ public class PlayerDeath : MonoBehaviour
             //IframesScript.Iframes();
             Vector3 enemyPos = new Vector3(collision.transform.position.x, collision.transform.position.y).normalized;
             rb.AddForce((rb.transform.position.normalized - enemyPos) * knockbackStrength, ForceMode2D.Impulse);
-            StartCoroutine(cameraShake());
+            GAME.Player.GetComponent<PlayerInRooms>().PlayCameraShake(0.2f);
             GameObject healItem = Instantiate(healingPotion, transform.position, Quaternion.identity);
             StartCoroutine(healPotionSpawnDelay(healItem));
         }
@@ -90,16 +93,18 @@ public class PlayerDeath : MonoBehaviour
         }
     }
 
+    public void GetDamage(float damage)
+    {
+        playerHealth -= damage;
+        GameObject healItem = Instantiate(healingPotion, transform.position, Quaternion.identity);
+        StartCoroutine(healPotionSpawnDelay(healItem));
+        GAME.Player.GetComponent<PlayerInRooms>().PlayCameraShake(0.2f);
+    }
+
     private IEnumerator healPotionSpawnDelay(GameObject healItem)
     {
         yield return new WaitForSeconds(1f);
         healItem.GetComponent<BoxCollider2D>().enabled = true;
     }
 
-    private IEnumerator cameraShake()
-    {
-        CameraScript.isCameraShaking = true;
-        yield return new WaitForSeconds(0.2f);
-        CameraScript.isCameraShaking = false;
-    }
 }

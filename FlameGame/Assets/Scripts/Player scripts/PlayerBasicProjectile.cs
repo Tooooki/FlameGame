@@ -13,8 +13,11 @@ public class PlayerBasicProjectile : MonoBehaviour
     // Bullet damage variable
     public float BulletDamage { get; private set; }
 
+
     public UnityEvent OnWallHit;
     public UnityEvent OnEnemyHit;
+
+    GAMEGLOBALMANAGEMENT GAME;
 
     void Start()
     {
@@ -33,6 +36,7 @@ public class PlayerBasicProjectile : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
     }
 
     void Update()
@@ -62,10 +66,13 @@ public class PlayerBasicProjectile : MonoBehaviour
             if (enemyScript != null)
             {
                 // Apply damage to the enemy (pass BulletDamage)
-                enemyScript.Knockback(gameObject, BulletDamage);  // Pass BulletDamage to Knockback method
+                enemyScript.Knockback(gameObject, GAME.playerBasicAttackDamage);  // Pass BulletDamage to Knockback method
+            }else
+            {
+                collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>().LoseHP(GAME.playerBasicAttackDamage);
             }
 
-            Destroy(self, 0.2f);
+                Destroy(self, 0.2f);
         }
     }
 }

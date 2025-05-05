@@ -1,2 +1,21 @@
 fileFormatVersion: 2
 guid: 105d6a05a40c93f409be0f4299bfa072
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - topDoor: {instanceID: 0}
+  - bottomDoor: {instanceID: 0}
+  - leftDoor: {instanceID: 0}
+  - rightDoor: {instanceID: 0}
+  - topWall: {instanceID: 0}
+  - bottomWall: {instanceID: 0}
+  - leftWall: {instanceID: 0}
+  - rightWall: {instanceID: 0}
+  - enemyRunnerPrefab: {fileID: 4300347555681904611, guid: 2a0ae2482481a764e9963cf8936b1310, type: 3}
+  - enemyShooterPrefab: {fileID: 1941702327274538964, guid: 39f106f66a5b05746acd21f608480a8d, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -53,7 +53,6 @@ public class PlayerInRooms : MonoBehaviour
         if(isCameraShaking)
         {
             InvokeRepeating("shaking", 0, 0.02f);
-            Debug.Log("camerashake");
         }
         else
         {
@@ -66,5 +65,17 @@ public class PlayerInRooms : MonoBehaviour
     private void shaking()
     {
         cam.transform.position = Vector3.MoveTowards(cam.transform.position, new Vector3((gridPosX * 80) + Random.Range(-1f, 1f), (gridPosY * 48) + Random.Range(-5f, 5f), -10f), 20f * Time.deltaTime);
+    }
+
+    public void PlayCameraShake(float duration)
+    {
+        StartCoroutine(CameraShake(duration));
+    }
+
+    public IEnumerator CameraShake(float duration)
+    {
+        isCameraShaking = true;
+        yield return new WaitForSeconds(duration);
+        isCameraShaking = false;
     }
 }

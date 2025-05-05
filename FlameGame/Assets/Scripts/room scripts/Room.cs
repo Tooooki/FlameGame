@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Room : MonoBehaviour
 {
     [SerializeField] GameObject topDoor, bottomDoor, leftDoor, rightDoor, topWall, bottomWall, leftWall, rightWall;
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject enemyRunnerPrefab, enemyShooterPrefab;
 
     bool roomActive, didSpawnEnemy = false;
 
@@ -83,7 +84,64 @@ public class Room : MonoBehaviour
         
         if(didSpawnEnemy == false)
         {
-            GameObject enemy = Instantiate(enemyPrefab, new Vector3(transform.position.x + 25, transform.position.y + 12), Quaternion.identity);
+            int RandomEnemyCount = Random.Range(1, 5);
+            Vector3 enemySlotUR = new Vector3(transform.position.x + 25, transform.position.y + 12);
+            Vector3 enemySlotUL = new Vector3(transform.position.x - 25, transform.position.y + 12);
+            Vector3 enemySlotDR = new Vector3(transform.position.x + 25, transform.position.y - 12);
+            Vector3 enemySlotDL = new Vector3(transform.position.x - 25, transform.position.y - 12);
+            bool URtaken = false, ULtaken = false, DRtaken = false, DLtaken = false;
+
+            if(RandomEnemyCount >= 1 && !URtaken)
+            {
+                if(Random.Range(0, 2) == 0)
+                {
+                    GameObject enemy = Instantiate(enemyRunnerPrefab, enemySlotUR, Quaternion.identity);
+                }
+                else
+                {
+                    GameObject enemy = Instantiate(enemyShooterPrefab, enemySlotUR, Quaternion.identity);
+                }
+                URtaken = true;
+            }
+
+            if (RandomEnemyCount >= 2 && !ULtaken)
+            {
+                if (Random.Range(0, 2) == 0)
+                {
+                    GameObject enemy = Instantiate(enemyRunnerPrefab, enemySlotUL, Quaternion.identity);
+                }
+                else
+                {
+                    GameObject enemy = Instantiate(enemyShooterPrefab, enemySlotUL, Quaternion.identity);
+                }
+                ULtaken = true;
+            }
+
+            if (RandomEnemyCount >= 3 && !DRtaken)
+            {
+                if (Random.Range(0, 2) == 0)
+                {
+                    GameObject enemy = Instantiate(enemyRunnerPrefab, enemySlotDR, Quaternion.identity);
+                }
+                else
+                {
+                    GameObject enemy = Instantiate(enemyShooterPrefab, enemySlotDR, Quaternion.identity);
+                }
+                DRtaken = true;
+            }
+
+            if (RandomEnemyCount >= 4 && !DLtaken)
+            {
+                if (Random.Range(0, 2) == 0)
+                {
+                    GameObject enemy = Instantiate(enemyRunnerPrefab, enemySlotDL, Quaternion.identity);
+                }
+                else
+                {
+                    GameObject enemy = Instantiate(enemyShooterPrefab, enemySlotDL, Quaternion.identity);
+                }
+                DLtaken = true;
+            }
             didSpawnEnemy = true;
         }
 
@@ -110,7 +168,7 @@ public class Room : MonoBehaviour
 
     private void Update()
     {
-        if(gameManagementScript.existingEnemies == 0)
+        if(gameManagementScript.existingEnemiesCount == 0)
         {
             topDoor.SetActive(false);
             bottomDoor.SetActive(false);

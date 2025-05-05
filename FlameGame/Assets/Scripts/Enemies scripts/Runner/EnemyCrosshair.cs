@@ -25,6 +25,8 @@ public class EnemyCrosshair : MonoBehaviour
     public UnityEvent OnDone;
     Experience expScript;
 
+    GAMEGLOBALMANAGEMENT GAME;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,6 +35,7 @@ public class EnemyCrosshair : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
         expScript = gameManager.GetComponent<Experience>();
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
         healthBarInstance = Instantiate(healthBarPrefab, transform);
         healthBarInstance.transform.localPosition = new Vector3(0, 2f, 0); // adjust above enemy head
@@ -48,7 +51,6 @@ public class EnemyCrosshair : MonoBehaviour
         {
             StopAllCoroutines();
             crosshairPosition = player.transform.position;
-            Debug.Log("attack incoming");
             OnBegin?.Invoke();
             rb.linearVelocity = Vector2.zero;
             StartCoroutine(Reset());
@@ -93,6 +95,8 @@ public class EnemyCrosshair : MonoBehaviour
         // Apply the damage to the enemy's health
         enemyHealth -= damageToTake;
 
+        GAME.Player.GetComponent<PlayerInRooms>().PlayCameraShake(0.1f);
+
         // If enemy health is 0 or less, handle the enemy's death
         if (enemyHealth <= 0)
         {
@@ -106,7 +110,7 @@ public class EnemyCrosshair : MonoBehaviour
     private void Die()
     {
         // Handle death (e.g., award XP, destroy enemy object)
-        expScript.GetExp(xpFromBasicEnemy);
+        GAME.PlayerGetExperience(GAME.enemyRunnerExperienceDrop);
         Destroy(healthBarInstance);
         Destroy(gameObject);
     }

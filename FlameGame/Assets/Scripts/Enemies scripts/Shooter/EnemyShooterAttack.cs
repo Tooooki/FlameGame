@@ -37,7 +37,8 @@ public class EnemyShooterAttack : MonoBehaviour
             projectileRb = projectile.GetComponent<Rigidbody2D>();
             Vector3 direction = (GAME.Player.transform.position - projectile.transform.position);
             projectileRb.linearVelocity = direction.normalized * projectileSpeed;
-            projectile.transform.rotation = Quaternion.LookRotation(direction);
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            projectile.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
         }
     }
 }
