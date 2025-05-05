@@ -8,8 +8,9 @@ public class PlayerDeath : MonoBehaviour
     public float playerHealth;
     public float playerMaxHealth = 100f;
     public float healingValue = 15f;
-    [SerializeField] private float basicEnemyDamage = 20f;
-    [SerializeField] private float passiveDegeneration = 1f;
+    public float basicEnemyDamage = 20f;
+    public float shooterEnemyDamage = 25f;
+    //public float passiveDegeneration = 1f;
     
     [SerializeField] private float knockbackStrength;
 
@@ -67,6 +68,11 @@ public class PlayerDeath : MonoBehaviour
             StartCoroutine(cameraShake());
             GameObject healItem = Instantiate(healingPotion, transform.position, Quaternion.identity);
             StartCoroutine(healPotionSpawnDelay(healItem));
+        }
+
+        if (collision.CompareTag("EnemyAttack"))
+        {
+
         }
         
         if (collision.CompareTag("Healing"))

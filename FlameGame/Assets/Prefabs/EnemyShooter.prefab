@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5380319508261681117}
   - component: {fileID: 7277704666029030486}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,9 +102,9 @@ GameObject:
   - component: {fileID: 8266860152731051090}
   - component: {fileID: 372750298265534248}
   - component: {fileID: 1767259490591241532}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyShooter
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canMove: 0
   swich: 0
+  runAway: 0
 --- !u!50 &2749458281807826088
 Rigidbody2D:
   serializedVersion: 5

@@ -8,6 +8,8 @@ public class EnemyShooterAI : MonoBehaviour
     GameObject target;
     private Vector3 targetDirection;
 
+    EnemyShooterAttack attackScript;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,6 +20,7 @@ public class EnemyShooterAI : MonoBehaviour
     private void Awake()
     {
         target = GameObject.FindGameObjectWithTag("Player");
+        attackScript = GetComponent<EnemyShooterAttack>();
 
         InvokeRepeating("movement", 0f, 1f);
     }
@@ -49,13 +52,20 @@ public class EnemyShooterAI : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
+        {
+            attackScript.canShoot = false;
             runAway = true;
+        }
+
 
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
+        {
+            attackScript.canShoot = true;
             runAway = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

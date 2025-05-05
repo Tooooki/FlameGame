@@ -5,7 +5,7 @@ public class PlayerBasicProjectile : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private GameObject self;
-    [SerializeField] private CircleCollider2D collider;
+    [SerializeField] private CircleCollider2D projectileCollider;
 
     private GameObject enemyShoot;
     private EnemyCrosshair enemyScript;
@@ -46,7 +46,7 @@ public class PlayerBasicProjectile : MonoBehaviour
         {
             OnWallHit?.Invoke();
             rb.linearVelocity = Vector2.zero;
-            collider.enabled = false;
+            projectileCollider.enabled = false;
             Destroy(self, 0.2f);
         }
         
@@ -54,7 +54,7 @@ public class PlayerBasicProjectile : MonoBehaviour
         {
             OnEnemyHit?.Invoke();
             rb.linearVelocity = Vector2.zero;
-            collider.enabled = false;
+            projectileCollider.enabled = false;
 
             // Get the enemy script and apply the damage
             enemyShoot = collision.gameObject.transform.parent.gameObject;
