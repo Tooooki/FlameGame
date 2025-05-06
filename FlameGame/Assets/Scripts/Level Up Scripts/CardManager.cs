@@ -173,22 +173,17 @@ public class CardManager : MonoBehaviour
 
     public void SelectCard(CardSO selectedCard)
     {
-        //if (!alreadySelectedCards.Contains(selectedCard))
-        //{
-        //    alreadySelectedCards.Add(selectedCard);
-        //    OnSelect(selectedCard);
-        //}
-
-        alreadySelectedCards.Add(selectedCard);
-        OnSelect(selectedCard);
+        if (!alreadySelectedCards.Contains(selectedCard))
+        {
+            alreadySelectedCards.Add(selectedCard);
+            OnSelect(selectedCard);
+        }
 
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
 
     public void OnSelect(CardSO selectedCard)
     {
-        PlayerDeath health = GAME.Player.transform.Find("Hitbox").GetComponent<PlayerDeath>();
-
         switch (selectedCard.effectType)
         {
             case CardEffect.BasicAttackDamage:
