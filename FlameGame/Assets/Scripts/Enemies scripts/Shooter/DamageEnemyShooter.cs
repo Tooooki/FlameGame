@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DamageEnemyShooter : MonoBehaviour
 {
-    public float shooterHP, shooterStartHP = 75f, XPfromShooter = 50f;
+    public float shooterHP;
 
     GAMEGLOBALMANAGEMENT GAME;
 
@@ -11,7 +11,7 @@ public class DamageEnemyShooter : MonoBehaviour
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
-        shooterHP = shooterStartHP;
+        shooterHP = GAME.enemyShooterMaxHealth;
     }
 
     void Update()

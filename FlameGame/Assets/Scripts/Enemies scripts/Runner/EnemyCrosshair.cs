@@ -9,67 +9,55 @@ public class EnemyCrosshair : MonoBehaviour
     private Slider healthSlider;
     private GameObject healthBarInstance;
 
-    private GameObject player;
-    private GameObject gameManager;
+    public float enemyHealth;
 
-    [SerializeField] private float dashStr = 20f;
-    [SerializeField] private float enemyHealth;
-    [SerializeField] private float enemyStartingHealth = 100f;
+    private Vector3 AttackTargetPosition = Vector3.zero;
 
-    public float xpFromBasicEnemy = 30f;
-    private Vector3 crosshairPosition = Vector3.zero;
-
-    private Rigidbody2D rb;
     public UnityEvent OnBegin;
     public UnityEvent OnDone;
-    Experience expScript;
 
     GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        enemyHealth = enemyStartingHealth;
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        gameManager = GameObject.FindGameObjectWithTag("GameManager");
-        expScript = gameManager.GetComponent<Experience>();
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+
+        enemyHealth = GAME.enemyRunnerMaxHealth;
 
         //Set up health bar
         healthBarInstance = Instantiate(healthBarPrefab, transform);
         healthBarInstance.transform.localPosition = new Vector3(0, 2f, 0);
 
         healthSlider = healthBarInstance.GetComponentInChildren<Slider>();
-        healthSlider.maxValue = enemyStartingHealth;
+        healthSlider.maxValue = GAME.enemyRunnerMaxHealth;
         healthSlider.value = enemyHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Player entered detection zone
         if (collision.CompareTag("Player"))
         {
+            //KOD DO PRZEPISANIA
             StopAllCoroutines();
-            crosshairPosition = player.transform.position;
+            AttackTargetPosition = collision.transform.position;
             OnBegin?.Invoke();
-            rb.linearVelocity = Vector2.zero;
             StartCoroutine(Reset());
         }
     }
 
     private void Update()
     {
-        //set health bar value
-        if (healthSlider != null)
-            healthSlider.value = enemyHealth;
+        healthSlider.value = enemyHealth;
     }
 
     private IEnumerator Reset()
     {
+        //KOD DO PRZEPISANIA
         yield return new WaitForSeconds(0.25f);
-        Vector3 direction = (crosshairPosition - transform.position).normalized;
-        rb.AddForce(direction * dashStr, ForceMode2D.Impulse);
+
+        Vector3 direction = (AttackTargetPosition - transform.position).normalized;
+        GetComponent<Rigidbody2D>().AddForce(direction * GAME.enemyRunnerDashVelocity, ForceMode2D.Impulse);
+
         yield return new WaitForSeconds(2f);
         OnDone?.Invoke();
     }
@@ -78,7 +66,6 @@ public class EnemyCrosshair : MonoBehaviour
     {
         StopAllCoroutines();
         OnBegin?.Invoke();
-        rb.linearVelocity = Vector2.zero;
         StartCoroutine(GotHit(damage));  // Pass damage to GotHit
     }
 

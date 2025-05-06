@@ -13,7 +13,15 @@ public class CardSO : ScriptableObject
 
 public enum CardEffect
 {
-    Damage,
-    Health,
-    Reload
+    BasicAttackDamage,
+    Heal,
+    BasicAttackCooldown,
+    MaxHealth,
+    BasicAttackVelocity,
+    DashVelocity,
+    DashAbility,
+    DashDuration,
+    DashCooldown,
+    MoveVelocity,
+    Test
 }

@@ -2,44 +2,41 @@ using UnityEngine;
 
 public class EnemyShooterAI : MonoBehaviour
 {
-    public bool canMove = false, swich = false, runAway = false;
-
-    GameObject target;
-    private Vector3 targetDirection;
+    public bool canMove, swich, runAway;
 
     EnemyShooterAttack attackScript;
 
+    GAMEGLOBALMANAGEMENT GAME;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
 
-    }
 
     private void Awake()
     {
-        target = GameObject.FindGameObjectWithTag("Player");
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+
         attackScript = GetComponent<EnemyShooterAttack>();
 
         InvokeRepeating("movement", 0f, 1f);
+
+        runAway = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         //NIE RUSZAC!!!
-        targetDirection = (target.transform.position - transform.position).normalized * -1;
+        Vector3 targetDirection = (GAME.Player.transform.position - transform.position).normalized * -1;
 
         if (canMove == true && runAway == false)
         {
             if (swich)
-                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(-targetDirection.y, targetDirection.x) * 5;
+                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(-targetDirection.y, targetDirection.x) * GAME.enemyShooterMoveVelocity;
             else
-                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(targetDirection.y, -targetDirection.x) * 5;
+                GetComponent<Rigidbody2D>().linearVelocity = new Vector3(targetDirection.y, -targetDirection.x) * GAME.enemyShooterMoveVelocity;
         }
         else if (canMove == true && runAway == true)
         {
-            GetComponent<Rigidbody2D>().linearVelocity = targetDirection * 5;
+            GetComponent<Rigidbody2D>().linearVelocity = targetDirection * GAME.enemyShooterMoveVelocity;
         }
         else
         {
@@ -55,8 +52,6 @@ public class EnemyShooterAI : MonoBehaviour
             attackScript.canShoot = false;
             runAway = true;
         }
-
-
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

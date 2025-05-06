@@ -4,12 +4,8 @@ using UnityEngine.Events;
 
 public class Dash : MonoBehaviour
 {
-    public UnityEvent OnBegin;
-    public UnityEvent OnDone;
-
     public bool canDash = true;
 
-    public float dashVelocity = 20f, dashDuration = 1f, dashCooldown = 1f;
     private float durationCounter;
 
 
@@ -26,13 +22,13 @@ public class Dash : MonoBehaviour
 
         GAME.Player.GetComponent<PlayerMovement>().enabled = false;
 
-        durationCounter = dashDuration;
+        durationCounter = GAME.playerDashDuration;
 
         while (durationCounter > 0f)
         {
             durationCounter -= Time.deltaTime;
 
-            GAME.Player.GetComponent<Rigidbody2D>().linearVelocity = dir * dashVelocity;
+            GAME.Player.GetComponent<Rigidbody2D>().linearVelocity = dir * GAME.playerDashVelocity;
 
             yield return null;
         }
@@ -44,7 +40,7 @@ public class Dash : MonoBehaviour
 
     private IEnumerator PlayDashCooldown()
     {
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(GAME.playerDashCooldown);
         canDash = true;
     }
 

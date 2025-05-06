@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a8f22ddc7d0ecb469d8bd7207e4c008, type: 3}
-  m_Name: Reload
+  m_Name: Max Health +10%
   m_EditorClassIdentifier: 
   cardImage: {fileID: 0}
-  cardText: +Reload Speed
-  effectType: 2
-  effectValue: 15
-  isUnique: 0
+  cardText: Player's max health is inceased by 10 %
+  effectType: 3
+  effectValue: 10
+  isUnique: 1
   unlockLevel: 0

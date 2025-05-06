@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a8f22ddc7d0ecb469d8bd7207e4c008, type: 3}
-  m_Name: Health
+  m_Name: Move Velocity +5%
   m_EditorClassIdentifier: 
   cardImage: {fileID: 0}
-  cardText: +Health
-  effectType: 1
-  effectValue: 10
-  isUnique: 0
+  cardText: Player moves 5 % faster
+  effectType: 9
+  effectValue: 5
+  isUnique: 1
   unlockLevel: 0

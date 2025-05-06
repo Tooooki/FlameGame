@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float maxSpeed = 10f;
+    public bool canMove;
 
-    private Rigidbody2D rb;
-
-    public bool movementActive = true;
+    GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+
+        canMove = true;
     }
 
     private void FixedUpdate()
     {
-        if (movementActive)
+        if (canMove)
         {
-            rb.linearVelocity = InputManager.Movement * maxSpeed;
+            GetComponent<Rigidbody2D>().linearVelocity = InputManager.Movement * GAME.playerMoveVelocity;
         }
     }
 }

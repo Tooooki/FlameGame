@@ -173,11 +173,14 @@ public class CardManager : MonoBehaviour
 
     public void SelectCard(CardSO selectedCard)
     {
-        if (!alreadySelectedCards.Contains(selectedCard))
-        {
-            alreadySelectedCards.Add(selectedCard);
-            OnSelect(selectedCard);
-        }
+        //if (!alreadySelectedCards.Contains(selectedCard))
+        //{
+        //    alreadySelectedCards.Add(selectedCard);
+        //    OnSelect(selectedCard);
+        //}
+
+        alreadySelectedCards.Add(selectedCard);
+        OnSelect(selectedCard);
 
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
@@ -188,14 +191,38 @@ public class CardManager : MonoBehaviour
 
         switch (selectedCard.effectType)
         {
-            case CardEffect.Damage:
+            case CardEffect.BasicAttackDamage:
                 GAME.playerBasicAttackDamage += selectedCard.effectValue;
                 break;
-            case CardEffect.Health:
-                health.playerHealth = Mathf.Min(health.playerHealth + selectedCard.effectValue, health.playerMaxHealth);
+            case CardEffect.Heal:
+                GAME.playerCurrentHealth = Mathf.Min(GAME.playerCurrentHealth + selectedCard.effectValue, GAME.playerMaxHealth);
                 break;
-            case CardEffect.Reload:
-                GAME.playerBasicAttackCooldown = Mathf.Max(GAME.playerBasicAttackCooldown - selectedCard.effectValue, 0.2f);
+            case CardEffect.BasicAttackCooldown:
+                GAME.playerBasicAttackCooldown = Mathf.Max(GAME.playerBasicAttackCooldown * (1 - (selectedCard.effectValue / 100)), 0.2f);
+                break;
+            case CardEffect.MaxHealth:
+                GAME.playerMaxHealth *= 1 + (selectedCard.effectValue / 100);
+                break;
+            case CardEffect.MoveVelocity:
+                GAME.playerMoveVelocity += selectedCard.effectValue;
+                break;
+            case CardEffect.DashAbility:
+                GAME.dashAbility = true;
+                break;
+            case CardEffect.DashCooldown:
+                GAME.playerDashCooldown += selectedCard.effectValue;
+                break;
+            case CardEffect.DashDuration:
+                GAME.playerDashDuration += selectedCard.effectValue;
+                break;
+            case CardEffect.DashVelocity:
+                GAME.playerDashVelocity += selectedCard.effectValue;
+                break;
+            case CardEffect.BasicAttackVelocity:
+                GAME.playerBasicAttackVelocity += selectedCard.effectValue;
+                break;
+            case CardEffect.Test:
+                GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().Rogas = !GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().Rogas;
                 break;
         }
             

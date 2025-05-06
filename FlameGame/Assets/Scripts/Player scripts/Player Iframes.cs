@@ -3,37 +3,19 @@ using UnityEngine;
 
 public class PlayerIframes : MonoBehaviour
 {
-    [SerializeField] private GameObject HitBox;
-    
     public float IframesDuration = 0.5f;
 
-    private bool IsImmune = false;
+    public bool PlayerImmunity = false;
 
     void Update()
     {
-        if(IsImmune)
+        if (PlayerImmunity)
         {
-            HitBox.SetActive(false);
+            GetComponentInChildren<PlayerDeath>().enabled = false;
         }
         else
         {
-            HitBox.SetActive(true);
+            GetComponentInChildren<PlayerDeath>().enabled = true;
         }
-    }
-
-    public void Iframes()
-    {
-        //if (IsImmune = false)
-        
-        StopAllCoroutines();
-        StartCoroutine(IframesTiming());
-        
-    }
-
-    private IEnumerator IframesTiming()
-    {
-        IsImmune = true;
-        yield return new WaitForSeconds(IframesDuration);
-        IsImmune = false;
     }
 }

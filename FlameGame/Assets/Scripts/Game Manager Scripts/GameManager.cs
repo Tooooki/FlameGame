@@ -3,7 +3,7 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private bool Rogas;
+    public bool Rogas;
     public static GameManager Instance;
     int currentLevel = 0;
     GameState currentState;

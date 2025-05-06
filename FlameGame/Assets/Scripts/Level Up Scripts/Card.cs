@@ -11,7 +11,6 @@ public class Card : MonoBehaviour
     {
         if (card == null)
         {
-            Debug.Log("Blank card setup.");
             cardInfo = null;
             cardImageRenderer.sprite = null;
             cardTextRenderer.text = "";
@@ -31,7 +30,6 @@ public class Card : MonoBehaviour
             return;
         }
 
-        Debug.Log("Nacisnieto Karte");
         CardManager.Instance.SelectCard(cardInfo);
     }
 }

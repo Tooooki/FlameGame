@@ -1,39 +1,43 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GAMEGLOBALMANAGEMENT : MonoBehaviour
 {
     //---------------------- Game Management --------------------------------------------------------------------------------
     public int existingEnemiesCount;
+    public float globalDifficultyMultiplyer;
 
     //---------------------- Data Storage -----------------------------------------------------------------------------------
     public GameObject Player;
 
     //---------------------- Player Stats -----------------------------------------------------------------------------------
-    public int playerLevel = 1;                         //Level        
-    public float playerCurrentExperience;               //Experience   
-    public float playerExperienceToNextLevel = 100f;    //Needed Exp   
-    public float playerCurrentHealth;                   //Health       
-    public float playerMoveVelocity = 25f;              //Move         Velocity
-    public float playerBasicAttackDamage = 25f;         //Basic Attack Damage
-    public float playerBasicAttackVelocity;             //Basic Attack Velocity
-    public float playerBasicAttackCooldown;             //Basic Attack Cooldown
-    public float playerDashVelocity;                    //Dash         Velocity
-    public float playerDashCooldown;                    //Dash         Cooldown
+    public int playerLevel;                             //Level         Current
+    public float playerCurrentExperience;               //Experience    Current
+    public float playerExperienceToNextLevel;           //Experience    Max  
+    public float playerCurrentHealth;                   //Health        Current
+    public float playerMaxHealth;                       //Health        Max
+    public float playerMoveVelocity;                    //Move          Velocity
+    public float playerBasicAttackDamage;               //Basic Attack  Damage
+    public float playerBasicAttackVelocity;             //Basic Attack  Velocity
+    public float playerBasicAttackCooldown;             //Basic Attack  Cooldown
+    public float playerDashVelocity;                    //Dash          Velocity
+    public float playerDashCooldown;                    //Dash          Cooldown
+    public float playerDashDuration;                    //Dash          Duration
 
     //---------------------- Enemy Stats ------------------------------------------------------------------------------------
-    public float enemyRunnerMoveVelocity = 12f;         //Runner  Move   Velocity
-    public float enemyRunnerDamage = 20f;               //Runner  Attack Damage
-    public float enemyRunnerDashVelocity = 20f;         //Runner  Dash   Velocity
-    public float enemyRunnerExperienceDrop = 0f;        //Runner  Drop   Experience
-    public float enemyShooterProjectileDamage = 20f;    //Shooter Attack Damage
-    public float enemyShooterProjectileVelocity = 20f;  //Shooter Attack Velocity
-    public float enemyShooterMoveVelocity = 5f;         //Shooter Move   Velocity
-    public float enemyShooterExperienceDrop = 0f;       //Shooter Drop   Experience
+    public float enemyRunnerMoveVelocity;               //Runner  Move   Velocity
+    public float enemyRunnerDamage;                     //Runner  Attack Damage
+    public float enemyRunnerDashVelocity;               //Runner  Dash   Velocity
+    public float enemyRunnerExperienceDrop;             //Runner  Drop   Experience
+    public float enemyRunnerMaxHealth;                  //Runner  Health Max
+    public float enemyShooterProjectileDamage;          //Shooter Attack Damage
+    public float enemyShooterProjectileVelocity;        //Shooter Attack Velocity
+    public float enemyShooterMoveVelocity;              //Shooter Move   Velocity
+    public float enemyShooterExperienceDrop;            //Shooter Drop   Experience
+    public float enemyShooterMaxHealth;                 //Shooter Health Max
 
 
     //---------------------- Player Abilities -------------------------------------------------------------------------------
-    public bool dashAbility = true;                    //Dash
+    public bool dashAbility = true;                     //Dash
 
 
 
@@ -43,24 +47,29 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     private void Start()
     {
         //Reset values of stats
-        playerLevel = 1; //
-        playerCurrentExperience = 0f; //
-        playerExperienceToNextLevel = 100f; //
+        globalDifficultyMultiplyer = 1f;
+        playerLevel = 1;
+        playerCurrentExperience = 0f;
+        playerExperienceToNextLevel = 100f;
         playerCurrentHealth = 0f;
-        playerMoveVelocity = 25f;
-        playerBasicAttackDamage = 25f; //not set on level up
-        playerBasicAttackVelocity = 30f; //not set on level up
-        playerBasicAttackCooldown = 0.8f; //not set on level up
-        playerDashVelocity = 0f;
-        playerDashCooldown = 0f;
-        enemyRunnerMoveVelocity = 12f; //
+        playerMaxHealth = 100f;
+        playerMoveVelocity = 10f;
+        playerBasicAttackDamage = 25f;
+        playerBasicAttackVelocity = 30f;
+        playerBasicAttackCooldown = 0.8f;
+        playerDashVelocity = 50f;
+        playerDashCooldown = 6f;
+        playerDashDuration = 0.1f;
+        enemyRunnerMoveVelocity = 12f;
         enemyRunnerDamage = 20f;
         enemyRunnerDashVelocity = 20f;
-        enemyRunnerExperienceDrop = 0f;
+        enemyRunnerExperienceDrop = 20f;
         enemyShooterProjectileDamage = 20f;
         enemyShooterProjectileVelocity = 20f;
         enemyShooterMoveVelocity = 5f;
-        enemyShooterExperienceDrop = 0f;
+        enemyShooterExperienceDrop = 30f;
+        enemyShooterMaxHealth = 75f;
+        enemyRunnerMaxHealth = 100f;
     }
     private void Awake()
     {
@@ -75,5 +84,12 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public void PlayerGetExperience(float amount)
     {
         playerCurrentExperience += amount;
+    }
+
+    public void PlayerGetDamage(float damage)
+    {
+        playerCurrentHealth -= damage;
+
+        Player.GetComponentInChildren<PlayerDeath>().DamageResult();
     }
 }

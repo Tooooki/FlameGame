@@ -12,7 +12,7 @@ public class ProjectileEnemyShooter : MonoBehaviour
     {
         if(collision.CompareTag("PlayerHitbox"))
         {
-            GAME.Player.GetComponentInChildren<PlayerDeath>().GetDamage(GAME.enemyShooterProjectileDamage);
+            GAME.PlayerGetDamage(GAME.enemyShooterProjectileDamage);
             Destroy(this.gameObject);
         }
 

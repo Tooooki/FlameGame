@@ -1,110 +1,79 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
-using UnityEngine.UI;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 public class PlayerDeath : MonoBehaviour
 {
-    public float playerHealth;
-    public float playerMaxHealth = 100f;
-    public float healingValue = 15f;
-    public float basicEnemyDamage = 20f;
-    public float shooterEnemyDamage = 25f;
-    //public float passiveDegeneration = 1f;
-    
-    [SerializeField] private float knockbackStrength;
+    public float healingValue = 10f;
+
+    public float passiveDegeneration;
 
     [SerializeField] private Image healthBar;
 
-    [SerializeField] private GameObject healingPotion;
+    [SerializeField] private GameObject healingPotionPrefab;
 
-    private Rigidbody2D rb;
-
-    PlayerIframes IframesScript;
-    PlayerInRooms CameraScript;
 
     GAMEGLOBALMANAGEMENT GAME;
 
 
-    void Start()
-    {
-        playerHealth = playerMaxHealth;
-    }
-
-
     private void Awake()
     {
-        rb = GetComponentInParent<Rigidbody2D>();
-        IframesScript = GetComponentInParent<PlayerIframes>();
-        CameraScript = GetComponentInParent<PlayerInRooms>();
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
-        InvokeRepeating("OncePerSecound", 0, 1.0f);
-    }
 
+        passiveDegeneration = 0.5f;
+        
+        InvokeRepeating("PassiveDegeneration", 0, 1.0f);
+
+        GAME.playerCurrentHealth = GAME.playerMaxHealth;
+    }
 
     void Update()
     {
-        if(playerHealth <= 0)
+        if (GAME.playerCurrentHealth <= 0)
         {
-            rb.transform.position = new Vector3(0, 0, 0);
-            playerHealth = playerMaxHealth;
+            GetComponentInParent<Rigidbody2D>().transform.position = new Vector3(0, 0, 0);
+            GAME.playerCurrentHealth = GAME.playerMaxHealth;
+            //die
         }
 
-        healthBar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, healthBar.transform.localScale.y);
+        healthBar.transform.localScale = new Vector3(GAME.playerCurrentHealth / GAME.playerMaxHealth, healthBar.transform.localScale.y);
     }
 
-
-    private void OncePerSecound()
-    {
-        //playerHealth = playerHealth - passiveDegeneration;
-    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("EnemyHitbox"))
-        {
-            playerHealth = playerHealth - basicEnemyDamage;
-            //IframesScript.Iframes();
-            Vector3 enemyPos = new Vector3(collision.transform.position.x, collision.transform.position.y).normalized;
-            rb.AddForce((rb.transform.position.normalized - enemyPos) * knockbackStrength, ForceMode2D.Impulse);
-            GAME.Player.GetComponent<PlayerInRooms>().PlayCameraShake(0.2f);
-            GameObject healItem = Instantiate(healingPotion, transform.position, Quaternion.identity);
-            StartCoroutine(healPotionSpawnDelay(healItem));
-        }
-
-        if (collision.CompareTag("EnemyAttack"))
-        {
-
-        }
-        
         if (collision.CompareTag("Healing"))
         {
-            if(playerMaxHealth - playerHealth >= 15 && playerMaxHealth - playerHealth < playerMaxHealth)
+            if (GAME.playerMaxHealth - GAME.playerCurrentHealth >= 15 && GAME.playerMaxHealth - GAME.playerCurrentHealth < GAME.playerMaxHealth)
             {
-                playerHealth = playerHealth + healingValue;
+                GAME.playerCurrentHealth += healingValue;
                 Destroy(collision.gameObject);
-            } 
-            else if(playerMaxHealth - playerHealth < 15)
+            }
+            else if (GAME.playerMaxHealth - GAME.playerCurrentHealth < 15)
             {
-                playerHealth = playerMaxHealth;
+                GAME.playerCurrentHealth = GAME.playerMaxHealth;
                 Destroy(collision.gameObject);
             }
         }
     }
 
-    public void GetDamage(float damage)
+
+
+    private void PassiveDegeneration()
     {
-        playerHealth -= damage;
-        GameObject healItem = Instantiate(healingPotion, transform.position, Quaternion.identity);
+        GAME.playerCurrentHealth -= passiveDegeneration;
+    }
+
+    public void DamageResult()
+    {
+        GameObject healItem = Instantiate(healingPotionPrefab, transform.position, Quaternion.identity);
         StartCoroutine(healPotionSpawnDelay(healItem));
         GAME.Player.GetComponent<PlayerInRooms>().PlayCameraShake(0.2f);
     }
 
     private IEnumerator healPotionSpawnDelay(GameObject healItem)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         healItem.GetComponent<BoxCollider2D>().enabled = true;
     }
-
 }
