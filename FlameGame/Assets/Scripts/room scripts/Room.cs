@@ -6,6 +6,7 @@ public class Room : MonoBehaviour
 {
     [SerializeField] GameObject topDoor, bottomDoor, leftDoor, rightDoor, topWall, bottomWall, leftWall, rightWall;
     [SerializeField] GameObject enemyRunnerPrefab, enemyShooterPrefab;
+    [SerializeField] GameObject ClutterPrefab1, ClutterPrefab2, ClutterPrefab3, ClutterPrefab4;
     public List<GameObject> clutter;
     public List<GameObject> activeClutter;
     public int maxClutter = 10, minClutter = 4, clutterCount, startClutter;
@@ -14,7 +15,7 @@ public class Room : MonoBehaviour
 
     private bool up, down, left, right = false;
 
-    public bool clutterReady = false;
+    public bool clutterReady = true;
 
     private int randomClutterIndex;
 
@@ -26,7 +27,9 @@ public class Room : MonoBehaviour
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
         startClutter = Random.Range(minClutter, maxClutter + 1);
+        clutterReady = true;
         clutterCount = 0;
+        InvokeRepeating("SetClutter", 0f, 0.01f);
     }
 
     public void OpenDoor(Vector2Int direction)
@@ -184,15 +187,26 @@ public class Room : MonoBehaviour
             rightDoor.SetActive(false);
         }
 
+        if(activeClutter.Count >= startClutter || !clutterReady)
+        {
+            CancelInvoke("SetClutter");
+            clutterReady = false;
+        }
+    }
+
+    public void SetClutter()
+    {
+        //clutter = new List<GameObject>();
+        //clutter.Add(ClutterPrefab1);
+        //clutter.Add(ClutterPrefab2);
+        //clutter.Add(ClutterPrefab3);
+        //clutter.Add(ClutterPrefab4);
+        
         if (activeClutter.Count < startClutter && clutterReady)
         {
             GameObject clutterItem;
-            int randomClutterIndex = Random.Range(0, clutter.Count - 1);
-            if(randomClutterIndex == -1)
-            {
-                randomClutterIndex = 0;
-            }
-            clutterItem = Instantiate(clutter[randomClutterIndex], new Vector3(Random.Range(-28f, 28f), Random.Range(-12f, 12f)), Quaternion.identity, transform.parent);
+            int randomClutterIndex = Random.Range(0, clutter.Count);
+            clutterItem = Instantiate(clutter[randomClutterIndex], new Vector3(transform.position.x + Random.Range(-28f, 28f), transform.position.y + Random.Range(-12f, 12f)), Quaternion.identity, this.transform);
             activeClutter.Add(clutterItem);
         }
     }

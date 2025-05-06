@@ -8,14 +8,7 @@ public class Experience : MonoBehaviour
     [SerializeField] private TMP_Text textLevel;
     [SerializeField] GameObject HitBox;
 
-    PlayerDeath healthScript;
-
     GAMEGLOBALMANAGEMENT GAME;
-
-    void Start()
-    {
-        healthScript = HitBox.GetComponent<PlayerDeath>();
-    }
 
     private void Awake()
     {
@@ -30,8 +23,6 @@ public class Experience : MonoBehaviour
             GAME.playerLevel++;
             GAME.playerCurrentExperience -= GAME.playerExperienceToNextLevel;
             GAME.playerExperienceToNextLevel = 100 + (GAME.playerLevel * 50);
-            healthScript.playerMaxHealth = healthScript.playerMaxHealth + 20;
-            healthScript.playerHealth = healthScript.playerMaxHealth;
 
             GameManager.Instance.ChangeState(GameManager.GameState.CardSelection); // show cards!
         }

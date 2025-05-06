@@ -4,28 +4,20 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private GameObject crosshair;
-    [SerializeField] private GameObject cursor;
-    private Rigidbody2D rb;
-    private Rigidbody2D cloneRb;
     public GameObject projectile;
     private Vector3 mouseScreenPosition;
     private Vector3 mouseWorldPosition;
     private Vector3 mouseGamePos;
     private bool haveAmmo = true;
-    public float shootCooldown = 0.75f;
 
-    public float projectileSpeed = 30f;
+
+    GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
     }
-    private void FixedUpdate()
-    {
-        Vector2 direction = (rb.linearVelocity.normalized * 3);
-        crosshair.transform.localPosition = direction;
-    }
+
     void Update()
     {
         if (Input.GetMouseButtonUp(0))
@@ -35,29 +27,34 @@ public class PlayerAttack : MonoBehaviour
 
         mouseScreenPosition = Mouse.current.position.ReadValue();
         mouseScreenPosition.z = 0f;
+
         mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-        mouseGamePos = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, transform.position.z);
-        cursor.transform.position = mouseGamePos;
+
+        //mouseGamePos = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0f);
     }
 
     private void PlayerBasicShoot()
     {
         if (haveAmmo)
         {
+            haveAmmo = false;
+
             GameObject clone;
             clone = Instantiate(projectile, transform.position, Quaternion.identity);
             clone.SetActive(true);
-            cloneRb = clone.GetComponent<Rigidbody2D>();
-            Vector3 direction = (mouseGamePos - clone.transform.position);
-            cloneRb.linearVelocity = direction.normalized * projectileSpeed;
-            haveAmmo = false;
+
+            //Vector3 direction = (mouseGamePos - clone.transform.position);
+            Vector3 direction = (mouseWorldPosition - clone.transform.position);
+            clone.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * GAME.playerBasicAttackVelocity;
+
             StartCoroutine(ShootCooldown());
         }
     }
 
     private IEnumerator ShootCooldown()
     {
-        yield return new WaitForSeconds(shootCooldown);
+        yield return new WaitForSeconds(GAME.playerBasicAttackCooldown);
+
         haveAmmo = true;
     }
 }

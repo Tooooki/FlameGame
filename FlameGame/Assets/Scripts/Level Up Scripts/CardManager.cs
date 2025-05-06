@@ -24,9 +24,13 @@ public class CardManager : MonoBehaviour
     private float moveThreshold = 50f;
 
 
+    GAMEGLOBALMANAGEMENT GAME;
+
     void Awake()
     {
         Instance = this;
+
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
         if (GameManager.Instance != null)
             GameManager.Instance.OnStateChanged += HandleGameStateChanged;
@@ -180,30 +184,22 @@ public class CardManager : MonoBehaviour
 
     public void OnSelect(CardSO selectedCard)
     {
-        GameObject playerGO = GameObject.FindWithTag("Player");
+        PlayerDeath health = GAME.Player.transform.Find("Hitbox").GetComponent<PlayerDeath>();
 
-        if (playerGO != null)
+        switch (selectedCard.effectType)
         {
-            PlayerStats stats = playerGO.GetComponent<PlayerStats>();
-            PlayerDeath health = playerGO.transform.Find("Hitbox").GetComponent<PlayerDeath>();
-            PlayerAttack attack = playerGO.GetComponent<PlayerAttack>(); 
-
-            if (stats != null && health != null && attack != null) 
-            {
-                switch (selectedCard.effectType)
-                {
-                    case CardEffect.Damage:
-                        stats.BulletDamage += selectedCard.effectValue;
-                        break;
-                    case CardEffect.Health:
-                        health.playerHealth = Mathf.Min(health.playerHealth + selectedCard.effectValue, health.playerMaxHealth);
-                        break;
-                    case CardEffect.Reload:
-                        attack.shootCooldown = Mathf.Max(attack.shootCooldown - selectedCard.effectValue, 0.1f);
-                        break;
-                }
-            }
+            case CardEffect.Damage:
+                GAME.playerBasicAttackDamage += selectedCard.effectValue;
+                break;
+            case CardEffect.Health:
+                health.playerHealth = Mathf.Min(health.playerHealth + selectedCard.effectValue, health.playerMaxHealth);
+                break;
+            case CardEffect.Reload:
+                GAME.playerBasicAttackCooldown = Mathf.Max(GAME.playerBasicAttackCooldown - selectedCard.effectValue, 0.2f);
+                break;
         }
+            
+        
     }
 
     public void ShowCardSelection()

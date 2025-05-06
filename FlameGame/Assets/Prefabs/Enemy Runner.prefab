@@ -431,7 +431,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 20
   m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -592,7 +592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bcd63e69a78dbd4d9a22d362a291e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyFollowSpeed: 12
 --- !u!114 &2556153298695957255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,7 +607,6 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 1722220437079140077, guid: 09ff97bd98234e548aa2dedd464c8cf2, type: 3}
   crosshair: {fileID: 4166356190139886611}
   dashStr: 20
-  delay: 1
   enemyHealth: 0
   enemyStartingHealth: 100
   xpFromBasicEnemy: 30

@@ -2,23 +2,17 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    private GameObject Player;
-
-    [SerializeField] private float enemyFollowSpeed = 5f;
-
-    private Rigidbody2D rb;
+    GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-
-        Player = GameObject.FindGameObjectWithTag("Player");
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
     }
 
     private void FixedUpdate()
     {
-        Vector3 direction = (Player.transform.position - transform.position).normalized;
+        Vector3 direction = (GAME.Player.transform.position - transform.position).normalized;
 
-        rb.linearVelocity = direction * enemyFollowSpeed;
+        GetComponent<Rigidbody2D>().linearVelocity = direction * GAME.enemyRunnerMoveVelocity;
     }
 }

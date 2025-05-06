@@ -2781,10 +2781,20 @@ MonoBehaviour:
   rightWall: {fileID: 6107364265998185641}
   enemyRunnerPrefab: {fileID: 4300347555681904611, guid: 2a0ae2482481a764e9963cf8936b1310, type: 3}
   enemyShooterPrefab: {fileID: 1941702327274538964, guid: 39f106f66a5b05746acd21f608480a8d, type: 3}
-  clutter: []
+  ClutterPrefab1: {fileID: 4518195964017339415, guid: 0234af34174868043bb0d4a8be8b0fb8, type: 3}
+  ClutterPrefab2: {fileID: 2723102707765976169, guid: 5df7658fa23a13c4796a097599e78f7e, type: 3}
+  ClutterPrefab3: {fileID: 5666443729413165473, guid: 96d40053fd37a7c47937e0a9e269b582, type: 3}
+  ClutterPrefab4: {fileID: 8198309689426629290, guid: 22196990237c9b0439771ba3ee63f6c3, type: 3}
+  clutter:
+  - {fileID: 6185867965717081405, guid: fa346b9dfeca24441be892ab91630c09, type: 3}
+  - {fileID: 4140920052320000728, guid: a7b2242f7eb9deb49b0990e557752480, type: 3}
+  - {fileID: 6185867965717081405, guid: fa346b9dfeca24441be892ab91630c09, type: 3}
+  - {fileID: 6185867965717081405, guid: fa346b9dfeca24441be892ab91630c09, type: 3}
+  - {fileID: 1669490253730690171, guid: 82b8eaa74cc24544ba7e148e2f04b58b, type: 3}
+  - {fileID: 1669490253730690171, guid: 82b8eaa74cc24544ba7e148e2f04b58b, type: 3}
   activeClutter: []
-  maxClutter: 10
-  minClutter: 4
+  maxClutter: 6
+  minClutter: 2
   clutterCount: 0
   startClutter: 0
   clutterReady: 0

@@ -8,10 +8,17 @@ public class Loadingprocess : MonoBehaviour
 
     [SerializeField] private GameObject loadingScreen, Player, enemyRunner, enemyShooter, enemyTank, enemyAssassin, Camera;
 
+    GAMEGLOBALMANAGEMENT GAME;
+
 
     void Start()
     {
         roomScript = GetComponent<RoomManager>();
+    }
+
+    private void Awake()
+    {
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
     }
 
     void Update()
@@ -67,8 +74,10 @@ public class Loadingprocess : MonoBehaviour
     public void OnGameLoaded()
     {
         Player.SetActive(true);
+        GAME.Player = Player;
 
-        foreach(GameObject room in GameObject.FindGameObjectsWithTag("Room"))
+
+        foreach (GameObject room in GameObject.FindGameObjectsWithTag("Room"))
         {
             //room.GetComponent<Room>().clutterReady = true;
         }

@@ -39,6 +39,29 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
 
 
 
+
+    private void Start()
+    {
+        //Reset values of stats
+        playerLevel = 1; //
+        playerCurrentExperience = 0f; //
+        playerExperienceToNextLevel = 100f; //
+        playerCurrentHealth = 0f;
+        playerMoveVelocity = 25f;
+        playerBasicAttackDamage = 25f; //not set on level up
+        playerBasicAttackVelocity = 30f; //not set on level up
+        playerBasicAttackCooldown = 0.8f; //not set on level up
+        playerDashVelocity = 0f;
+        playerDashCooldown = 0f;
+        enemyRunnerMoveVelocity = 12f; //
+        enemyRunnerDamage = 20f;
+        enemyRunnerDashVelocity = 20f;
+        enemyRunnerExperienceDrop = 0f;
+        enemyShooterProjectileDamage = 20f;
+        enemyShooterProjectileVelocity = 20f;
+        enemyShooterMoveVelocity = 5f;
+        enemyShooterExperienceDrop = 0f;
+    }
     private void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
