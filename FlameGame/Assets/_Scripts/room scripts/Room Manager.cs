@@ -57,7 +57,7 @@ public class RoomManager : MonoBehaviour
         }
         else if (!generationComplete)
         {
-            Debug.Log($"Generation complete, {roomCount} rooms created");
+            //Debug.Log($"Generation complete, {roomCount} rooms created");
             generationComplete = true;
             GameObject lastRoom = roomObjects.Last();
             GameObject BOSS = Instantiate(boss, lastRoom.transform.position, Quaternion.identity);

@@ -3,19 +3,25 @@ using UnityEngine;
 
 public class PlayerIframes : MonoBehaviour
 {
-    public float IframesDuration = 0.5f;
-
     public bool PlayerImmunity = false;
+
+    private GameObject hitbox;
+
+    private void Awake()
+    {
+        hitbox = GameObject.FindGameObjectWithTag("PlayerHitbox");
+        PlayerImmunity = false;
+    }
 
     void Update()
     {
         if (PlayerImmunity)
         {
-            GetComponentInChildren<PlayerDeath>().enabled = false;
+            hitbox.SetActive(false);
         }
         else
         {
-            GetComponentInChildren<PlayerDeath>().enabled = true;
+            hitbox.SetActive(true);
         }
     }
 }

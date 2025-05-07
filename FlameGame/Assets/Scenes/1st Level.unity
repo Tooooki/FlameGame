@@ -6030,7 +6030,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5639be82128f0e449b4ffae933111961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IframesDuration: 1
   PlayerImmunity: 0
 --- !u!114 &534102399
 MonoBehaviour:
@@ -7586,9 +7585,10 @@ MonoBehaviour:
   playerDashVelocity: 0
   playerDashCooldown: 0
   playerDashDuration: 0
-  enemyRunnerMoveVelocity: 12
+  enemyRunnerMoveVelocity: 6
   enemyRunnerDamage: 20
   enemyRunnerDashVelocity: 20
+  enemyRunnerDashDuration: 0
   enemyRunnerExperienceDrop: 20
   enemyRunnerMaxHealth: 0
   enemyShooterProjectileDamage: 20

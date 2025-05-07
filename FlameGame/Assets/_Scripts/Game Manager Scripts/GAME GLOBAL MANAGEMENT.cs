@@ -13,12 +13,16 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public int playerLevel;                             //Level         Current
     public float playerCurrentExperience;               //Experience    Current
     public float playerExperienceToNextLevel;           //Experience    Max  
+
     public float playerCurrentHealth;                   //Health        Current
     public float playerMaxHealth;                       //Health        Max
+
     public float playerMoveVelocity;                    //Move          Velocity
+
     public float playerBasicAttackDamage;               //Basic Attack  Damage
     public float playerBasicAttackVelocity;             //Basic Attack  Velocity
     public float playerBasicAttackCooldown;             //Basic Attack  Cooldown
+
     public float playerDashVelocity;                    //Dash          Velocity
     public float playerDashCooldown;                    //Dash          Cooldown
     public float playerDashDuration;                    //Dash          Duration
@@ -27,8 +31,10 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public float enemyRunnerMoveVelocity;               //Runner  Move   Velocity
     public float enemyRunnerDamage;                     //Runner  Attack Damage
     public float enemyRunnerDashVelocity;               //Runner  Dash   Velocity
+    public float enemyRunnerDashDuration;               //Runner  Dash   Duration
     public float enemyRunnerExperienceDrop;             //Runner  Drop   Experience
     public float enemyRunnerMaxHealth;                  //Runner  Health Max
+
     public float enemyShooterProjectileDamage;          //Shooter Attack Damage
     public float enemyShooterProjectileVelocity;        //Shooter Attack Velocity
     public float enemyShooterMoveVelocity;              //Shooter Move   Velocity
@@ -51,19 +57,26 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         playerLevel = 1;
         playerCurrentExperience = 0f;
         playerExperienceToNextLevel = 100f;
+
         playerCurrentHealth = 0f;
         playerMaxHealth = 100f;
+
         playerMoveVelocity = 10f;
+
         playerBasicAttackDamage = 25f;
         playerBasicAttackVelocity = 30f;
         playerBasicAttackCooldown = 0.8f;
+
         playerDashVelocity = 50f;
         playerDashCooldown = 6f;
         playerDashDuration = 0.1f;
+
         enemyRunnerMoveVelocity = 12f;
         enemyRunnerDamage = 20f;
-        enemyRunnerDashVelocity = 20f;
+        enemyRunnerDashVelocity = 40f;
         enemyRunnerExperienceDrop = 20f;
+        enemyRunnerDashDuration = 0.3f;
+
         enemyShooterProjectileDamage = 20f;
         enemyShooterProjectileVelocity = 20f;
         enemyShooterMoveVelocity = 5f;

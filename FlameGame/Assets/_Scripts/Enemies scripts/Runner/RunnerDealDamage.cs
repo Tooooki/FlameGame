@@ -12,7 +12,12 @@ public class RunnerDealDamage : MonoBehaviour
     {
         if (collision.CompareTag("PlayerHitbox"))
         {
-            GAME.PlayerGetDamage(GAME.enemyRunnerDamage);
+            if(GetComponentInParent<EnemyCrosshair>().canDamage)
+            {
+                GetComponentInParent<EnemyCrosshair>().canDamage = false;
+                
+                GAME.PlayerGetDamage(GAME.enemyRunnerDamage);
+            }
         }
     }
 }

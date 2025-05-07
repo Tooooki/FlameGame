@@ -9,21 +9,13 @@ public class PlayerInRooms : MonoBehaviour
 
     [SerializeField] private GameObject cam;
 
-    float transitionDuration = 3f;
+    private float transitionDuration = 3f;
     private float timer;
 
     private bool ismoving = false;
 
     public bool isCameraShaking = false;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         gridPosX = Mathf.RoundToInt(transform.position.x / 80);
@@ -36,7 +28,6 @@ public class PlayerInRooms : MonoBehaviour
                 timer = 0f;
                 ismoving = true;
             }
-
         }
 
         timer += Time.deltaTime;
@@ -51,14 +42,12 @@ public class PlayerInRooms : MonoBehaviour
 
         if (isCameraShaking)
         {
-            InvokeRepeating("shaking", 0, 0.02f);
+            InvokeRepeating("shaking", 0, 0.03f);
         }
         else
         {
             CancelInvoke("shaking");
         }
-
-
     }
 
     private void shaking()

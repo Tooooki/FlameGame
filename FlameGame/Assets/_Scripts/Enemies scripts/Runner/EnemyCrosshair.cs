@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
 public class EnemyCrosshair : MonoBehaviour
 {
@@ -9,12 +8,11 @@ public class EnemyCrosshair : MonoBehaviour
     private Slider healthSlider;
     private GameObject healthBarInstance;
 
+    public bool isAttacking, isDashing, canDamage;
+
     public float enemyHealth;
 
-    private Vector3 AttackTargetPosition = Vector3.zero;
-
-    public UnityEvent OnBegin;
-    public UnityEvent OnDone;
+    private float dashTimer;
 
     GAMEGLOBALMANAGEMENT GAME;
 
@@ -30,18 +28,26 @@ public class EnemyCrosshair : MonoBehaviour
 
         healthSlider = healthBarInstance.GetComponentInChildren<Slider>();
         healthSlider.maxValue = GAME.enemyRunnerMaxHealth;
-        healthSlider.value = enemyHealth;
+
+        isAttacking = false;
+        canDamage = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            //KOD DO PRZEPISANIA
-            StopAllCoroutines();
-            AttackTargetPosition = collision.transform.position;
-            OnBegin?.Invoke();
-            StartCoroutine(Reset());
+            if (!isAttacking)
+            {
+                isAttacking = true;
+
+                Vector3 AttackDirection;
+                AttackDirection = (collision.transform.position - transform.position);
+
+                GetComponent<EnemyAI>().enabled = false;
+
+                StartCoroutine(PlayAttack(AttackDirection.normalized));
+            }
         }
     }
 
@@ -50,40 +56,40 @@ public class EnemyCrosshair : MonoBehaviour
         healthSlider.value = enemyHealth;
     }
 
-    private IEnumerator Reset()
+    private IEnumerator PlayAttack(Vector3 AttackDirection)
     {
-        //KOD DO PRZEPISANIA
         yield return new WaitForSeconds(0.25f);
 
-        Vector3 direction = (AttackTargetPosition - transform.position).normalized;
-        GetComponent<Rigidbody2D>().AddForce(direction * GAME.enemyRunnerDashVelocity, ForceMode2D.Impulse);
+        dashTimer = GAME.enemyRunnerDashDuration;
 
-        yield return new WaitForSeconds(2f);
-        OnDone?.Invoke();
+        canDamage = true;
+
+        while (dashTimer > 0)
+        {
+            GetComponent<Rigidbody2D>().linearVelocity = AttackDirection * GAME.enemyRunnerDashVelocity;
+            dashTimer -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        canDamage = false;
+        GetComponent<EnemyAI>().enabled = true;
+
+        isAttacking = false;
     }
 
     public void GetDamage(float damage)
     {
-        StopAllCoroutines();
-        OnBegin?.Invoke();
-        StartCoroutine(GotHit(damage));  // Pass damage to GotHit
-    }
+        enemyHealth -= damage;
 
-    private IEnumerator GotHit(float damageToTake)
-    {
-        // Apply the damage to the enemy's health
-        enemyHealth -= damageToTake;
-
-        // If enemy health is 0 or less, handle the enemy's death
         if (enemyHealth <= 0)
         {
             Die();
         }
 
         GAME.Player.GetComponent<PlayerInRooms>().PlayCameraShake(0.1f);
-
-        yield return new WaitForSeconds(1f);  // Simulate delay after hit
-        OnDone?.Invoke();
     }
 
     private void Die()
