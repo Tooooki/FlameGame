@@ -37,17 +37,22 @@ public class EnemyCrosshair : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (!isAttacking)
-            {
-                isAttacking = true;
+            Attack();
+        }
+    }
 
-                Vector3 AttackDirection;
-                AttackDirection = (collision.transform.position - transform.position);
+    public void Attack()
+    {
+        if (!isAttacking)
+        {
+            isAttacking = true;
 
-                GetComponent<EnemyAI>().enabled = false;
+            Vector3 AttackDirection;
+            AttackDirection = (GAME.Player.transform.position - transform.position);
 
-                StartCoroutine(PlayAttack(AttackDirection.normalized));
-            }
+            GetComponent<EnemyAI>().enabled = false;
+
+            StartCoroutine(PlayAttack(AttackDirection.normalized));
         }
     }
 
