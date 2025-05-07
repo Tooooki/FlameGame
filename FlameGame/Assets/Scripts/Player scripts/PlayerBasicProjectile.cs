@@ -2,11 +2,6 @@ using UnityEngine;
 using UnityEngine.Events;
 public class PlayerBasicProjectile : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    [SerializeField] private GameObject self;
-    [SerializeField] private CircleCollider2D projectileCollider;
-
-
     public UnityEvent OnWallHit;
     public UnityEvent OnEnemyHit;
 
@@ -14,7 +9,6 @@ public class PlayerBasicProjectile : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
     }
 
@@ -23,24 +17,41 @@ public class PlayerBasicProjectile : MonoBehaviour
         if (collision.CompareTag("walls"))
         {
             OnWallHit?.Invoke();
-            rb.linearVelocity = Vector2.zero;
-            projectileCollider.enabled = false;
+
+            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+
+            GetComponent<CircleCollider2D>().enabled = false;
 
             Destroy(this.gameObject, 0.2f);
         }
 
+
         if (collision.CompareTag("EnemyHitbox"))
         {
             OnEnemyHit?.Invoke();
-            rb.linearVelocity = Vector2.zero;
-            projectileCollider.enabled = false;
+
+            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+
+            GetComponent<CircleCollider2D>().enabled = false;
 
             if(collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>() != null)
                 collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>().GetDamage(GAME.playerBasicAttackDamage); // Apply damage to Runner
             else if(collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>() != null)
                 collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>().LoseHP(GAME.playerBasicAttackDamage); // Apply damage to Shooter
 
-            Destroy(self, 0.2f);
+            Destroy(this.gameObject, 0.2f);
+        }
+
+
+        if (collision.CompareTag("Clutter"))
+        {
+            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+
+            GetComponent<CircleCollider2D>().enabled = false;
+
+            Destroy(this.gameObject, 0.2f);
+
+            Destroy(collision.gameObject);
         }
     }
 }

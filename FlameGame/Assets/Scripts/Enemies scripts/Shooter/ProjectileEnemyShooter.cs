@@ -20,5 +20,10 @@ public class ProjectileEnemyShooter : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        if (collision.CompareTag("Clutter"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

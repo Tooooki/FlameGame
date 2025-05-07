@@ -199,7 +199,7 @@ public class CardManager : MonoBehaviour
                 GAME.playerMaxHealth *= 1 + (selectedCard.effectValue / 100);
                 break;
             case CardEffect.MoveVelocity:
-                GAME.playerMoveVelocity += selectedCard.effectValue;
+                GAME.playerMoveVelocity *= 1 + (selectedCard.effectValue / 100);
                 break;
             case CardEffect.DashAbility:
                 GAME.dashAbility = true;

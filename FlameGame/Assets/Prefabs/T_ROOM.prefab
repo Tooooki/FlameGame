@@ -2788,9 +2788,12 @@ MonoBehaviour:
   - {fileID: 4140920052320000728, guid: a7b2242f7eb9deb49b0990e557752480, type: 3}
   - {fileID: 6185867965717081405, guid: fa346b9dfeca24441be892ab91630c09, type: 3}
   - {fileID: 1669490253730690171, guid: 82b8eaa74cc24544ba7e148e2f04b58b, type: 3}
+  - {fileID: 4694303663669345656, guid: d7b5e5a6bd8bea7469dee2f0a562a1ed, type: 3}
+  - {fileID: 4694303663669345656, guid: d7b5e5a6bd8bea7469dee2f0a562a1ed, type: 3}
+  - {fileID: 4694303663669345656, guid: d7b5e5a6bd8bea7469dee2f0a562a1ed, type: 3}
   activeClutter: []
-  maxClutter: 5
-  minClutter: 1
+  maxClutter: 10
+  minClutter: 5
   clutterCount: 0
   startClutter: 0
   clutterReady: 0
