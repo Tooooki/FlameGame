@@ -4,6 +4,7 @@ public class PlayerBasicProjectile : MonoBehaviour
 {
     public UnityEvent OnWallHit;
     public UnityEvent OnEnemyHit;
+    audioManager audioManager;
 
     GAMEGLOBALMANAGEMENT GAME;
 
@@ -21,7 +22,7 @@ public class PlayerBasicProjectile : MonoBehaviour
             GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
 
             GetComponent<CircleCollider2D>().enabled = false;
-
+            GAME.audioManager.PlaySFX(GAME.audioManager.fireballHitWall);
             Destroy(this.gameObject, 0.2f);
         }
 

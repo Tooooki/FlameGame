@@ -16,6 +16,7 @@ TagManager:
   - GameManager
   - Clutter
   - Room
+  - Audio
   layers:
   - Default
   - TransparentFX

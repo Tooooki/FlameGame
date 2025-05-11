@@ -1,2 +1,18 @@
 fileFormatVersion: 2
 guid: 4fbd05997b5b3fc4a86e83d75ddb85cc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cardSelectionUI: {instanceID: 0}
+  - cardPrefab: {instanceID: 0}
+  - cardPositionOne: {instanceID: 0}
+  - cardPositionTwo: {instanceID: 0}
+  - cardPositionThree: {instanceID: 0}
+  - blankCardSO: {instanceID: 0}
+  - selectSound: {fileID: 8300000, guid: 07d966cc9a0218941990796fa46babc6, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

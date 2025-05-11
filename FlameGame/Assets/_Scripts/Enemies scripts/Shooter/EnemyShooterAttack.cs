@@ -4,6 +4,7 @@ public class EnemyShooterAttack : MonoBehaviour
 {
     GAMEGLOBALMANAGEMENT GAME;
 
+
     public bool canShoot = true;
     [SerializeField] private GameObject projectilePrefab;
 
@@ -21,6 +22,7 @@ public class EnemyShooterAttack : MonoBehaviour
             GameObject projectile;
             projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.SetActive(true);
+            GAME.audioManager.PlaySFX(GAME.audioManager.enemyShootingBow);
 
             Vector3 direction = (GAME.Player.transform.position - projectile.transform.position);
             projectile.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * GAME.enemyShooterProjectileVelocity;

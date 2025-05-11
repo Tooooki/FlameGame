@@ -11,6 +11,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform cardPositionThree;
     [SerializeField] List<CardSO> deck;
     [SerializeField] private CardSO blankCardSO; // ADD THIS
+    private audioManager audioManager;
 
     GameObject cardOne, cardTwo, cardThree;
     List<CardSO> availableCards = new List<CardSO>();
@@ -29,6 +30,7 @@ public class CardManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
 
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
@@ -38,7 +40,7 @@ public class CardManager : MonoBehaviour
 
     private void Update()
     {
-        if(isSpinning)
+        if (isSpinning)
         {
             //ostrze¿enie mnie wkurza³o wiêc napisa³em to if
         }
@@ -184,6 +186,7 @@ public class CardManager : MonoBehaviour
 
     public void OnSelect(CardSO selectedCard)
     {
+
         switch (selectedCard.effectType)
         {
             case CardEffect.BasicAttackDamage:
@@ -220,8 +223,8 @@ public class CardManager : MonoBehaviour
                 GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().Rogas = !GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().Rogas;
                 break;
         }
-            
-        
+
+
     }
 
     public void ShowCardSelection()
@@ -229,11 +232,13 @@ public class CardManager : MonoBehaviour
         cardSelectionUI.SetActive(true);
         StartSpin();
         Time.timeScale = 0;
+        audioManager.PlaySFX(audioManager.cardsShowing);
     }
 
     public void HideCardSelection()
     {
         cardSelectionUI.SetActive(false);
         Time.timeScale = 1;
+        audioManager.PlaySFX(audioManager.cardChoosed);
     }
 }

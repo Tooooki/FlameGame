@@ -5,17 +5,17 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject projectile;
+
     private Vector3 mouseScreenPosition;
     private Vector3 mouseWorldPosition;
-    private Vector3 mouseGamePos;
     private bool haveAmmo = true;
-
 
     GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+
     }
 
     void Update()
@@ -29,8 +29,6 @@ public class PlayerAttack : MonoBehaviour
         mouseScreenPosition.z = 0f;
 
         mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-
-        //mouseGamePos = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0f);
     }
 
     private void PlayerBasicShoot()
@@ -39,13 +37,13 @@ public class PlayerAttack : MonoBehaviour
         {
             haveAmmo = false;
 
-            GameObject clone;
-            clone = Instantiate(projectile, transform.position, Quaternion.identity);
+            GameObject clone = Instantiate(projectile, transform.position, Quaternion.identity);
             clone.SetActive(true);
 
-            //Vector3 direction = (mouseGamePos - clone.transform.position);
             Vector3 direction = (mouseWorldPosition - clone.transform.position);
             clone.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * GAME.playerBasicAttackVelocity;
+            GAME.audioManager.PlaySFX(GAME.audioManager.mainCharShootingFire);
+
 
             StartCoroutine(ShootCooldown());
         }
@@ -54,7 +52,6 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator ShootCooldown()
     {
         yield return new WaitForSeconds(GAME.playerBasicAttackCooldown);
-
         haveAmmo = true;
     }
 }

@@ -12,32 +12,42 @@ public class PlayerInRooms : MonoBehaviour
     private float transitionDuration = 3f;
     private float timer;
 
-    private bool ismoving = false;
+    private bool isMoving = false;
 
     public bool isCameraShaking = false;
+    GAMEGLOBALMANAGEMENT GAME;
+
+    private void Awake()
+    {
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+    }
 
     void Update()
     {
         gridPosX = Mathf.RoundToInt(transform.position.x / 80);
         gridPosY = Mathf.RoundToInt(transform.position.y / 48);
 
-        if (ismoving == false)
+        if (isMoving == false)
         {
             if (cam.transform.position != new Vector3(gridPosX * 80, gridPosY * 48, -10))
             {
                 timer = 0f;
-                ismoving = true;
+                GAME.audioManager.PlaySFX(GAME.audioManager.toTheNextRoom);
+                isMoving = true;
             }
         }
 
         timer += Time.deltaTime;
 
-        if (ismoving)
+
+        if (isMoving)
+        {
             cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(gridPosX * 80, gridPosY * 48, -10), (timer / transitionDuration));
+        }
 
         if (cam.transform.position == new Vector3(gridPosX * 80, gridPosY * 48, -10))
         {
-            ismoving = false;
+            isMoving = false;
         }
 
         if (isCameraShaking)

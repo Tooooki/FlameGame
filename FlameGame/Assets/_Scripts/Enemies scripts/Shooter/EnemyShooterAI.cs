@@ -4,11 +4,11 @@ public class EnemyShooterAI : MonoBehaviour
 {
     public bool canMove, swich, runAway;
 
+
+
     EnemyShooterAttack attackScript;
 
     GAMEGLOBALMANAGEMENT GAME;
-
-
 
     private void Awake()
     {

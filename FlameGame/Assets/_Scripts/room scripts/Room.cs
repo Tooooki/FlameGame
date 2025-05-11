@@ -11,6 +11,8 @@ public class Room : MonoBehaviour
     public List<GameObject> activeClutter;
     public int maxClutter = 10, minClutter = 4, clutterCount, startClutter;
 
+    audioManager audioManager;
+
     bool roomActive, didSpawnEnemy = false;
 
     private bool up, down, left, right = false;
@@ -26,6 +28,7 @@ public class Room : MonoBehaviour
     private void Awake()
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
         startClutter = Random.Range(minClutter, maxClutter + 1);
         clutterReady = true;
         clutterCount = 0;
@@ -102,6 +105,7 @@ public class Room : MonoBehaviour
             Vector3 enemySlotDL = new Vector3(transform.position.x - 25, transform.position.y - 12);
             bool URtaken = false, ULtaken = false, DRtaken = false, DLtaken = false;
 
+
             if (RandomEnemyCount >= 1 && !URtaken)
             {
                 if (Random.Range(0, 2) == 0)
@@ -160,7 +164,9 @@ public class Room : MonoBehaviour
 
         if (up)
         {
+            audioManager.PlaySFX(audioManager.doorShut);
             topDoor.SetActive(true);
+
         }
         if (down)
         {

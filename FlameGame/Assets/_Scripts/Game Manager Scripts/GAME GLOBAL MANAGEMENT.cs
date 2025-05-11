@@ -8,6 +8,7 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
 
     //---------------------- Data Storage -----------------------------------------------------------------------------------
     public GameObject Player;
+    public audioManager audioManager;
 
     //---------------------- Player Stats -----------------------------------------------------------------------------------
     public int playerLevel;                             //Level         Current
@@ -86,6 +87,7 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     }
     private void Awake()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
         Player = GameObject.FindGameObjectWithTag("Player");
     }
 
