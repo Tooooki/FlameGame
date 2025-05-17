@@ -1,11 +1,10 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 public class PlayerBasicProjectile : MonoBehaviour
 {
-    public UnityEvent OnWallHit;
-    public UnityEvent OnEnemyHit;
-    audioManager audioManager;
-
+    [SerializeField] private ParticleSystem fire;
+    
     GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
@@ -17,42 +16,56 @@ public class PlayerBasicProjectile : MonoBehaviour
     {
         if (collision.CompareTag("walls"))
         {
-            OnWallHit?.Invoke();
-
-            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-
-            GetComponent<CircleCollider2D>().enabled = false;
             GAME.audioManager.PlaySFX(GAME.audioManager.fireballHitWall);
-            Destroy(this.gameObject, 0.2f);
+
+            StartCoroutine(projectileExplosion());
         }
 
 
         if (collision.CompareTag("EnemyHitbox"))
         {
-            OnEnemyHit?.Invoke();
-
-            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-
-            GetComponent<CircleCollider2D>().enabled = false;
-
             if(collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>() != null)
                 collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>().GetDamage(GAME.playerBasicAttackDamage); // Apply damage to Runner
             else if(collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>() != null)
                 collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>().LoseHP(GAME.playerBasicAttackDamage); // Apply damage to Shooter
 
-            Destroy(this.gameObject, 0.2f);
+            StartCoroutine(projectileExplosion());
         }
 
 
         if (collision.CompareTag("Clutter"))
         {
-            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-
-            GetComponent<CircleCollider2D>().enabled = false;
-
-            Destroy(this.gameObject, 0.2f);
+            StartCoroutine(projectileExplosion());
 
             Destroy(collision.gameObject);
         }
+    }
+
+    private IEnumerator projectileExplosion()
+    {
+        float timer;
+        var shape = fire.shape;
+        var emission = fire.emission;
+        var main = fire.main;
+
+        GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+
+        GetComponent<CircleCollider2D>().enabled = false;
+
+        main.startLifetime = 0.5f;
+
+        timer = 0.3f;
+
+        while(timer > 0f)
+        {
+            timer -= Time.deltaTime;
+
+            shape.radius = 1 / (timer + 0.3f);
+            emission.rateOverTime = (timer * 2666) - 400;
+
+            yield return null;
+        }
+
+        Destroy(this.gameObject);
     }
 }

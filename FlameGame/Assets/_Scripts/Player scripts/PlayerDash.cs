@@ -1,12 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Dash : MonoBehaviour
 {
     public bool canDash = true;
 
-    private float durationCounter;
+    private float durationCounter, cooldownCounter;
+
+    [SerializeField] Image DashIcon, DashBar, DashFlash;
 
 
     GAMEGLOBALMANAGEMENT GAME;
@@ -14,6 +17,7 @@ public class Dash : MonoBehaviour
     private void Awake()
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+
     }
 
     private IEnumerator PlayDash(Vector2 dir)
@@ -40,7 +44,22 @@ public class Dash : MonoBehaviour
 
     private IEnumerator PlayDashCooldown()
     {
-        yield return new WaitForSeconds(GAME.playerDashCooldown);
+        cooldownCounter = GAME.playerDashCooldown;
+
+        while (cooldownCounter > 0f)
+        {
+            cooldownCounter -= Time.deltaTime;
+
+
+            yield return null;
+        }
+
+        DashFlash.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.01f);
+
+        DashFlash.gameObject.SetActive(false);
+
         canDash = true;
     }
 
@@ -70,5 +89,7 @@ public class Dash : MonoBehaviour
 
             StartCoroutine(PlayDash(direction));
         }
+
+        DashBar.transform.localScale = new Vector3(cooldownCounter / GAME.playerDashCooldown, DashBar.transform.localScale.y);
     }
 }

@@ -19,7 +19,7 @@ public class PlayerDeath : MonoBehaviour
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
-        passiveDegeneration = 0.5f;
+        passiveDegeneration = 0.1f;
         
         InvokeRepeating("PassiveDegeneration", 0, 1.0f);
 
