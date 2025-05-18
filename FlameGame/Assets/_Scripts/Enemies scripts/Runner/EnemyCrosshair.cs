@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyCrosshair : MonoBehaviour
 {
@@ -31,6 +33,8 @@ public class EnemyCrosshair : MonoBehaviour
 
         isAttacking = false;
         canDamage = false;
+
+        GetComponentInChildren<Light2D>().intensity = 1f;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -59,6 +63,13 @@ public class EnemyCrosshair : MonoBehaviour
     private void Update()
     {
         healthSlider.value = enemyHealth;
+
+        GetComponentInChildren<Light2D>().intensity = Mathf.Lerp(GetComponentInChildren<Light2D>().intensity, 0f, 10f * Time.deltaTime);
+
+        if (enemyHealth <= 0)
+        {
+            Die();
+        }
     }
 
     private IEnumerator PlayAttack(Vector3 AttackDirection)
@@ -88,12 +99,6 @@ public class EnemyCrosshair : MonoBehaviour
     public void GetDamage(float damage)
     {
         enemyHealth -= damage;
-
-        if (enemyHealth <= 0)
-        {
-            Die();
-        }
-
         GAME.Player.GetComponent<PlayerInRooms>().PlayCameraShake(0.1f);
     }
 

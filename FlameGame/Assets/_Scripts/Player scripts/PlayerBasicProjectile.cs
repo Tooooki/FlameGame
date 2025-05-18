@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
 public class PlayerBasicProjectile : MonoBehaviour
 {
     [SerializeField] private ParticleSystem fire;
@@ -56,6 +57,8 @@ public class PlayerBasicProjectile : MonoBehaviour
 
         GetComponent<CircleCollider2D>().enabled = false;
 
+        GetComponentInChildren<Light2D>().intensity = 0.5f;
+
         main.startLifetime = 0.5f;
 
         timer = 0.3f;
@@ -66,6 +69,8 @@ public class PlayerBasicProjectile : MonoBehaviour
 
             shape.radius = 1 / (timer + 0.3f);
             emission.rateOverTime = (timer * 2666) - 400;
+
+            GetComponentInChildren<Light2D>().intensity = Mathf.Lerp(GetComponentInChildren<Light2D>().intensity, 0f, 10f * Time.deltaTime);
 
             yield return null;
         }

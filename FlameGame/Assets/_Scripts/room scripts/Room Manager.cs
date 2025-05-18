@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField] GameObject NroomPrefab, DroomPrefab, TroomPrefab, StartRoomPrefab;
+    [SerializeField] private GameObject StartRoomPrefab;
     public List<GameObject> roomPrefabs;
     [SerializeField] GameObject boss;
     [SerializeField] private int maxRooms = 40;
@@ -101,8 +101,7 @@ public class RoomManager : MonoBehaviour
 
         int whichRoom = Random.Range(0, roomPrefabs.Count);
 
-        
-        var newRoom = Instantiate(NroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+        var newRoom = Instantiate(roomPrefabs[whichRoom], GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         newRoom.GetComponent<Room>().RoomIndex = roomIndex;
         newRoom.name = $"Room-{roomCount}";
         roomObjects.Add(newRoom);

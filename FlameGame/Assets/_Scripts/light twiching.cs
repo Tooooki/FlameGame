@@ -15,6 +15,8 @@ public class lighttwiching : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CandleLight.intensity = Mathf.Lerp(CandleLight.intensity, 0.8f, 20f * Time.deltaTime);
+
         timer += Time.deltaTime;
         if(timer >= Random.Range(0.15f, 0.4f))
         {

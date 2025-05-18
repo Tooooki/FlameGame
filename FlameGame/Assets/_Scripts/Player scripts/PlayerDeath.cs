@@ -66,8 +66,8 @@ public class PlayerDeath : MonoBehaviour
 
     public void DamageResult()
     {
-        GameObject healItem = Instantiate(healingPotionPrefab, transform.position, Quaternion.identity);
-        StartCoroutine(healPotionSpawnDelay(healItem));
+        //GameObject healItem = Instantiate(healingPotionPrefab, transform.position, Quaternion.identity);
+        //StartCoroutine(healPotionSpawnDelay(healItem));
         GAME.Player.GetComponent<PlayerInRooms>().PlayCameraShake(0.2f);
     }
 

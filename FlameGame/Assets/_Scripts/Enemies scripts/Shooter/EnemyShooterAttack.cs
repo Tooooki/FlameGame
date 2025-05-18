@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class EnemyShooterAttack : MonoBehaviour
 {
@@ -12,7 +13,14 @@ public class EnemyShooterAttack : MonoBehaviour
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
+        GetComponentInChildren<Light2D>().intensity = 1f;
+
         InvokeRepeating("RandomizeShooting", 0f, 1f);
+    }
+
+    private void Update()
+    {
+        GetComponentInChildren<Light2D>().intensity = Mathf.Lerp(GetComponentInChildren<Light2D>().intensity, 0f, 10f * Time.deltaTime);
     }
 
     private void RandomizeShooting()
@@ -23,6 +31,8 @@ public class EnemyShooterAttack : MonoBehaviour
             projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.SetActive(true);
             GAME.audioManager.PlaySFX(GAME.audioManager.enemyShootingBow);
+
+            GetComponentInChildren<Light2D>().intensity = 1f;
 
             Vector3 direction = (GAME.Player.transform.position - projectile.transform.position);
             projectile.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * GAME.enemyShooterProjectileVelocity;

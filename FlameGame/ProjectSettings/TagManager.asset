@@ -51,8 +51,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: floor
+    uniqueID: 3272623503
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: environment
+    uniqueID: 2353567397
     locked: 0
   - name: ui
     uniqueID: 264723187

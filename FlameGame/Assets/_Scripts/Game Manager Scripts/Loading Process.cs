@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Loadingprocess : MonoBehaviour
@@ -7,6 +9,8 @@ public class Loadingprocess : MonoBehaviour
     private bool wasGenerationComplete;
 
     [SerializeField] private GameObject loadingScreen;
+
+    public List<GameObject> objectsToBeActivated;
 
     GAMEGLOBALMANAGEMENT GAME;
 
@@ -74,5 +78,9 @@ public class Loadingprocess : MonoBehaviour
     public void OnGameLoaded()
     {
         GAME.Player.SetActive(true);
+        foreach(GameObject notActiveObject in objectsToBeActivated)
+        {
+            notActiveObject.SetActive(true);
+        }
     }
 }

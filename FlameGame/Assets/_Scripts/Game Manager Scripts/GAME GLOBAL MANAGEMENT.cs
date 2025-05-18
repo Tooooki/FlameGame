@@ -46,6 +46,9 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public float enemyShooterExperienceDrop;            //Shooter Drop   Experience
     public float enemyShooterMaxHealth;                 //Shooter Health Max
 
+    //---------------------- Other Stats ------------------------------------------------------------------------------------
+    public float spikesDamage;
+
 
     //---------------------- Player Abilities -------------------------------------------------------------------------------
     public bool dashAbility = true;                     //Dash
@@ -88,6 +91,8 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         enemyShooterExperienceDrop = 30f;
         enemyShooterMaxHealth = 75f;
         enemyRunnerMaxHealth = 100f;
+
+        spikesDamage = 5f;
     }
     private void Awake()
     {
