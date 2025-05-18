@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 public class PlayerBasicProjectile : MonoBehaviour
@@ -37,7 +38,10 @@ public class PlayerBasicProjectile : MonoBehaviour
         {
             StartCoroutine(projectileExplosion());
 
-            Destroy(collision.gameObject);
+            collision.GetComponent<BoxCollider2D>().enabled = false;
+            collision.gameObject.transform.Find("Sprite").gameObject.SetActive(false);
+            collision.gameObject.transform.Find("Particle System").gameObject.SetActive(true);
+            Destroy(collision.gameObject, 0.4f);
         }
     }
 

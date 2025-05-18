@@ -5,21 +5,22 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     [SerializeField] GameObject topDoor, bottomDoor, leftDoor, rightDoor, topWall, bottomWall, leftWall, rightWall;
-    [SerializeField] GameObject enemyRunnerPrefab, enemyShooterPrefab;
-    [SerializeField] GameObject ClutterPrefab1, ClutterPrefab2, ClutterPrefab3, ClutterPrefab4;
+
     public List<GameObject> clutter;
     public List<GameObject> activeClutter;
-    public int maxClutter = 10, minClutter = 4, clutterCount, startClutter;
+    public List<GameObject> avalibleEnemies;
+    public List<Transform> enemiesSpawnpoints;
+    
+    public int maxClutter, minClutter;
+    private int startClutter;
 
-    audioManager audioManager;
+    public int minEnemies, maxEnemies;
 
     bool roomActive, didSpawnEnemy = false;
 
     private bool up, down, left, right = false;
 
     public bool clutterReady = true;
-
-    private int randomClutterIndex;
 
     public Vector2Int RoomIndex { get; set; }
 
@@ -28,10 +29,8 @@ public class Room : MonoBehaviour
     private void Awake()
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
         startClutter = Random.Range(minClutter, maxClutter + 1);
         clutterReady = true;
-        clutterCount = 0;
         InvokeRepeating("SetClutter", 0f, 0.01f);
     }
 
@@ -70,10 +69,8 @@ public class Room : MonoBehaviour
             if (roomActive == false)
             {
                 StartCoroutine(doorClose());
-
             }
         }
-
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -98,75 +95,14 @@ public class Room : MonoBehaviour
 
         if (didSpawnEnemy == false)
         {
-            int RandomEnemyCount = Random.Range(1, 5);
-            Vector3 enemySlotUR = new Vector3(transform.position.x + 25, transform.position.y + 12);
-            Vector3 enemySlotUL = new Vector3(transform.position.x - 25, transform.position.y + 12);
-            Vector3 enemySlotDR = new Vector3(transform.position.x + 25, transform.position.y - 12);
-            Vector3 enemySlotDL = new Vector3(transform.position.x - 25, transform.position.y - 12);
-            bool URtaken = false, ULtaken = false, DRtaken = false, DLtaken = false;
-
-
-            if (RandomEnemyCount >= 1 && !URtaken)
-            {
-                if (Random.Range(0, 2) == 0)
-                {
-                    GameObject enemy = Instantiate(enemyRunnerPrefab, enemySlotUR, Quaternion.identity);
-                }
-                else
-                {
-                    GameObject enemy = Instantiate(enemyShooterPrefab, enemySlotUR, Quaternion.identity);
-                }
-                URtaken = true;
-            }
-
-            if (RandomEnemyCount >= 2 && !ULtaken)
-            {
-                if (Random.Range(0, 2) == 0)
-                {
-                    GameObject enemy = Instantiate(enemyRunnerPrefab, enemySlotUL, Quaternion.identity);
-                }
-                else
-                {
-                    GameObject enemy = Instantiate(enemyShooterPrefab, enemySlotUL, Quaternion.identity);
-                }
-                ULtaken = true;
-            }
-
-            if (RandomEnemyCount >= 3 && !DRtaken)
-            {
-                if (Random.Range(0, 2) == 0)
-                {
-                    GameObject enemy = Instantiate(enemyRunnerPrefab, enemySlotDR, Quaternion.identity);
-                }
-                else
-                {
-                    GameObject enemy = Instantiate(enemyShooterPrefab, enemySlotDR, Quaternion.identity);
-                }
-                DRtaken = true;
-            }
-
-            if (RandomEnemyCount >= 4 && !DLtaken)
-            {
-                if (Random.Range(0, 2) == 0)
-                {
-                    GameObject enemy = Instantiate(enemyRunnerPrefab, enemySlotDL, Quaternion.identity);
-                }
-                else
-                {
-                    GameObject enemy = Instantiate(enemyShooterPrefab, enemySlotDL, Quaternion.identity);
-                }
-                DLtaken = true;
-            }
+            StartCoroutine(SpawnEnemy());
             didSpawnEnemy = true;
         }
 
-        yield return new WaitForSeconds(0f);
 
         if (up)
         {
-            audioManager.PlaySFX(audioManager.doorShut);
             topDoor.SetActive(true);
-
         }
         if (down)
         {
@@ -181,6 +117,27 @@ public class Room : MonoBehaviour
             rightDoor.SetActive(true);
         }
 
+        GAME.audioManager.PlaySFX(GAME.audioManager.doorShut);
+    }
+
+    private IEnumerator SpawnEnemy()
+    {
+        //there should be more spawnpoints than maxEnemy value
+        int enemyCount = Random.Range(minEnemies, maxEnemies + 1);
+
+        while(enemyCount > 0)
+        {
+            int randomItemFromList = Random.Range(0, enemiesSpawnpoints.Count);
+            Vector3 pos = enemiesSpawnpoints[randomItemFromList].position;
+            enemiesSpawnpoints.Remove(enemiesSpawnpoints[randomItemFromList]);
+
+            randomItemFromList = Random.Range(0, avalibleEnemies.Count);
+
+            GameObject enemy = Instantiate(avalibleEnemies[randomItemFromList], pos, Quaternion.identity);
+
+            enemyCount -= 1;
+            yield return null;
+        }
     }
 
     private void Update()
@@ -202,12 +159,6 @@ public class Room : MonoBehaviour
 
     public void SetClutter()
     {
-        //clutter = new List<GameObject>();
-        //clutter.Add(ClutterPrefab1);
-        //clutter.Add(ClutterPrefab2);
-        //clutter.Add(ClutterPrefab3);
-        //clutter.Add(ClutterPrefab4);
-        
         if (activeClutter.Count < startClutter && clutterReady)
         {
             GameObject clutterItem;

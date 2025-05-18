@@ -6,7 +6,7 @@ public class Loadingprocess : MonoBehaviour
 
     private bool wasGenerationComplete;
 
-    [SerializeField] private GameObject loadingScreen, Player, enemyRunner, enemyShooter, enemyTank, enemyAssassin, Camera;
+    [SerializeField] private GameObject loadingScreen;
 
     GAMEGLOBALMANAGEMENT GAME;
 
@@ -66,20 +66,13 @@ public class Loadingprocess : MonoBehaviour
                 enemySpawnPosY = 0;
             }
             enemySpawnPos = new Vector3(enemySpawnPosX, enemySpawnPosY);
-            spawnedEnemy = Instantiate(enemyRunner, enemySpawnPos, Quaternion.identity);
+            spawnedEnemy = Instantiate(GAME.enemyPrefabs[0], enemySpawnPos, Quaternion.identity);
             spawnedEnemy.SetActive(true);
         }
     }
 
     public void OnGameLoaded()
     {
-        Player.SetActive(true);
-        GAME.Player = Player;
-
-
-        foreach (GameObject room in GameObject.FindGameObjectsWithTag("Room"))
-        {
-            //room.GetComponent<Room>().clutterReady = true;
-        }
+        GAME.Player.SetActive(true);
     }
 }

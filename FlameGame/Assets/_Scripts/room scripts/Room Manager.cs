@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
     [SerializeField] GameObject NroomPrefab, DroomPrefab, TroomPrefab, StartRoomPrefab;
+    public List<GameObject> roomPrefabs;
     [SerializeField] GameObject boss;
     [SerializeField] private int maxRooms = 40;
     [SerializeField] private int minRooms = 30;
@@ -57,7 +58,6 @@ public class RoomManager : MonoBehaviour
         }
         else if (!generationComplete)
         {
-            //Debug.Log($"Generation complete, {roomCount} rooms created");
             generationComplete = true;
             GameObject lastRoom = roomObjects.Last();
             GameObject BOSS = Instantiate(boss, lastRoom.transform.position, Quaternion.identity);
@@ -99,41 +99,17 @@ public class RoomManager : MonoBehaviour
         roomGrid[x, y] = 1;
         roomCount++;
 
-        int whichRoom = Random.Range(1, 11);
+        int whichRoom = Random.Range(0, roomPrefabs.Count);
 
-        if (whichRoom == 1)
-        {
-            var newRoom = Instantiate(TroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
-            newRoom.GetComponent<Room>().RoomIndex = roomIndex;
-            newRoom.name = $"Room-{roomCount}";
-            roomObjects.Add(newRoom);
+        
+        var newRoom = Instantiate(NroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+        newRoom.GetComponent<Room>().RoomIndex = roomIndex;
+        newRoom.name = $"Room-{roomCount}";
+        roomObjects.Add(newRoom);
 
-            OpenDoors(newRoom, x, y);
+        OpenDoors(newRoom, x, y);
 
-            return true;
-        }
-        else if (whichRoom == 2)
-        {
-            var newRoom = Instantiate(DroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
-            newRoom.GetComponent<Room>().RoomIndex = roomIndex;
-            newRoom.name = $"Room-{roomCount}";
-            roomObjects.Add(newRoom);
-
-            OpenDoors(newRoom, x, y);
-
-            return true;
-        }
-        else
-        {
-            var newRoom = Instantiate(NroomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
-            newRoom.GetComponent<Room>().RoomIndex = roomIndex;
-            newRoom.name = $"Room-{roomCount}";
-            roomObjects.Add(newRoom);
-
-            OpenDoors(newRoom, x, y);
-
-            return true;
-        }
+        return true;
     }
 
     private void RegenerateRooms()

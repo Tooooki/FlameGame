@@ -7881,12 +7881,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1797360943}
-  Player: {fileID: 534102388}
-  enemyRunner: {fileID: 4300347555681904611, guid: 2a0ae2482481a764e9963cf8936b1310, type: 3}
-  enemyShooter: {fileID: 0}
-  enemyTank: {fileID: 0}
-  enemyAssassin: {fileID: 0}
-  Camera: {fileID: 0}
 --- !u!114 &1354395592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7903,6 +7897,7 @@ MonoBehaviour:
   DroomPrefab: {fileID: 6912438237825820557, guid: f5852b049f702df43935bac92a981786, type: 3}
   TroomPrefab: {fileID: 6912438237825820557, guid: be8266f0a010e4a49bcfb85ff5983eba, type: 3}
   StartRoomPrefab: {fileID: 6912438237825820557, guid: ce52da4b81603654690096145c13b124, type: 3}
+  roomPrefabs: []
   boss: {fileID: 1512905709}
   maxRooms: 40
   minRooms: 30
@@ -7923,8 +7918,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   existingEnemiesCount: 0
   globalDifficultyMultiplyer: 0
-  Player: {fileID: 0}
-  audioManager: {fileID: 0}
+  Player: {fileID: 534102388}
+  audioManager: {fileID: 1124504608}
+  enemyPrefabs:
+  - {fileID: 4300347555681904611, guid: 2a0ae2482481a764e9963cf8936b1310, type: 3}
+  - {fileID: 1941702327274538964, guid: 39f106f66a5b05746acd21f608480a8d, type: 3}
   playerLevel: 1
   playerCurrentExperience: 0
   playerExperienceToNextLevel: 100

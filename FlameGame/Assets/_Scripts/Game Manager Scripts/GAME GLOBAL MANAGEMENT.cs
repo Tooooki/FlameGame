@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +12,7 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     //---------------------- Data Storage -----------------------------------------------------------------------------------
     public GameObject Player;
     public audioManager audioManager;
+    public List<GameObject> enemyPrefabs;
 
     //---------------------- Player Stats -----------------------------------------------------------------------------------
     public int playerLevel;                             //Level         Current
@@ -89,7 +92,6 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
-        Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
