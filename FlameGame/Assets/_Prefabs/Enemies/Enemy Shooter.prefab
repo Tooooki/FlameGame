@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 1767259490591241532}
   - component: {fileID: 372750298265534248}
   m_Layer: 10
-  m_Name: EnemyShooter
+  m_Name: Enemy Shooter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

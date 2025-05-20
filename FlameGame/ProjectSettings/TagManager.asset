@@ -17,6 +17,8 @@ TagManager:
   - Clutter
   - Room
   - Audio
+  - Chest
+  - Exp
   layers:
   - Default
   - TransparentFX
