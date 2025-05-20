@@ -49,6 +49,10 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     //---------------------- Other Stats ------------------------------------------------------------------------------------
     public float spikesDamage;
 
+    public float waxPotionHealingValue;
+    public float expCrystalExperienceValue;
+
+
 
     //---------------------- Player Abilities -------------------------------------------------------------------------------
     public bool dashAbility = true;                     //Dash
@@ -93,7 +97,10 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         enemyRunnerMaxHealth = 100f;
 
         spikesDamage = 5f;
-    }
+
+        waxPotionHealingValue = 30f;
+        expCrystalExperienceValue = 50f;
+}
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();

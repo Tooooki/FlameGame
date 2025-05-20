@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using System;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -8,14 +10,17 @@ public class PlayerAttack : MonoBehaviour
 
     private Vector3 mouseScreenPosition;
     private Vector3 mouseWorldPosition;
+    private Vector3 direction;
     private bool haveAmmo = true;
+
+    public float x, y;
+    public double l;
 
     GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
-
     }
 
     void Update()
@@ -29,6 +34,9 @@ public class PlayerAttack : MonoBehaviour
         mouseScreenPosition.z = 0f;
 
         mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        mouseWorldPosition.z = 0f;
+
+        direction = (mouseWorldPosition - GAME.Player.transform.position).normalized;
     }
 
     private void PlayerBasicShoot()
@@ -38,12 +46,11 @@ public class PlayerAttack : MonoBehaviour
             haveAmmo = false;
 
             GameObject clone = Instantiate(projectile, transform.position, Quaternion.identity);
+
             clone.SetActive(true);
+            clone.GetComponent<Rigidbody2D>().linearVelocity = direction * GAME.playerBasicAttackVelocity;
 
-            Vector3 direction = (mouseWorldPosition - clone.transform.position);
-            clone.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * GAME.playerBasicAttackVelocity;
             GAME.audioManager.PlaySFX(GAME.audioManager.mainCharShootingFire);
-
 
             StartCoroutine(ShootCooldown());
         }

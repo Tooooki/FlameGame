@@ -44,6 +44,16 @@ public class PlayerBasicProjectile : MonoBehaviour
             collision.gameObject.transform.Find("Particle System").gameObject.SetActive(true);
             Destroy(collision.gameObject, 0.4f);
         }
+
+        if (collision.CompareTag("Chest"))
+        {
+            StartCoroutine(projectileExplosion());
+        }
+    }
+
+    public void Explode()
+    {
+        StartCoroutine(projectileExplosion());
     }
 
     private IEnumerator projectileExplosion()

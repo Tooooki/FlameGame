@@ -38,27 +38,6 @@ public class PlayerDeath : MonoBehaviour
         healthBar.transform.localScale = new Vector3(GAME.playerCurrentHealth / GAME.playerMaxHealth, healthBar.transform.localScale.y);
     }
 
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Healing"))
-        {
-            if (GAME.playerMaxHealth - GAME.playerCurrentHealth >= 15 && GAME.playerMaxHealth - GAME.playerCurrentHealth < GAME.playerMaxHealth)
-            {
-                GAME.playerCurrentHealth += healingValue;
-                Destroy(collision.gameObject);
-            }
-            else if (GAME.playerMaxHealth - GAME.playerCurrentHealth < 15)
-            {
-                GAME.playerCurrentHealth = GAME.playerMaxHealth;
-                Destroy(collision.gameObject);
-            }
-        }
-    }
-
-
-
     private void PassiveDegeneration()
     {
         GAME.playerCurrentHealth -= passiveDegeneration;
