@@ -13,9 +13,6 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 direction;
     private bool haveAmmo = true;
 
-    public float x, y;
-    public double l;
-
     GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
