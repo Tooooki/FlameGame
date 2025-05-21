@@ -46,6 +46,13 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public float enemyShooterExperienceDrop;            //Shooter Drop   Experience
     public float enemyShooterMaxHealth;                 //Shooter Health Max
 
+    public float enemyAssassinMaxHealth;
+    public float enemyAssassinDamage;
+    public float enemyAssassinExperienceDrop;
+    public float enemyAssassinMoveVelocity;
+    public float enemyAssassinDetectionDistance;
+    public float enemyAssassinAttackDelay;
+
     //---------------------- Other Stats ------------------------------------------------------------------------------------
     public float spikesDamage;
 
@@ -95,6 +102,13 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         enemyShooterExperienceDrop = 30f;
         enemyShooterMaxHealth = 75f;
         enemyRunnerMaxHealth = 100f;
+
+        enemyAssassinMaxHealth = 60f;
+        enemyAssassinDamage = 40f;
+        enemyAssassinExperienceDrop = 50f;
+        enemyAssassinMoveVelocity = 4f;
+        enemyAssassinDetectionDistance = 10f;
+        enemyAssassinAttackDelay = 1f;
 
         spikesDamage = 5f;
 

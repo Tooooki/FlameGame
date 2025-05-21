@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3747694655882061627}
   - component: {fileID: 2857507719953409435}
   - component: {fileID: 5056803236550124560}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Left Door
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 3330936927055862707}
   - component: {fileID: 5854358231621082275}
   - component: {fileID: 1811901011842261009}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Left wall T
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 5754309162627419165}
   - component: {fileID: 3354847082158820901}
   - component: {fileID: 7261467562364747311}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 'Right Door '
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 7721676366011316421}
   - component: {fileID: 7212298889734133022}
   - component: {fileID: 7368879868238639081}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Right wall T
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -799,7 +799,7 @@ GameObject:
   - component: {fileID: 2267837914770053316}
   - component: {fileID: 5860715733053470337}
   - component: {fileID: 1964174638005354576}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 'Bottom Door '
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -987,7 +987,7 @@ GameObject:
   - component: {fileID: 8128760997220023227}
   - component: {fileID: 2308429287792219396}
   - component: {fileID: 8546287778433701001}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Top wall L
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: 5966947823811561297}
   - component: {fileID: 2661486449896041114}
   - component: {fileID: 5121445903304815207}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Left wall B
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -1406,7 +1406,7 @@ GameObject:
   - component: {fileID: 6215214479595583483}
   - component: {fileID: 4168603672756958072}
   - component: {fileID: 5988208729795248321}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bottom Middle
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -1594,7 +1594,7 @@ GameObject:
   - component: {fileID: 8514219334853278466}
   - component: {fileID: 4811605617832277503}
   - component: {fileID: 1932751866768170701}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bottom wall L
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -1782,7 +1782,7 @@ GameObject:
   - component: {fileID: 2522876315830343904}
   - component: {fileID: 671291019900702584}
   - component: {fileID: 352129583544291709}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Right wall B
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -1970,7 +1970,7 @@ GameObject:
   - component: {fileID: 7792717363724116790}
   - component: {fileID: 2612770072196249736}
   - component: {fileID: 8712327862996168327}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Right Middle
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -2158,7 +2158,7 @@ GameObject:
   - component: {fileID: 3742919841994111807}
   - component: {fileID: 2731141794721146045}
   - component: {fileID: 826882188246023984}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Top wall R
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -2346,7 +2346,7 @@ GameObject:
   - component: {fileID: 3047976626756207653}
   - component: {fileID: 6354029077065026084}
   - component: {fileID: 4912677442668372812}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 'Top Door '
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -2649,7 +2649,7 @@ GameObject:
   - component: {fileID: 4018084749621351604}
   - component: {fileID: 5681696318930286494}
   - component: {fileID: 8917537840197645254}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Left Middle
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -2837,7 +2837,7 @@ GameObject:
   - component: {fileID: 488976126879557531}
   - component: {fileID: 4131454163262156430}
   - component: {fileID: 8103375025361222533}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Top Middle
   m_TagString: walls
   m_Icon: {fileID: 0}
@@ -3112,7 +3112,7 @@ GameObject:
   - component: {fileID: 8284360361766786948}
   - component: {fileID: 5552085221155209093}
   - component: {fileID: 8839367695596565436}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bottom wall R
   m_TagString: walls
   m_Icon: {fileID: 0}

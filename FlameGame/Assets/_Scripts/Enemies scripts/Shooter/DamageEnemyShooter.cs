@@ -30,7 +30,6 @@ public class DamageEnemyShooter : MonoBehaviour
 
     public void Die()
     {
-        GAME.Player.GetComponent<PlayerInRooms>().isCameraShaking = false;
         GAME.PlayerGetExperience(GAME.enemyShooterExperienceDrop);
         Destroy(this.gameObject);
     }

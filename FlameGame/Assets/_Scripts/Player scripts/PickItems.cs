@@ -24,7 +24,7 @@ public class PickItems : MonoBehaviour
             }
         }
 
-        if(collision.CompareTag("exp"))
+        if(collision.CompareTag("Exp"))
         {
             GAME.PlayerGetExperience(GAME.expCrystalExperienceValue);
             Destroy(collision.gameObject);

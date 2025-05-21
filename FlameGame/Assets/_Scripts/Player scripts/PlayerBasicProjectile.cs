@@ -1,12 +1,10 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 public class PlayerBasicProjectile : MonoBehaviour
 {
     [SerializeField] private ParticleSystem fire;
-    
+
     GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
@@ -26,10 +24,12 @@ public class PlayerBasicProjectile : MonoBehaviour
 
         if (collision.CompareTag("EnemyHitbox"))
         {
-            if(collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>() != null)
+            if (collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>() != null)
                 collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>().GetDamage(GAME.playerBasicAttackDamage); // Apply damage to Runner
-            else if(collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>() != null)
+            else if (collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>() != null)
                 collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>().LoseHP(GAME.playerBasicAttackDamage); // Apply damage to Shooter
+            else if (collision.gameObject.GetComponent<AssassinDamage>() != null)
+                collision.gameObject.GetComponent<AssassinDamage>().GetDamage(GAME.playerBasicAttackDamage);
 
             StartCoroutine(projectileExplosion());
         }
@@ -73,7 +73,7 @@ public class PlayerBasicProjectile : MonoBehaviour
 
         timer = 0.3f;
 
-        while(timer > 0f)
+        while (timer > 0f)
         {
             timer -= Time.deltaTime;
 
