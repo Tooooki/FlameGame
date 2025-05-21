@@ -110,7 +110,7 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         enemyAssassinDetectionDistance = 10f;
         enemyAssassinAttackDelay = 1f;
 
-        spikesDamage = 5f;
+        spikesDamage = 50f;
 
         waxPotionHealingValue = 30f;
         expCrystalExperienceValue = 50f;

@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5251821829076316238}
   - component: {fileID: 7214759077768729501}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Hitbox
   m_TagString: EnemyHitbox
   m_Icon: {fileID: 0}

@@ -2777,6 +2777,7 @@ MonoBehaviour:
   - {fileID: 6185867965717081405, guid: fa346b9dfeca24441be892ab91630c09, type: 3}
   - {fileID: 1669490253730690171, guid: 82b8eaa74cc24544ba7e148e2f04b58b, type: 3}
   - {fileID: 1669490253730690171, guid: 82b8eaa74cc24544ba7e148e2f04b58b, type: 3}
+  - {fileID: 1281305712994731517, guid: ac8c177a35f65464e87469cbc9d28a98, type: 3}
   activeClutter: []
   avalibleEnemies:
   - {fileID: 4300347555681904611, guid: 2a0ae2482481a764e9963cf8936b1310, type: 3}

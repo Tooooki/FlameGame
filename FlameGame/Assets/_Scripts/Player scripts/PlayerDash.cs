@@ -37,6 +37,7 @@ public class Dash : MonoBehaviour
             yield return null;
         }
 
+        GAME.Player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         GAME.Player.GetComponent<PlayerMovement>().enabled = true;
 
         StartCoroutine(PlayDashCooldown());

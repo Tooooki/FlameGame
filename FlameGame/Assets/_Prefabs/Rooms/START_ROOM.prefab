@@ -2583,6 +2583,7 @@ MonoBehaviour:
   - {fileID: 4140920052320000728, guid: a7b2242f7eb9deb49b0990e557752480, type: 3}
   - {fileID: 6185867965717081405, guid: fa346b9dfeca24441be892ab91630c09, type: 3}
   - {fileID: 6185867965717081405, guid: fa346b9dfeca24441be892ab91630c09, type: 3}
+  - {fileID: 1281305712994731517, guid: ac8c177a35f65464e87469cbc9d28a98, type: 3}
   activeClutter: []
   avalibleEnemies: []
   enemiesSpawnpoints: []

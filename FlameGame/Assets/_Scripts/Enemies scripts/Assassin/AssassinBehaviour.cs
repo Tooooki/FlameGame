@@ -15,7 +15,6 @@ public class AssassinBehaviour : MonoBehaviour
     CircleCollider2D attackDetection, visibleDetection;
     BoxCollider2D boxC;
     Rigidbody2D rb;
-    SpriteRenderer sr;
 
 
 
@@ -29,7 +28,6 @@ public class AssassinBehaviour : MonoBehaviour
         visibleDetection = GetComponent<CircleCollider2D>();
         boxC = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
-        sr = GetComponentInChildren<SpriteRenderer>();
 
         canMove = true;
         canAttack = true;
@@ -112,13 +110,14 @@ public class AssassinBehaviour : MonoBehaviour
 
         float timer = 0f;
 
-        float startAlpha = sr.color.a;
+        float startAlpha = GetComponentInChildren<SpriteRenderer>().color.a;
 
         while (timer < duration)
         {
             timer += Time.deltaTime;
             float newAlpha = Mathf.Lerp(startAlpha, 0, timer / duration);
-            sr.color = new Color(1, 1, 1, newAlpha);
+            foreach(SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, newAlpha);
             yield return null;
         }
         invisible = true;
@@ -131,13 +130,14 @@ public class AssassinBehaviour : MonoBehaviour
 
         float timer = 0f;
 
-        float startAlpha = sr.color.a;
+        float startAlpha = GetComponentInChildren<SpriteRenderer>().color.a;
 
         while (timer < duration)
         {
             timer += Time.deltaTime;
             float newAlpha = Mathf.Lerp(startAlpha, 1, timer / duration);
-            sr.color = new Color(1, 1, 1, newAlpha);
+            foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, newAlpha);
             yield return null;
         }
 

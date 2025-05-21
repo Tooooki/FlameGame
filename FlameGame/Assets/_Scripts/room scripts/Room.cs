@@ -79,13 +79,10 @@ public class Room : MonoBehaviour
         {
             roomActive = true;
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+        if(Input.GetKeyDown(KeyCode.O))
         {
-            StopAllCoroutines();
+            StartCoroutine(SpawnEnemy());
         }
     }
 

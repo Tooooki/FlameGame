@@ -42,6 +42,8 @@ public class PlayerBasicProjectile : MonoBehaviour
             collision.GetComponent<BoxCollider2D>().enabled = false;
             collision.gameObject.transform.Find("Sprite").gameObject.SetActive(false);
             collision.gameObject.transform.Find("Particle System").gameObject.SetActive(true);
+            collision.gameObject.GetComponent<ShadowCaster2D>().enabled = false;
+
             Destroy(collision.gameObject, 0.4f);
         }
 
