@@ -10,20 +10,14 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform cardPositionTwo;
     [SerializeField] Transform cardPositionThree;
     [SerializeField] List<CardSO> deck;
-    [SerializeField] private CardSO blankCardSO; // ADD THIS
+    [SerializeField] private CardSO blankCardSO;
+
     private audioManager audioManager;
-
     GameObject cardOne, cardTwo, cardThree;
-    List<CardSO> availableCards = new List<CardSO>();
 
+    List<CardSO> availableCards = new List<CardSO>();
     public List<CardSO> alreadySelectedCards = new List<CardSO>();
     public static CardManager Instance;
-
-    private bool isSpinning = false;
-    private float spinSpeed = 100f;
-    private float slowDownTime = 2f;
-    private float moveThreshold = 50f;
-
 
     GAMEGLOBALMANAGEMENT GAME;
 
@@ -31,19 +25,10 @@ public class CardManager : MonoBehaviour
     {
         Instance = this;
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
-
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
         if (GameManager.Instance != null)
             GameManager.Instance.OnStateChanged += HandleGameStateChanged;
-    }
-
-    private void Update()
-    {
-        if (isSpinning)
-        {
-            //ostrze¿enie mnie wkurza³o wiêc napisa³em to if
-        }
     }
 
     void OnDisable()
@@ -56,83 +41,25 @@ public class CardManager : MonoBehaviour
     {
         if (state == GameManager.GameState.CardSelection)
         {
-            StartSpin();
+            ShowCardSelection();
         }
     }
 
-    void StartSpin()
+    void InstantiateRealCards(List<CardSO> selectedCards)
     {
-        isSpinning = true;
-
-        // DESTROY old blank cards first
         if (cardOne != null) Destroy(cardOne);
         if (cardTwo != null) Destroy(cardTwo);
         if (cardThree != null) Destroy(cardThree);
 
-        // Then instantiate the blank cards
-        InstantiateBlankCards();
-
-        StartCoroutine(SpinCards());
-    }
-
-    void InstantiateBlankCards()
-    {
-        // Instantiate blank card prefabs
         cardOne = Instantiate(cardPrefab, cardPositionOne.position, Quaternion.identity, cardPositionOne);
         cardTwo = Instantiate(cardPrefab, cardPositionTwo.position, Quaternion.identity, cardPositionTwo);
         cardThree = Instantiate(cardPrefab, cardPositionThree.position, Quaternion.identity, cardPositionThree);
 
-        // Setup them as blank
-        cardOne.GetComponent<Card>().Setup(blankCardSO);
-        cardTwo.GetComponent<Card>().Setup(blankCardSO);
-        cardThree.GetComponent<Card>().Setup(blankCardSO);
+        cardOne.GetComponent<Card>().Setup(selectedCards[0]);
+        cardTwo.GetComponent<Card>().Setup(selectedCards[1]);
+        cardThree.GetComponent<Card>().Setup(selectedCards[2]);
     }
 
-    IEnumerator SpinCards()
-    {
-        yield return new WaitForSecondsRealtime(0.15f);
-
-        isSpinning = true;
-        float elapsed = 0f;
-
-        while (elapsed < slowDownTime)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float t = elapsed / slowDownTime;
-            t = t * t * (3f - 2f * t);  // Smoothstep
-
-            float moveSpeed = Mathf.Lerp(spinSpeed, 0, t);
-
-            MoveCard(cardOne, cardPositionOne, moveSpeed);
-            MoveCard(cardTwo, cardPositionTwo, moveSpeed);
-            MoveCard(cardThree, cardPositionThree, moveSpeed);
-
-            yield return null;
-        }
-
-        isSpinning = false;
-        SnapCards();
-        RandomizeNewCards();  // AFTER spin ends -> pick real cards
-    }
-
-    void MoveCard(GameObject cardObj, Transform startPosition, float speed)
-    {
-        if (cardObj == null) return;
-
-        cardObj.transform.Translate(Vector3.up * speed * Time.unscaledDeltaTime);
-
-        if (cardObj.transform.position.y >= startPosition.position.y + moveThreshold)
-        {
-            cardObj.transform.position = startPosition.position - new Vector3(0, moveThreshold, 0);
-        }
-    }
-
-    void SnapCards()
-    {
-        cardOne.transform.position = cardPositionOne.position;
-        cardTwo.transform.position = cardPositionTwo.position;
-        cardThree.transform.position = cardPositionThree.position;
-    }
     void RandomizeNewCards()
     {
         availableCards = new List<CardSO>(deck);
@@ -143,12 +70,11 @@ public class CardManager : MonoBehaviour
 
         if (availableCards.Count < 3)
         {
-            Debug.LogWarning("Not enough available cards to spin!");
+            Debug.LogWarning("Not enough available cards to select!");
             return;
         }
 
         List<CardSO> selectedCards = new List<CardSO>();
-
         while (selectedCards.Count < 3 && availableCards.Count > 0)
         {
             int randomIndex = Random.Range(0, availableCards.Count);
@@ -167,10 +93,7 @@ public class CardManager : MonoBehaviour
             return;
         }
 
-        // Finally, assign real cards after spin
-        cardOne.GetComponent<Card>().Setup(selectedCards[0]);
-        cardTwo.GetComponent<Card>().Setup(selectedCards[1]);
-        cardThree.GetComponent<Card>().Setup(selectedCards[2]);
+        InstantiateRealCards(selectedCards);
     }
 
     public void SelectCard(CardSO selectedCard)
@@ -186,7 +109,6 @@ public class CardManager : MonoBehaviour
 
     public void OnSelect(CardSO selectedCard)
     {
-
         switch (selectedCard.effectType)
         {
             case CardEffect.BasicAttackDamage:
@@ -223,14 +145,12 @@ public class CardManager : MonoBehaviour
                 GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().Rogas = !GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().Rogas;
                 break;
         }
-
-
     }
 
     public void ShowCardSelection()
     {
         cardSelectionUI.SetActive(true);
-        StartSpin();
+        RandomizeNewCards();
         Time.timeScale = 0;
         audioManager.PlaySFX(audioManager.cardsShowing);
     }
