@@ -9,6 +9,8 @@ public class FloorTrapBehaviour : MonoBehaviour
 
     public List<GameObject> actorsOnHitbox;
 
+    public bool trapActive;
+
     GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
@@ -16,13 +18,16 @@ public class FloorTrapBehaviour : MonoBehaviour
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
         actorsOnHitbox = new List<GameObject>();
+
+        trapActive = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") || collision.CompareTag("Enemy"))
+        if (!trapActive) return;
+
+        if (collision.CompareTag("Player") || collision.CompareTag("Enemy"))
         {
-            trigger.enabled = false;
             StartCoroutine(ActivateTrap());
         }
 
@@ -42,6 +47,8 @@ public class FloorTrapBehaviour : MonoBehaviour
 
     private IEnumerator ActivateTrap()
     {
+        trapActive = false;
+        
         yield return new WaitForSeconds(1f);
 
         foreach(GameObject target in actorsOnHitbox)
@@ -56,20 +63,23 @@ public class FloorTrapBehaviour : MonoBehaviour
                 target.GetComponent<AssassinDamage>().GetDamage(GAME.spikesDamage); //Apply damage to Assassin
         }
 
+        GetComponent<Animator>().SetTrigger("Show");
         push.enabled = true;
+        actorsOnHitbox.Clear();
         hiddenSprite.SetActive(false);
         activeSprite.SetActive(true);
 
         yield return new WaitForSeconds(2f);
 
+        GetComponent<Animator>().SetTrigger("Hide");
         push.enabled = false;
         hiddenSprite.SetActive(true);
         activeSprite.SetActive(false);
 
         yield return new WaitForSeconds(1f);
 
-        trigger.enabled = true;
+        trapActive = true;
     }
 
-    
+
 }
