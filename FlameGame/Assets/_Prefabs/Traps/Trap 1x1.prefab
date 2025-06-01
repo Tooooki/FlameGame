@@ -52,9 +52,6 @@ MonoBehaviour:
   trigger: {fileID: 105924465653317558}
   hitbox: {fileID: 2402216847119604915}
   push: {fileID: 8445241575101723432}
-  hiddenSprite: {fileID: 0}
-  activeSprite: {fileID: 0}
-  actorsOnHitbox: []
   trapActive: 0
 --- !u!61 &105924465653317558
 BoxCollider2D:
@@ -100,7 +97,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6, y: 6}
+  m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
 --- !u!61 &2402216847119604915
 BoxCollider2D:
@@ -155,7 +152,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188640425120884272}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

@@ -6,7 +6,7 @@ public class FloorTrapBehaviour : MonoBehaviour
 {
     [SerializeField] BoxCollider2D trigger, hitbox, push;
 
-    public List<GameObject> actorsOnHitbox;
+    private HashSet<GameObject> actorsOnHitbox;
 
     public bool trapActive;
 
@@ -20,7 +20,7 @@ public class FloorTrapBehaviour : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        actorsOnHitbox = new List<GameObject>();
+        actorsOnHitbox = new HashSet<GameObject>();
 
         trapActive = true;
 
@@ -75,9 +75,6 @@ public class FloorTrapBehaviour : MonoBehaviour
 
         GetComponent<Animator>().SetTrigger("Hide");
         push.enabled = false;
-
-        yield return new WaitForSeconds(1f);
-
         trapActive = true;
     }
 
