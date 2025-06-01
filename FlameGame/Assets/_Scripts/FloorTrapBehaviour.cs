@@ -5,11 +5,12 @@ using UnityEngine;
 public class FloorTrapBehaviour : MonoBehaviour
 {
     [SerializeField] BoxCollider2D trigger, hitbox, push;
-    [SerializeField] GameObject hiddenSprite, activeSprite;
 
     public List<GameObject> actorsOnHitbox;
 
     public bool trapActive;
+
+    Animator animator;
 
     GAMEGLOBALMANAGEMENT GAME;
 
@@ -17,23 +18,26 @@ public class FloorTrapBehaviour : MonoBehaviour
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
+        animator = GetComponent<Animator>();
+
         actorsOnHitbox = new List<GameObject>();
 
         trapActive = true;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("PlayerHitbox") || collision.CompareTag("EnemyHitbox"))
+        {
+            actorsOnHitbox.Add(collision.transform.parent.gameObject);
+        }
+
         if (!trapActive) return;
 
         if (collision.CompareTag("Player") || collision.CompareTag("Enemy"))
         {
             StartCoroutine(ActivateTrap());
-        }
-
-        if(collision.CompareTag("PlayerHitbox") || collision.CompareTag("EnemyHitbox"))
-        {
-            actorsOnHitbox.Add(collision.transform.parent.gameObject);
         }
     }
 
@@ -66,15 +70,11 @@ public class FloorTrapBehaviour : MonoBehaviour
         GetComponent<Animator>().SetTrigger("Show");
         push.enabled = true;
         actorsOnHitbox.Clear();
-        hiddenSprite.SetActive(false);
-        activeSprite.SetActive(true);
 
         yield return new WaitForSeconds(2f);
 
         GetComponent<Animator>().SetTrigger("Hide");
         push.enabled = false;
-        hiddenSprite.SetActive(true);
-        activeSprite.SetActive(false);
 
         yield return new WaitForSeconds(1f);
 
