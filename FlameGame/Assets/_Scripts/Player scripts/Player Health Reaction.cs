@@ -5,7 +5,7 @@ public class PlayerHealthReaction : MonoBehaviour
 {
     [SerializeField] Light2D playerLight;
 
-    [SerializeField] GameObject flame, sprite;
+    [SerializeField] GameObject flame, sprite, wallcollider, hitbox;
 
     GAMEGLOBALMANAGEMENT GAME;
 
@@ -19,7 +19,8 @@ public class PlayerHealthReaction : MonoBehaviour
     void Update()
     {
         sprite.transform.localScale = new Vector3(1, GAME.playerCurrentHealth / GAME.playerMaxHealth);
-        flame.transform.localPosition = new Vector3(-0.07f, (GAME.playerCurrentHealth * 2.3f / GAME.playerMaxHealth) - 1.15f);
-        playerLight.transform.localPosition = new Vector3(0, (GAME.playerCurrentHealth * 2.3f / GAME.playerMaxHealth) - 1.15f);
+        wallcollider.transform.localScale = new Vector3(1, GAME.playerCurrentHealth / GAME.playerMaxHealth);
+        hitbox.transform.localScale = new Vector3(1, GAME.playerCurrentHealth / GAME.playerMaxHealth);
+        flame.transform.localPosition = new Vector3(0f, GAME.playerCurrentHealth * 2.7f / GAME.playerMaxHealth);
     }
 }

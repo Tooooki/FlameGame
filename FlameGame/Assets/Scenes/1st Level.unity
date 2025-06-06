@@ -188,7 +188,6 @@ RectTransform:
   m_Children:
   - {fileID: 1415144399}
   - {fileID: 590615444}
-  - {fileID: 998334878}
   m_Father: {fileID: 4003240736969349995}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5616,7 +5615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &534102389
 Transform:
   m_ObjectHideFlags: 0
@@ -5651,7 +5650,6 @@ MonoBehaviour:
   canDash: 1
   DashIcon: {fileID: 1415144400}
   DashBar: {fileID: 590615445}
-  DashFlash: {fileID: 998334879}
 --- !u!114 &534102392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5731,8 +5729,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLight: {fileID: 1217379432}
-  flame: {fileID: 109604113}
+  flame: {fileID: 1242765022}
   sprite: {fileID: 630492171}
+  wallcollider: {fileID: 615397861}
+  hitbox: {fileID: 2074830883}
 --- !u!114 &534102400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5959,7 +5959,7 @@ GameObject:
   - component: {fileID: 615397863}
   m_Layer: 9
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6653,81 +6653,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907383837}
   m_CullTransparentMesh: 1
---- !u!1 &998334877
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 998334878}
-  - component: {fileID: 998334880}
-  - component: {fileID: 998334879}
-  m_Layer: 5
-  m_Name: White Flash
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &998334878
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998334877}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 88632263}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: -1075}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0, y: 0}
---- !u!114 &998334879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998334877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.9372549}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &998334880
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998334877}
-  m_CullTransparentMesh: 1
 --- !u!1 &1009761409
 GameObject:
   m_ObjectHideFlags: 0
@@ -7208,7 +7133,7 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.7
+  m_FalloffIntensity: 0.85
   m_Color: {r: 1, g: 1, b: 0.4669811, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 0
@@ -7611,7 +7536,7 @@ MonoBehaviour:
   - {fileID: 6912438237825820557, guid: 0609897e28f15af4e89c56a87c17bb85, type: 3}
   - {fileID: 6912438237825820557, guid: d871cc287eb92d64380cc4fa6280e76a, type: 3}
   - {fileID: 6912438237825820557, guid: 4404f1a5399aa61458fe8fdc74cb6b40, type: 3}
-  boss: {fileID: 0}
+  boss: {fileID: 4494262850911690037, guid: 67686abc383d7584ca2c9ec4b54404f5, type: 3}
   maxRooms: 40
   minRooms: 30
   gridSizeX: 40

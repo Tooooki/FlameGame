@@ -81,7 +81,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2, y: 1.937}
+  m_Size: {x: 2.6, y: 2.5}
   m_EdgeRadius: 0
 --- !u!50 &2884322602639297897
 Rigidbody2D:
@@ -161,7 +161,7 @@ MonoBehaviour:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 1, y: 0.9684906, z: 0}
+      m_Extent: {x: 1.2999878, y: 1.25, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0
     m_FlipX: 0
@@ -850,7 +850,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 2, y: 1.9, z: 1}
+    m_Scale: {x: 2.4, y: 2.3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0

@@ -16,7 +16,7 @@ public class lighttwiching : MonoBehaviour
     }
     void Update()
     {
-        CandleLight.intensity = Mathf.Lerp(CandleLight.intensity, GAME.playerCurrentHealth / GAME.playerMaxHealth, 20f * Time.deltaTime);
+        CandleLight.intensity = Mathf.Lerp(CandleLight.intensity, (GAME.playerCurrentHealth / GAME.playerMaxHealth) / 2, 20f * Time.deltaTime);
 
         timer += Time.deltaTime;
         if(timer >= Random.Range(0.15f, 0.4f))
@@ -34,10 +34,9 @@ public class lighttwiching : MonoBehaviour
 
         float saveLight = CandleLight.intensity;
         ParticleSystem.MinMaxCurve saveFlame = psMain.startLifetime;
-        CandleLight.intensity = CandleLight.intensity + Random.Range(-0.05f, 0f);
-        psMain.startLifetime = new ParticleSystem.MinMaxCurve(CandleLight.intensity / 8);
+        CandleLight.intensity += Random.Range(-0.05f, 0f);
+        psMain.startLifetime = new ParticleSystem.MinMaxCurve(CandleLight.intensity / 4);
         yield return new WaitForSeconds(0.1f);
-        //CandleLight.intensity = saveLight;
         psMain.startLifetime = saveFlame;
 
 

@@ -9,7 +9,7 @@ public class Dash : MonoBehaviour
 
     private float durationCounter, cooldownCounter;
 
-    [SerializeField] Image DashIcon, DashBar, DashFlash;
+    [SerializeField] Image DashIcon, DashBar;
 
 
     GAMEGLOBALMANAGEMENT GAME;
@@ -54,12 +54,6 @@ public class Dash : MonoBehaviour
 
             yield return null;
         }
-
-        DashFlash.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(0.01f);
-
-        DashFlash.gameObject.SetActive(false);
 
         canDash = true;
     }

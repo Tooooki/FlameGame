@@ -33,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
         mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
         mouseWorldPosition.z = 0f;
 
-        direction = (mouseWorldPosition - GAME.Player.transform.position).normalized;
+        direction = (mouseWorldPosition - (GAME.Player.transform.position + new Vector3(0, GAME.playerCurrentHealth * 2.7f / GAME.playerMaxHealth))).normalized;
     }
 
     private void PlayerBasicShoot()
@@ -42,7 +42,7 @@ public class PlayerAttack : MonoBehaviour
         {
             haveAmmo = false;
 
-            GameObject clone = Instantiate(projectile, transform.position, Quaternion.identity);
+            GameObject clone = Instantiate(projectile, transform.position + new Vector3(0, (GAME.playerCurrentHealth / GAME.playerMaxHealth) * 2.7f), Quaternion.identity);
 
             clone.SetActive(true);
             clone.GetComponent<Rigidbody2D>().linearVelocity = direction * GAME.playerBasicAttackVelocity;
