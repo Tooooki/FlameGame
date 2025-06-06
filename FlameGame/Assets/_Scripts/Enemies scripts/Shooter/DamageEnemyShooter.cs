@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class DamageEnemyShooter : MonoBehaviour
 {
+    [SerializeField] GameObject hpBar;
+    
     public float shooterHP;
 
     GAMEGLOBALMANAGEMENT GAME;
@@ -20,6 +22,8 @@ public class DamageEnemyShooter : MonoBehaviour
         {
             Die();
         }
+
+        hpBar.transform.localScale = new Vector3(shooterHP / GAME.enemyShooterMaxHealth, 1, 1);
     }
 
     public void LoseHP(float damage)

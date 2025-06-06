@@ -6,9 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class EnemyCrosshair : MonoBehaviour
 {
-    [SerializeField] private GameObject healthBarPrefab;
-    private Slider healthSlider;
-    private GameObject healthBarInstance;
+    [SerializeField] GameObject hpBar;
 
     public bool isAttacking, isDashing, canDamage;
 
@@ -23,13 +21,6 @@ public class EnemyCrosshair : MonoBehaviour
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
 
         enemyHealth = GAME.enemyRunnerMaxHealth;
-
-        //Set up health bar
-        healthBarInstance = Instantiate(healthBarPrefab, transform);
-        healthBarInstance.transform.localPosition = new Vector3(0, 2f, 0);
-
-        healthSlider = healthBarInstance.GetComponentInChildren<Slider>();
-        healthSlider.maxValue = GAME.enemyRunnerMaxHealth;
 
         isAttacking = false;
         canDamage = false;
@@ -62,7 +53,7 @@ public class EnemyCrosshair : MonoBehaviour
 
     private void Update()
     {
-        healthSlider.value = enemyHealth;
+        hpBar.transform.localScale = new Vector3(enemyHealth / GAME.enemyRunnerMaxHealth, 1, 1);
 
         GetComponentInChildren<Light2D>().intensity = Mathf.Lerp(GetComponentInChildren<Light2D>().intensity, 0f, 10f * Time.deltaTime);
 
@@ -106,7 +97,6 @@ public class EnemyCrosshair : MonoBehaviour
     {
         // Handle death (e.g., award XP, destroy enemy object)
         GAME.PlayerGetExperience(GAME.enemyRunnerExperienceDrop);
-        Destroy(healthBarInstance);
         Destroy(gameObject);
     }
 }

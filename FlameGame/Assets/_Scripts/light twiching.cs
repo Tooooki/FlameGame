@@ -7,15 +7,16 @@ public class lighttwiching : MonoBehaviour
     private float timer;
     [SerializeField] Light2D CandleLight;
     [SerializeField] ParticleSystem CandleFlame;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
+    GAMEGLOBALMANAGEMENT GAME;
+
+    private void Awake()
+    {
+        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+    }
     void Update()
     {
-        CandleLight.intensity = Mathf.Lerp(CandleLight.intensity, 0.8f, 20f * Time.deltaTime);
+        CandleLight.intensity = Mathf.Lerp(CandleLight.intensity, GAME.playerCurrentHealth / GAME.playerMaxHealth, 20f * Time.deltaTime);
 
         timer += Time.deltaTime;
         if(timer >= Random.Range(0.15f, 0.4f))
@@ -33,10 +34,10 @@ public class lighttwiching : MonoBehaviour
 
         float saveLight = CandleLight.intensity;
         ParticleSystem.MinMaxCurve saveFlame = psMain.startLifetime;
-        CandleLight.intensity = CandleLight.intensity + Random.Range(-0.1f, 0f);
+        CandleLight.intensity = CandleLight.intensity + Random.Range(-0.05f, 0f);
         psMain.startLifetime = new ParticleSystem.MinMaxCurve(CandleLight.intensity / 8);
         yield return new WaitForSeconds(0.1f);
-        CandleLight.intensity = saveLight;
+        //CandleLight.intensity = saveLight;
         psMain.startLifetime = saveFlame;
 
 

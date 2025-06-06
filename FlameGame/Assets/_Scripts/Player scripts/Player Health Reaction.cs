@@ -3,8 +3,9 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerHealthReaction : MonoBehaviour
 {
-    [SerializeField] GameObject fullHPimage, highHPimage, medHPimage, lowHPimage, noHPimage;
     [SerializeField] Light2D playerLight;
+
+    [SerializeField] GameObject flame, sprite;
 
     GAMEGLOBALMANAGEMENT GAME;
 
@@ -17,45 +18,8 @@ public class PlayerHealthReaction : MonoBehaviour
 
     void Update()
     {
-        if (GAME.playerCurrentHealth >= GAME.playerMaxHealth / 5 * 4)
-        {
-            fullHPimage.SetActive(true);
-            highHPimage.SetActive(false);
-            medHPimage.SetActive(false);
-            lowHPimage.SetActive(false);
-            noHPimage.SetActive(false);
-        }
-        else if(GAME.playerMaxHealth / 5 * 4 >= GAME.playerCurrentHealth && GAME.playerCurrentHealth >= GAME.playerMaxHealth / 5 * 3)
-        {
-            fullHPimage.SetActive(false);
-            highHPimage.SetActive(true);
-            medHPimage.SetActive(false);
-            lowHPimage.SetActive(false);
-            noHPimage.SetActive(false);
-        }
-        else if(GAME.playerCurrentHealth >= GAME.playerMaxHealth / 5 * 3 && GAME.playerCurrentHealth >= GAME.playerMaxHealth / 5 * 2)
-        {
-            fullHPimage.SetActive(false);
-            highHPimage.SetActive(false);
-            medHPimage.SetActive(true);
-            lowHPimage.SetActive(false);
-            noHPimage.SetActive(false);
-        }
-        else if(GAME.playerCurrentHealth >= GAME.playerMaxHealth / 5 * 2 && GAME.playerCurrentHealth >= GAME.playerMaxHealth / 5 * 1)
-        {
-            fullHPimage.SetActive(false);
-            highHPimage.SetActive(false);
-            medHPimage.SetActive(false);
-            lowHPimage.SetActive(true);
-            noHPimage.SetActive(false);
-        }
-        else if(GAME.playerCurrentHealth >= GAME.playerMaxHealth / 5 * 1 && GAME.playerCurrentHealth >= 0)
-        {
-            fullHPimage.SetActive(false);
-            highHPimage.SetActive(false);
-            medHPimage.SetActive(false);
-            lowHPimage.SetActive(false);
-            noHPimage.SetActive(true);
-        }
+        sprite.transform.localScale = new Vector3(1, GAME.playerCurrentHealth / GAME.playerMaxHealth);
+        flame.transform.localPosition = new Vector3(-0.07f, (GAME.playerCurrentHealth * 2.3f / GAME.playerMaxHealth) - 1.15f);
+        playerLight.transform.localPosition = new Vector3(0, (GAME.playerCurrentHealth * 2.3f / GAME.playerMaxHealth) - 1.15f);
     }
 }

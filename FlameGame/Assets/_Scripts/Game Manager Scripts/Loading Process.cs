@@ -70,7 +70,7 @@ public class Loadingprocess : MonoBehaviour
                 enemySpawnPosY = 0;
             }
             enemySpawnPos = new Vector3(enemySpawnPosX, enemySpawnPosY);
-            spawnedEnemy = Instantiate(GAME.enemyPrefabs[2], enemySpawnPos, Quaternion.identity);
+            spawnedEnemy = Instantiate(GAME.enemyPrefabs[0], enemySpawnPos, Quaternion.identity);
             spawnedEnemy.SetActive(true);
         }
     }
