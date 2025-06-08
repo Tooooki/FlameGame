@@ -22,10 +22,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            PlayerBasicShoot();
-        }
+        
+            if (Input.GetMouseButtonUp(0))
+            {
+                PlayerBasicShoot();
+            }
+        
 
         mouseScreenPosition = Mouse.current.position.ReadValue();
         mouseScreenPosition.z = 0f;
