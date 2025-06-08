@@ -1,28 +1,34 @@
 fileFormatVersion: 2
-guid: ae082d896bbf9844bab6055457964701
+guid: 674a978884bc0234e8da1b5f5ab1fe95
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -929979821187341961
-    second: WaterBallxxx_0
+      213: -7347978613226777303
+    second: attackingspririt_0
   - first:
-      213: 2204687572454417246
-    second: WaterBallxxx_1
+      213: 2778109013909016598
+    second: attackingspririt_1
   - first:
-      213: -3762706656320511512
-    second: WaterBallxxx_2
+      213: 358575008576491248
+    second: attackingspririt_2
   - first:
-      213: -287917837692709040
-    second: WaterBallxxx_3
+      213: -6735773106513541534
+    second: attackingspririt_3
   - first:
-      213: -5303008606208064833
-    second: WaterBallxxx_4
+      213: -549934283332313337
+    second: attackingspririt_4
   - first:
-      213: 5054123232743894349
-    second: WaterBallxxx_5
+      213: 9165187456085140495
+    second: attackingspririt_5
   - first:
-      213: -5437370267533801270
-    second: WaterBallxxx_6
+      213: -5096588623634985896
+    second: attackingspririt_6
+  - first:
+      213: -1843394608223420352
+    second: attackingspririt_7
+  - first:
+      213: 4094307207697084702
+    second: attackingspririt_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -131,13 +137,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WaterBallxxx_0
+      name: attackingspririt_0
       rect:
         serializedVersion: 2
-        x: 188
-        y: 136
-        width: 688
-        height: 791
+        x: 10
+        y: 2
+        width: 37
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 771e8d5a74c0813f0800000000000000
-      internalID: -929979821187341961
+      spriteID: 925537de16cb60a90800000000000000
+      internalID: -7347978613226777303
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WaterBallxxx_1
+      name: attackingspririt_1
       rect:
         serializedVersion: 2
-        x: 877
-        y: 596
-        width: 13
-        height: 15
+        x: 72
+        y: 2
+        width: 42
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e532ddc8aaf989e10800000000000000
-      internalID: 2204687572454417246
+      spriteID: 6109b59dd63dd8620800000000000000
+      internalID: 2778109013909016598
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WaterBallxxx_2
+      name: attackingspririt_2
       rect:
         serializedVersion: 2
-        x: 904
-        y: 586
-        width: 6
-        height: 6
+        x: 136
+        y: 2
+        width: 42
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,20 +196,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e1a4045b3e28cbc0800000000000000
-      internalID: -3762706656320511512
+      spriteID: 0fec88b021ae9f400800000000000000
+      internalID: 358575008576491248
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WaterBallxxx_3
+      name: attackingspririt_3
       rect:
         serializedVersion: 2
-        x: 871
-        y: 502
-        width: 17
-        height: 14
+        x: 199
+        y: 2
+        width: 42
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -212,20 +218,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 057d3d7804c110cf0800000000000000
-      internalID: -287917837692709040
+      spriteID: 26681aa1c0ab582a0800000000000000
+      internalID: -6735773106513541534
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WaterBallxxx_4
+      name: attackingspririt_4
       rect:
         serializedVersion: 2
-        x: 175
-        y: 490
-        width: 9
-        height: 10
+        x: 262
+        y: 1
+        width: 40
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,20 +240,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fb2012ae4cde766b0800000000000000
-      internalID: -5303008606208064833
+      spriteID: 70f1b28dead3e58f0800000000000000
+      internalID: -549934283332313337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WaterBallxxx_5
+      name: attackingspririt_5
       rect:
         serializedVersion: 2
-        x: 880
-        y: 392
-        width: 23
-        height: 29
+        x: 324
+        y: 1
+        width: 40
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,20 +262,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4dafb26d4ad32640800000000000000
-      internalID: 5054123232743894349
+      spriteID: f0422db9e69413f70800000000000000
+      internalID: 9165187456085140495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WaterBallxxx_6
+      name: attackingspririt_6
       rect:
         serializedVersion: 2
-        x: 180
-        y: 338
-        width: 11
-        height: 12
+        x: 387
+        y: 0
+        width: 42
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,8 +284,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ac88063dc849a84b0800000000000000
-      internalID: -5437370267533801270
+      spriteID: 85c80f156a74549b0800000000000000
+      internalID: -5096588623634985896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attackingspririt_7
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 1
+        width: 53
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04009fbde52fa66e0800000000000000
+      internalID: -1843394608223420352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attackingspririt_8
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 1
+        width: 40
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e113b1c76b6e1d830800000000000000
+      internalID: 4094307207697084702
       vertices: []
       indices: 
       edges: []
@@ -297,14 +347,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      WaterBallxxx_0: -929979821187341961
-      WaterBallxxx_1: 2204687572454417246
-      WaterBallxxx_2: -3762706656320511512
-      WaterBallxxx_3: -287917837692709040
-      WaterBallxxx_4: -5303008606208064833
-      WaterBallxxx_5: 5054123232743894349
-      WaterBallxxx_6: -5437370267533801270
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
