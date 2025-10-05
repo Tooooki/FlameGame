@@ -19,6 +19,7 @@ TagManager:
   - Audio
   - Chest
   - Exp
+  - MenuAudio
   layers:
   - Default
   - TransparentFX

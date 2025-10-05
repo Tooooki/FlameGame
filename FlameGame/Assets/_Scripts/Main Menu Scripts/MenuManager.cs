@@ -3,9 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] AudioSource musicSource;
+    public AudioClip mainMenuTheme;
+
     public void StartGame()
     {
-        SceneManager.LoadScene("1st Level"); 
+        SceneManager.LoadScene("1st Level");
     }
 
     public void SettingsButton()
@@ -16,5 +19,9 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+    private void Awake()
+    {
+        musicSource.PlayOneShot(mainMenuTheme);
     }
 }

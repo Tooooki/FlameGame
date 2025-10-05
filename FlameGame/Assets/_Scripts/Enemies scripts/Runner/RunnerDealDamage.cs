@@ -16,6 +16,7 @@ public class RunnerDealDamage : MonoBehaviour
         if (collision.CompareTag("PlayerHitbox"))
         {
             if (enemyAttackScript.canDamage)
+                GAME.audioManager.PlaySFX(GAME.audioManager.mcGettingHit);
             {
                 enemyAttackScript.canDamage = false;
 

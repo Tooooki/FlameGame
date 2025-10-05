@@ -62,6 +62,7 @@ public class Dash : MonoBehaviour
     {
         if (Input.GetKeyUp("space") && canDash && GAME.dashAbility)
         {
+            GAME.audioManager.PlaySFX(GAME.audioManager.mcGettingHit);
             Vector2 direction = new Vector2(0f, 0f);
 
             if (Input.GetKey(KeyCode.W))

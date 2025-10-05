@@ -14,6 +14,8 @@ public class audioManager : MonoBehaviour
     public AudioClip fireballHitWall;
     public AudioClip cardsShowing;
     public AudioClip cardChoosed;
+    public AudioClip mcGettingHit;
+    public AudioClip playerDash;
     public void PlaySFX(AudioClip clip)
     {
         sfxSource.PlayOneShot(clip);

@@ -5380,7 +5380,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1189134817}
+  m_Father: {fileID: 1124504607}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &425041898
 GameObject:
@@ -6803,7 +6803,7 @@ GameObject:
   - component: {fileID: 1124504608}
   m_Layer: 0
   m_Name: audioManager
-  m_TagString: Audio
+  m_TagString: MenuAudio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6823,6 +6823,7 @@ Transform:
   m_Children:
   - {fileID: 109554307}
   - {fileID: 1009761410}
+  - {fileID: 419844700}
   m_Father: {fileID: 1189134817}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1124504608
@@ -6848,6 +6849,8 @@ MonoBehaviour:
   fireballHitWall: {fileID: 8300000, guid: bd4ab63686fa6b94da5d55b5c1cdb6be, type: 3}
   cardsShowing: {fileID: 8300000, guid: 07d966cc9a0218941990796fa46babc6, type: 3}
   cardChoosed: {fileID: 8300000, guid: 99286e9d7e7ef0e4e8ea2cd9aff86b14, type: 3}
+  mcGettingHit: {fileID: 8300000, guid: 6d8a4e5503025d0489844f415834d519, type: 3}
+  playerDash: {fileID: 8300000, guid: 3559b2d7baaf99c4698ec78b0b57b717, type: 3}
 --- !u!1 &1129985067
 GameObject:
   m_ObjectHideFlags: 0
@@ -7061,7 +7064,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 419844700}
   - {fileID: 1124504607}
   - {fileID: 1035966089}
   - {fileID: 1483602548}
