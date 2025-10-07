@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PlayerDeath : MonoBehaviour
 {
     public float healingValue = 10f;
@@ -31,6 +32,7 @@ public class PlayerDeath : MonoBehaviour
         if (GAME.playerCurrentHealth <= 0)
         {
             GetComponentInParent<Rigidbody2D>().transform.position = new Vector3(0, 0, 0);
+            SceneManager.LoadScene("Main Menu");
             GAME.playerCurrentHealth = GAME.playerMaxHealth;
             //die
         }
