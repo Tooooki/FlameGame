@@ -8,9 +8,14 @@ public class AssassinBehaviour : MonoBehaviour
 
     public bool canMove, canAttack, goingInvisible, invisible, visible;
 
-    private Coroutine ChangeAlpha;
+    private bool isFading = false;
+    private bool playerInside = false;
+
+    private Coroutine changeAlphaCoroutine;
 
     public HashSet<GameObject> objectsInsideTrigger;
+
+    private SpriteRenderer[] spriteRenderers;
 
     CircleCollider2D attackDetection, visibleDetection;
     BoxCollider2D boxC;
@@ -19,7 +24,34 @@ public class AssassinBehaviour : MonoBehaviour
 
 
 
+    private void Start()
+    {
+        visible = false;
+        invisible = true;
+        isFading = false;
 
+        // Force re-evaluate the player inside logic
+        playerInside = objectsInsideTrigger.Contains(GAME.Player);
+
+        if (playerInside)
+        {
+            changeAlphaCoroutine = StartCoroutine(FadeToAlpha(1f, 0.5f, () =>
+            {
+                invisible = false;
+                visible = true;
+                isFading = false;
+            }));
+        }
+        else
+        {
+            changeAlphaCoroutine = StartCoroutine(FadeToAlpha(0f, 0.5f, () =>
+            {
+                invisible = true;
+                visible = false;
+                isFading = false;
+            }));
+        }
+    }
     private void Awake()
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
@@ -32,49 +64,58 @@ public class AssassinBehaviour : MonoBehaviour
         canMove = true;
         canAttack = true;
         objectsInsideTrigger = new HashSet<GameObject>();
+
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         if (canMove)
         {
-            rb.linearVelocity = (GAME.Player.transform.position - transform.position).normalized * GAME.enemyAssassinMoveVelocity;
+            Vector2 direction = (GAME.Player.transform.position - transform.position).normalized;
+            rb.linearVelocity = direction * GAME.enemyAssassinMoveVelocity;
         }
 
-        if (visible && canAttack)
-            boxC.enabled = true;
-        else
-            boxC.enabled = false;
-
-
-        if (!objectsInsideTrigger.Contains(GAME.Player) && !goingInvisible)
-        {
-            if (ChangeAlpha != null)
-                StopCoroutine(ChangeAlpha);
-
-            goingInvisible = true;
-            ChangeAlpha = StartCoroutine(Invisibility(1f));
-        }
-        else if (objectsInsideTrigger.Contains(GAME.Player))
-        {
-            if (ChangeAlpha != null)
-            {
-                StopCoroutine(ChangeAlpha);
-                goingInvisible = false;
-            }
-
-            ChangeAlpha = StartCoroutine(Visibility(2f));
-        }
-
+        boxC.enabled = visible && canAttack;
         visibleDetection.radius = GAME.enemyAssassinDetectionDistance;
-    }
 
+        bool playerNowInside = objectsInsideTrigger.Contains(GAME.Player);
+
+        if (!isFading)
+        {
+            if (playerNowInside && !visible)
+            {
+                if (changeAlphaCoroutine != null)
+                    StopCoroutine(changeAlphaCoroutine);
+
+                changeAlphaCoroutine = StartCoroutine(FadeToAlpha(1f, 0.5f, () =>
+                {
+                    invisible = false;
+                    visible = true;
+                    isFading = false;
+                }));
+            }
+            else if (!playerNowInside && !invisible)
+            {
+                if (changeAlphaCoroutine != null)
+                    StopCoroutine(changeAlphaCoroutine);
+
+                changeAlphaCoroutine = StartCoroutine(FadeToAlpha(0f, 0.5f, () =>
+                {
+                    invisible = true;
+                    visible = false;
+                    isFading = false;
+                }));
+            }
+        }
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("Player entered trigger");
             objectsInsideTrigger.Add(collision.gameObject);
         }
 
@@ -93,55 +134,35 @@ public class AssassinBehaviour : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("Player exited trigger");
             objectsInsideTrigger.Remove(collision.gameObject);
         }
     }
 
 
 
-
-
-
-
-
-    private IEnumerator Invisibility(float duration)
+    private IEnumerator FadeToAlpha(float targetAlpha, float duration, System.Action onComplete)
     {
-        visible = false;
+        isFading = true;
 
         float timer = 0f;
-
-        float startAlpha = GetComponentInChildren<SpriteRenderer>().color.a;
+        float startAlpha = spriteRenderers[0].color.a;
 
         while (timer < duration)
         {
             timer += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(startAlpha, 0, timer / duration);
-            foreach(SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
-                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, newAlpha);
-            yield return null;
-        }
-        invisible = true;
-        goingInvisible = false;
-    }
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / duration);
 
-    private IEnumerator Visibility(float duration)
-    {
-        invisible = false;
+            foreach (var sr in spriteRenderers)
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, alpha);
 
-        float timer = 0f;
-
-        float startAlpha = GetComponentInChildren<SpriteRenderer>().color.a;
-
-        while (timer < duration)
-        {
-            timer += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(startAlpha, 1, timer / duration);
-            foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
-                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, newAlpha);
             yield return null;
         }
 
-        visible = true;
+        foreach (var sr in spriteRenderers)
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetAlpha);
+
+        onComplete?.Invoke();
     }
 
     private IEnumerator Attack(GameObject target)
