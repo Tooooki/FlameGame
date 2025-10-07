@@ -24,4 +24,11 @@ public class MainMenu : MonoBehaviour
     {
         musicSource.PlayOneShot(mainMenuTheme);
     }
+    private void Update()
+    {
+        if (!musicSource.isPlaying)
+        {
+            musicSource.PlayOneShot(mainMenuTheme);
+        }
+    }
 }
