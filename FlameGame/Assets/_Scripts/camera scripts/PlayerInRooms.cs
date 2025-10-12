@@ -32,7 +32,6 @@ public class PlayerInRooms : MonoBehaviour
             if (cam.transform.position != new Vector3(gridPosX * 80, gridPosY * 48, -10))
             {
                 timer = 0f;
-                GAME.audioManager.PlaySFX(GAME.audioManager.toTheNextRoom);
                 isMoving = true;
             }
         }

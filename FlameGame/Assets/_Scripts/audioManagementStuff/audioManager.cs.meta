@@ -1,2 +1,24 @@
 fileFormatVersion: 2
 guid: 3b540f5119c2c4449bafea7954a60253
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - musicSource: {instanceID: 0}
+  - sfxSource: {instanceID: 0}
+  - step: {instanceID: 0}
+  - doorShut: {instanceID: 0}
+  - toTheNextRoom: {instanceID: 0}
+  - enemyChargingBow: {instanceID: 0}
+  - enemyShootingBow: {instanceID: 0}
+  - mainCharShootingFire: {instanceID: 0}
+  - fireballHitWall: {instanceID: 0}
+  - cardsShowing: {instanceID: 0}
+  - cardChoosed: {fileID: 8300000, guid: 99286e9d7e7ef0e4e8ea2cd9aff86b14, type: 3}
+  - mcGettingHit: {fileID: 8300000, guid: 6d8a4e5503025d0489844f415834d519, type: 3}
+  - playerDash: {fileID: 8300000, guid: 3559b2d7baaf99c4698ec78b0b57b717, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
