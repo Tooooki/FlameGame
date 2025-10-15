@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GAMEGLOBALMANAGEMENT : MonoBehaviour
@@ -13,6 +14,7 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public GameObject Player;
     public audioManager audioManager;
     public List<GameObject> enemyPrefabs;
+    public Vector3 MouseWorldPos;
 
     //---------------------- Player Stats -----------------------------------------------------------------------------------
     public int playerLevel;                             //Level         Current
@@ -32,19 +34,24 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public float playerDashCooldown;                    //Dash          Cooldown
     public float playerDashDuration;                    //Dash          Duration
 
-    //---------------------- Enemy Stats ------------------------------------------------------------------------------------
-    public float enemyRunnerMoveVelocity;               //Runner  Move   Velocity
-    public float enemyRunnerDamage;                     //Runner  Attack Damage
-    public float enemyRunnerDashVelocity;               //Runner  Dash   Velocity
-    public float enemyRunnerDashDuration;               //Runner  Dash   Duration
-    public float enemyRunnerExperienceDrop;             //Runner  Drop   Experience
-    public float enemyRunnerMaxHealth;                  //Runner  Health Max
+    public float playerPhoenixJumpDuration;             //Phoenix Jump  Duration
+    public float playerPhoenixJumpCooldown;             //Phoenix Jump  Cooldown
+    public float playerPhoenixJumpDamage;               //Phoenix Jump  Damage
+    public float playerPhoenixJumpKnockback;            //Phoenix Jump  Knocback
 
-    public float enemyShooterProjectileDamage;          //Shooter Attack Damage
-    public float enemyShooterProjectileVelocity;        //Shooter Attack Velocity
-    public float enemyShooterMoveVelocity;              //Shooter Move   Velocity
-    public float enemyShooterExperienceDrop;            //Shooter Drop   Experience
-    public float enemyShooterMaxHealth;                 //Shooter Health Max
+    //---------------------- Enemy Stats ------------------------------------------------------------------------------------
+    public float enemyRunnerMoveVelocity;               //Runner    Move    Velocity
+    public float enemyRunnerDamage;                     //Runner    Attack  Damage
+    public float enemyRunnerDashVelocity;               //Runner    Dash    Velocity
+    public float enemyRunnerDashDuration;               //Runner    Dash    Duration
+    public float enemyRunnerExperienceDrop;             //Runner    Drop    Experience
+    public float enemyRunnerMaxHealth;                  //Runner    Health  Max
+
+    public float enemyShooterProjectileDamage;          //Shooter   Attack  Damage
+    public float enemyShooterProjectileVelocity;        //Shooter   Attack  Velocity
+    public float enemyShooterMoveVelocity;              //Shooter   Move    Velocity
+    public float enemyShooterExperienceDrop;            //Shooter   Drop    Experience
+    public float enemyShooterMaxHealth;                 //Shooter   Health  Max
 
     public float enemyAssassinMaxHealth;
     public float enemyAssassinDamage;
@@ -63,7 +70,7 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
 
     //---------------------- Player Abilities -------------------------------------------------------------------------------
     public bool dashAbility = true;                     //Dash
-
+    public bool phoenixJumpAbility = true;              //Phoenix Jump
 
 
 
@@ -89,6 +96,11 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         playerDashVelocity = 50f;
         playerDashCooldown = 6f;
         playerDashDuration = 0.1f;
+
+        playerPhoenixJumpDuration = 0.8f;
+        playerPhoenixJumpCooldown = 2f;
+        playerPhoenixJumpDamage = 0f;
+        playerPhoenixJumpKnockback = 0f;
 
         enemyRunnerMoveVelocity = 12f;
         enemyRunnerDamage = 20f;

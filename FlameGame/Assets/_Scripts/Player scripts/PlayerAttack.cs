@@ -34,6 +34,7 @@ public class PlayerAttack : MonoBehaviour
 
         mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
         mouseWorldPosition.z = 0f;
+        GAME.MouseWorldPos = mouseWorldPosition;
 
         direction = (mouseWorldPosition - (GAME.Player.transform.position + new Vector3(0, GAME.playerCurrentHealth * 2.7f / GAME.playerMaxHealth))).normalized;
     }

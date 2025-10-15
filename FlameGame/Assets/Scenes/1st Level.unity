@@ -5878,6 +5878,7 @@ GameObject:
   - component: {fileID: 534102399}
   - component: {fileID: 534102400}
   - component: {fileID: 534102401}
+  - component: {fileID: 534102402}
   m_Layer: 9
   m_Name: PLAYER
   m_TagString: Player
@@ -5902,6 +5903,7 @@ Transform:
   - {fileID: 615397862}
   - {fileID: 1242765023}
   - {fileID: 630492172}
+  - {fileID: 1439513403}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &534102391
@@ -6030,6 +6032,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895b5df87ffac464d8592724ab6465b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &534102402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534102388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a03e08758f76cfc4b88c20ff9ccba828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPhoenixJump: 1
+  playerCollider: {fileID: 615397861}
+  playerHitbox: {fileID: 2074830883}
+  playerSprite: {fileID: 630492171}
+  ghost: {fileID: 1439513402}
+  playerFlame: {fileID: 109604113}
+  playerLight: {fileID: 1217379432}
 --- !u!1 &541447568
 GameObject:
   m_ObjectHideFlags: 0
@@ -6727,7 +6748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &783113921
 Animator:
   serializedVersion: 7
@@ -6997,7 +7018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &845132912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7899,7 +7920,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217379429}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a461dd5ab5bca2c48a767ee82e8ce045, type: 3}
   m_Name: 
@@ -8620,6 +8641,7 @@ MonoBehaviour:
   - {fileID: 4300347555681904611, guid: 2a0ae2482481a764e9963cf8936b1310, type: 3}
   - {fileID: 1941702327274538964, guid: 39f106f66a5b05746acd21f608480a8d, type: 3}
   - {fileID: 6891532581421428241, guid: c2335efabc164394ba4a6daf59f2376e, type: 3}
+  MouseWorldPos: {x: 0, y: 0, z: 0}
   playerLevel: 1
   playerCurrentExperience: 0
   playerExperienceToNextLevel: 100
@@ -8632,6 +8654,10 @@ MonoBehaviour:
   playerDashVelocity: 0
   playerDashCooldown: 0
   playerDashDuration: 0
+  playerPhoenixJumpDuration: 0
+  playerPhoenixJumpCooldown: 0
+  playerPhoenixJumpDamage: 0
+  playerPhoenixJumpKnockback: 0
   enemyRunnerMoveVelocity: 6
   enemyRunnerDamage: 20
   enemyRunnerDashVelocity: 20
@@ -8653,6 +8679,7 @@ MonoBehaviour:
   waxPotionHealingValue: 0
   expCrystalExperienceValue: 0
   dashAbility: 1
+  phoenixJumpAbility: 1
 --- !u!114 &1354395594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8741,6 +8768,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415144398}
   m_CullTransparentMesh: 1
+--- !u!1 &1439513402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1439513403}
+  - component: {fileID: 1439513404}
+  m_Layer: 9
+  m_Name: Ghost
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1439513403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439513402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 534102389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1439513404
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439513402}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1473467309
 GameObject:
   m_ObjectHideFlags: 0
@@ -9937,7 +10023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1868602169
 RectTransform:
   m_ObjectHideFlags: 0
