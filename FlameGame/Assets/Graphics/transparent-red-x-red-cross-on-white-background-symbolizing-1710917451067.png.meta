@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      transparent-red-x-red-cross-on-white-background-symbolizing-1710917451067_0: -5106092622035237544
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

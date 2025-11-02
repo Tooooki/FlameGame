@@ -20,6 +20,8 @@ public class RunnerDealDamage : MonoBehaviour
             {
                 enemyAttackScript.canDamage = false;
 
+                GAME.audioManager.PlaySFX(GAME.audioManager.slimeAttack);
+
                 GAME.PlayerGetDamage(GAME.enemyRunnerDamage);
             }
         }

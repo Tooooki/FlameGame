@@ -7683,14 +7683,18 @@ MonoBehaviour:
   step: {fileID: 8300000, guid: e75dff831c6d99349af9d2f0a5fce913, type: 3}
   doorShut: {fileID: 8300000, guid: f7b8b147e4d356b479731dc884dd1483, type: 3}
   toTheNextRoom: {fileID: 8300000, guid: cacc009382538fc4ca734259d3f290dd, type: 3}
-  enemyChargingBow: {fileID: 8300000, guid: b7d68182e472614419fc943b849a314e, type: 3}
-  enemyShootingBow: {fileID: 8300000, guid: 0484d6d419a75df4fb7eb715978502f8, type: 3}
+  enemyChargingWater: {fileID: 8300000, guid: 9f95ca1faeb1dce409d94e1fb827a17c, type: 3}
+  enemyShootingWater: {fileID: 8300000, guid: abf163f89d1ea4c408c8c512eaeed85f, type: 3}
+  enemyShooterHittingPlayer: {fileID: 8300000, guid: be8458e8c4433db4fab5efc3aac6fcea, type: 3}
   mainCharShootingFire: {fileID: 8300000, guid: bd66bc7f78ee3554d83a0e634417c177, type: 3}
   fireballHitWall: {fileID: 8300000, guid: bd4ab63686fa6b94da5d55b5c1cdb6be, type: 3}
   cardsShowing: {fileID: 8300000, guid: 07d966cc9a0218941990796fa46babc6, type: 3}
   cardChoosed: {fileID: 8300000, guid: 99286e9d7e7ef0e4e8ea2cd9aff86b14, type: 3}
-  mcGettingHit: {fileID: 8300000, guid: 6d8a4e5503025d0489844f415834d519, type: 3}
+  mcGettingHit: {fileID: 8300000, guid: 16526c5bc6fa2d441bd697e978bfa39b, type: 3}
   playerDash: {fileID: 8300000, guid: 3559b2d7baaf99c4698ec78b0b57b717, type: 3}
+  slimeMoving: {fileID: 8300000, guid: 5967ce146d0587f499c2e97765041234, type: 3}
+  slimeDying: {fileID: 8300000, guid: 46df01ec6719b88408d14fc21ab811de, type: 3}
+  slimeAttack: {fileID: 8300000, guid: d4e39f7821b9934419513381737929a2, type: 3}
 --- !u!1 &1129985067
 GameObject:
   m_ObjectHideFlags: 0

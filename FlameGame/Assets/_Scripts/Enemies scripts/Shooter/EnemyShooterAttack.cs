@@ -30,7 +30,7 @@ public class EnemyShooterAttack : MonoBehaviour
             GameObject projectile;
             projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.SetActive(true);
-            GAME.audioManager.PlaySFX(GAME.audioManager.enemyShootingBow);
+            GAME.audioManager.PlaySFX(GAME.audioManager.enemyShootingWater);
 
             GetComponentInChildren<Light2D>().intensity = 1f;
 

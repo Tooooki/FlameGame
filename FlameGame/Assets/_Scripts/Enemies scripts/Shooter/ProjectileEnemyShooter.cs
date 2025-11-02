@@ -17,7 +17,8 @@ public class ProjectileEnemyShooter : MonoBehaviour
         if(collision.CompareTag("PlayerHitbox"))
         {
             GAME.PlayerGetDamage(GAME.enemyShooterProjectileDamage);
-            StartCoroutine(ProjectileSplash()); 
+            StartCoroutine(ProjectileSplash());
+            GAME.audioManager.PlaySFX(GAME.audioManager.mcGettingHit);
         }
 
         if(collision.CompareTag("walls"))
@@ -69,6 +70,7 @@ public class ProjectileEnemyShooter : MonoBehaviour
 
             yield return null;
         }
+        GAME.audioManager.PlaySFX(GAME.audioManager.enemyShooterHittingPlayer);
 
         Destroy(this.gameObject);
     }

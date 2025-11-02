@@ -23,5 +23,6 @@ public class EnemyAI : MonoBehaviour
         {
             transform.GetChild(0).transform.rotation = new Quaternion(0, 0, 0, 0);
         }
+
     }
 }
