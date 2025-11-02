@@ -58,7 +58,32 @@ public class CardManager : MonoBehaviour
         cardOne.GetComponent<Card>().Setup(selectedCards[0]);
         cardTwo.GetComponent<Card>().Setup(selectedCards[1]);
         cardThree.GetComponent<Card>().Setup(selectedCards[2]);
+
+        StartCoroutine(ScaleUp(cardOne));
+        StartCoroutine(ScaleUp(cardTwo));
+        StartCoroutine(ScaleUp(cardThree));
     }
+
+    IEnumerator ScaleUp(GameObject obj, float duration = 0.25f)
+{
+    if (obj == null) yield break;
+    Vector3 originalScale = obj.transform.localScale;
+    obj.transform.localScale = Vector3.zero;
+
+    float t = 0;
+    while (t < duration)
+    {
+        if (obj == null) yield break; // ✅ Object destroyed? stop coroutine
+        if (obj.transform == null) yield break;
+
+        obj.transform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t / duration);
+        t += Time.unscaledDeltaTime;
+        yield return null;
+    }
+
+    if (obj != null)
+        obj.transform.localScale = originalScale;
+}
 
     void RandomizeNewCards()
     {
