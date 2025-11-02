@@ -129,6 +129,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -409,7 +422,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dooropen23_0: -1161038986542125912
+      dooropen23_1: -5086360053418379787
+      dooropen23_10: -2757335908031626282
+      dooropen23_11: -4746465267843021394
+      dooropen23_2: 4156238328960128983
+      dooropen23_3: -3795963625726508990
+      dooropen23_4: -9002149509715329483
+      dooropen23_5: -3535381693499841403
+      dooropen23_6: 3912321149196839883
+      dooropen23_7: 918686282638317938
+      dooropen23_8: 5025611866307771476
+      dooropen23_9: 4587252363645241156
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
