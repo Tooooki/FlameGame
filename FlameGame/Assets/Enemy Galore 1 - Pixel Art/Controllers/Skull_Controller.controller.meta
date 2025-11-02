@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: eee5ae94b5fdd4949a11c40843de3ff3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 208921
+  packageName: Enemy Galore 1 - Pixel Art
+  packageVersion: 1.2
+  assetPath: Assets/Enemy Galore 1 - Pixel Art/Controllers/Skull_Controller.controller
+  uploadId: 503193

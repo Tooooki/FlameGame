@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0469abc1733c2ef47ab4e0f539b8bc64
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 208921
+  packageName: Enemy Galore 1 - Pixel Art
+  packageVersion: 1.2
+  assetPath: Assets/Enemy Galore 1 - Pixel Art/Animations/SpikedSlime_Hit.anim
+  uploadId: 503193

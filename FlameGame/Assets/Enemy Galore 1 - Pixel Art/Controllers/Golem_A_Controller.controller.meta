@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: de73cdbd51b1a4e429a03c2fe0f351a1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 208921
+  packageName: Enemy Galore 1 - Pixel Art
+  packageVersion: 1.2
+  assetPath: Assets/Enemy Galore 1 - Pixel Art/Controllers/Golem_A_Controller.controller
+  uploadId: 503193
