@@ -16,6 +16,8 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public List<GameObject> enemyPrefabs;
     public Vector3 MouseWorldPos;
 
+    [SerializeField] private ParticleSystem PlayerFlameGetDamage;
+
     //---------------------- Player Stats -----------------------------------------------------------------------------------
     public int playerLevel;                             //Level         Current
     public float playerCurrentExperience;               //Experience    Current
@@ -145,6 +147,8 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public void PlayerGetDamage(float damage)
     {
         playerCurrentHealth -= damage;
+
+        PlayerFlameGetDamage.Play();
 
         Player.GetComponentInChildren<PlayerDeath>().DamageResult();
     }
