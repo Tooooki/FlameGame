@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 091e266d5096a23418e44f9fd4edcc1b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 208921
+  packageName: Enemy Galore 1 - Pixel Art
+  packageVersion: 1.2
+  assetPath: Assets/Enemy Galore 1 - Pixel Art/Animations/SpikedSlime_Run.anim
+  uploadId: 503193

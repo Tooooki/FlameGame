@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 31193055c1a5c4d46acf0cf8d3686ea8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 208921
+  packageName: Enemy Galore 1 - Pixel Art
+  packageVersion: 1.2
+  assetPath: Assets/Enemy Galore 1 - Pixel Art/Controllers/SpikedSlime_Controller.controller
+  uploadId: 503193
