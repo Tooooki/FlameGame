@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9c98edb26dd0b8f43a0ae0169d28bc24
+guid: 86193a866d829c6459a9526779af1218
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3711551421298955851
-    second: ge2m_0
+      213: 7675826601332790545
+    second: coin_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ge2m_0
+      name: coin_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5b921ef95abed7cc0800000000000000
-      internalID: -3711551421298955851
+      spriteID: 1155fe920a3068a60800000000000000
+      internalID: 7675826601332790545
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ge2m_0: -3711551421298955851
+      coin_0: 7675826601332790545
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

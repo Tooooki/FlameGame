@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1b48760301912b2409333f77e94b7a94
+guid: 61ad443c2cf3101459ccdac2f443b490
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1416776561744800790
-    second: 360_F_54401023_DKjtnTrFXhaXSqv0wW0iaQyQobIkRoxV_0
+      213: 532282208441007744
+    second: images (1)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 360_F_54401023_DKjtnTrFXhaXSqv0wW0iaQyQobIkRoxV_0
+      name: images (1)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 411
-        height: 360
+        width: 168
+        height: 300
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ae31a173939965ce0800000000000000
-      internalID: -1416776561744800790
+      spriteID: 08ef26239db036700800000000000000
+      internalID: 532282208441007744
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      360_F_54401023_DKjtnTrFXhaXSqv0wW0iaQyQobIkRoxV_0: -1416776561744800790
+      images (1)_0: 532282208441007744
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

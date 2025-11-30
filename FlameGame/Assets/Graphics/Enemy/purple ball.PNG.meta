@@ -1,10 +1,11 @@
 fileFormatVersion: 2
-guid: e308ac51c6131224a992f402e9b41701
+guid: 5d5e8ba73ad7de743bf4cd86a3119911
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1121753791826393546
-    second: swiecaEND5_0
+      213: 9088043894191463744
+    second: cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTExL3Jhd3BpeGVsb2ZmaWNlOV9yZWFsaXN0aWNfYm9tYl9zY2ktZmlfZXhwbG9zaW9uX2VmZmVjdF9wdXJwbGVfZV80Mzc2Zjk5MC1jYzIxLTRmMDYtOTA4Zi1hZTg0NjQ0ZjU4MDFfMS5wbmc
+      1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +47,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,17 +97,31 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: swiecaEND5_0
+      name: cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTExL3Jhd3BpeGVsb2ZmaWNlOV9yZWFsaXN0aWNfYm9tYl9zY2ktZmlfZXhwbG9zaW9uX2VmZmVjdF9wdXJwbGVfZV80Mzc2Zjk5MC1jYzIxLTRmMDYtOTA4Zi1hZTg0NjQ0ZjU4MDFfMS5wbmc
+        1_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 3
-        width: 52
-        height: 90
+        x: 0
+        y: 0
+        width: 800
+        height: 800
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ac9724f5125419f00800000000000000
-      internalID: 1121753791826393546
+      spriteID: 04d907075c73f1e70800000000000000
+      internalID: 9088043894191463744
       vertices: []
       indices: 
       edges: []
@@ -125,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      swiecaEND5_0: 1121753791826393546
+      cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTExL3Jhd3BpeGVsb2ZmaWNlOV9yZWFsaXN0aWNfYm9tYl9zY2ktZmlfZXhwbG9zaW9uX2VmZmVjdF9wdXJwbGVfZV80Mzc2Zjk5MC1jYzIxLTRmMDYtOTA4Zi1hZTg0NjQ0ZjU4MDFfMS5wbmc 1_0: 9088043894191463744
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
