@@ -13,45 +13,49 @@ public class PlayerBasicProjectile : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
+{
+    if (collision.CompareTag("walls"))
     {
-        if (collision.CompareTag("walls"))
-        {
-            GAME.audioManager.PlaySFX(GAME.audioManager.fireballHitWall);
-
-            StartCoroutine(projectileExplosion());
-        }
-
-
-        if (collision.CompareTag("EnemyHitbox"))
-        {
-            if (collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>() != null)
-                collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>().GetDamage(GAME.playerBasicAttackDamage); // Apply damage to Runner
-            else if (collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>() != null)
-                collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>().LoseHP(GAME.playerBasicAttackDamage); // Apply damage to Shooter
-            else if (collision.gameObject.GetComponent<AssassinDamage>() != null)
-                collision.gameObject.GetComponent<AssassinDamage>().GetDamage(GAME.playerBasicAttackDamage);
-
-            StartCoroutine(projectileExplosion());
-        }
-
-
-        if (collision.CompareTag("Clutter"))
-        {
-            StartCoroutine(projectileExplosion());
-
-            collision.GetComponent<BoxCollider2D>().enabled = false;
-            collision.gameObject.transform.Find("Sprite").gameObject.SetActive(false);
-            collision.gameObject.transform.Find("Particle System").gameObject.SetActive(true);
-            collision.gameObject.GetComponent<ShadowCaster2D>().enabled = false;
-
-            Destroy(collision.gameObject, 0.4f);
-        }
-
-        if (collision.CompareTag("Chest"))
-        {
-            StartCoroutine(projectileExplosion());
-        }
+        GAME.audioManager.PlaySFX(GAME.audioManager.fireballHitWall);
+        StartCoroutine(projectileExplosion());
     }
+
+    // --- NEW: Boss Detection ---
+    if (collision.CompareTag("BossHitbox"))
+    {
+        collision.transform.parent.GetComponent<BossHealth>()?.TakeDamage(GAME.playerBasicAttackDamage);
+        StartCoroutine(projectileExplosion());
+    }
+
+    if (collision.CompareTag("EnemyHitbox"))
+    {
+        if (collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>() != null)
+            collision.gameObject.transform.parent.gameObject.GetComponent<EnemyCrosshair>().GetDamage(GAME.playerBasicAttackDamage);
+        else if (collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>() != null)
+            collision.gameObject.transform.parent.gameObject.GetComponent<DamageEnemyShooter>().LoseHP(GAME.playerBasicAttackDamage);
+        else if (collision.gameObject.GetComponent<AssassinDamage>() != null)
+            collision.gameObject.GetComponent<AssassinDamage>().GetDamage(GAME.playerBasicAttackDamage);
+
+        StartCoroutine(projectileExplosion());
+    }
+
+    if (collision.CompareTag("Clutter"))
+    {
+        StartCoroutine(projectileExplosion());
+
+        collision.GetComponent<BoxCollider2D>().enabled = false;
+        collision.transform.Find("Sprite").gameObject.SetActive(false);
+        collision.transform.Find("Particle System").gameObject.SetActive(true);
+        collision.GetComponent<ShadowCaster2D>().enabled = false;
+
+        Destroy(collision.gameObject, 0.4f);
+    }
+
+    if (collision.CompareTag("Chest"))
+    {
+        StartCoroutine(projectileExplosion());
+    }
+}
 
     public void Explode()
     {

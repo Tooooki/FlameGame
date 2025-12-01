@@ -62,6 +62,9 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public float enemyAssassinDetectionDistance;
     public float enemyAssassinAttackDelay;
 
+    public float bossMaxHealth; //Boss Health Max
+    public float bossExperienceDrop; //Boss Drop Experience
+
     //---------------------- Other Stats ------------------------------------------------------------------------------------
     public float spikesDamage;
 
@@ -123,6 +126,9 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         enemyAssassinMoveVelocity = 4f;
         enemyAssassinDetectionDistance = 10f;
         enemyAssassinAttackDelay = 1f;
+
+        bossMaxHealth = 500f;
+        bossExperienceDrop = 300f;
 
         spikesDamage = 50f;
 

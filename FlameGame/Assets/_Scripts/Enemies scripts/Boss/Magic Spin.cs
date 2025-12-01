@@ -36,6 +36,7 @@ public class MagicSpin : MonoBehaviour
 
     private void ShootCircular()
     {
+        Debug.Log("shot magic spin phase 1");
         if (bossProjectile == null || gameManager == null)
             return;
 

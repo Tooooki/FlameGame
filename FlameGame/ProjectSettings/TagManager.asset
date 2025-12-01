@@ -20,6 +20,9 @@ TagManager:
   - Chest
   - Exp
   - MenuAudio
+  - Boss
+  - BossHitbox
+  - BossProjectile
   layers:
   - Default
   - TransparentFX

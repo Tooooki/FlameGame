@@ -3,23 +3,22 @@ using UnityEngine;
 public class BasicAttack : MonoBehaviour
 {
     [Header("Projectile Settings")]
-    [SerializeField] private GameObject bossProjectile;   // Assign BossProjectile prefab
-    public float projectileSpeed = 10f;                   // Speed of the projectile
+    [SerializeField] private GameObject bossProjectile;
+    public float projectileSpeed = 10f;
 
     [Header("Shooting Settings")]
     public bool canShoot = true;
-    public float shootInterval = 0.5f;                    // How often TryShoot is called
+    public float shootInterval = 0.5f;
     [Range(0f, 1f)]
-    public float shootChance = 0.5f;                      // Chance to fire each interval (0 = never, 1 = always)
+    public float shootChance = 0.5f;
 
     [Header("Optional Shoot Point")]
-    [SerializeField] private Transform shootPoint;        // Optional child transform for projectile spawn
+    [SerializeField] private Transform shootPoint;
 
     private Transform player;
 
     private void Awake()
     {
-        // Find the player in the scene
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
@@ -36,35 +35,32 @@ public class BasicAttack : MonoBehaviour
 
     private void TryShoot()
     {
-        if (!canShoot || player == null)
+        // Stop shooting if the script is disabled or canShoot is false
+        if (!enabled || !canShoot || player == null)
             return;
 
-        // Random chance to shoot
         if (Random.value > shootChance)
             return;
 
-        // Determine spawn position
         Vector3 spawnPos = shootPoint != null ? shootPoint.position : transform.position;
-
-        // Instantiate projectile
         GameObject projectile = Instantiate(bossProjectile, spawnPos, Quaternion.identity);
 
-        // Aim at player
         Vector2 direction = player.position - spawnPos;
-
-        // Assign velocity
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         if (rb != null)
-        {
             rb.velocity = direction.normalized * projectileSpeed;
-        }
-        else
-        {
-            Debug.LogWarning("BasicAttack: BossProjectile prefab has no Rigidbody2D!");
-        }
 
-        // Rotate projectile to face the player
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         projectile.transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
+    }
+
+    /// <summary>
+    /// Call this to completely stop the BasicAttack (used when switching phases)
+    /// </summary>
+    public void StopAttack()
+    {
+        canShoot = false;
+        CancelInvoke(nameof(TryShoot)); // stops InvokeRepeating immediately
+        StopAllCoroutines();           // in case you ever use coroutines in the future
     }
 }
