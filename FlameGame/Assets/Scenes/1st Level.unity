@@ -20372,14 +20372,14 @@ MonoBehaviour:
   projectileSpeed: 15
   projectileDamage: 15
   bulletsPerCircle: 35
-  fireRate: 3.75
+  fireRate: 2
   angleStep: 30
   magicWallPrefab: {fileID: 8321576321115142722, guid: 46d21a26915b6d648bd9429f5a1deb42, type: 3}
   wallCooldown: 5
-  magicWallSpeed: 5
+  magicWallSpeed: 20
   enemyPrefab: {fileID: 4300347555681904611, guid: 2a0ae2482481a764e9963cf8936b1310, type: 3}
-  enemySpawnCooldown: 8
-  maxEnemiesPerSpawn: 3
+  enemySpawnCooldown: 20
+  maxEnemiesPerSpawn: 2
 --- !u!1 &2006275781
 GameObject:
   m_ObjectHideFlags: 0

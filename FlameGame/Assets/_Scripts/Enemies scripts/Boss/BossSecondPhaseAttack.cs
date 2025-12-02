@@ -18,12 +18,12 @@ public class BossSecondPhaseAttack : MonoBehaviour
     [Header("MAGIC WALL SETTINGS")]
     [SerializeField] private GameObject magicWallPrefab;
     [SerializeField] private float wallCooldown = 5f;
-    [SerializeField] private float magicWallSpeed = 5f;
+    [SerializeField] private float magicWallSpeed = 20f;
     private float wallTimer = 0f;
 
     [Header("ENEMY SPAWN SETTINGS")]
     [SerializeField] private GameObject enemyPrefab;   // Assign enemy prefab in Inspector
-    [SerializeField] private float enemySpawnCooldown = 8f;
+    [SerializeField] private float enemySpawnCooldown = 8f; // Seconds between spawns
     [SerializeField] private int maxEnemiesPerSpawn = 3;
     private float enemySpawnTimer = 0f;
 
@@ -116,8 +116,7 @@ public class BossSecondPhaseAttack : MonoBehaviour
         MagicWall wallScript = wallObj.GetComponent<MagicWall>();
         if (wallScript != null)
         {
-            wallScript.Initialize(direction);
-            wallScript.SetSpeed(magicWallSpeed);
+            wallScript.Initialize(direction, magicWallSpeed);
         }
 
         wallObj.tag = "BossProjectile";

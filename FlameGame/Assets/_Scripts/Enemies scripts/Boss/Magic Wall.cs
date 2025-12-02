@@ -2,53 +2,53 @@ using UnityEngine;
 
 public class MagicWall : MonoBehaviour
 {
-    [Header("Wall Settings")]
-    [SerializeField] private float speed = 5f;          // Movement speed
-    [SerializeField] private float lifetime = 8f;       // How long the wall lasts before disappearing
-    [SerializeField] private int damage = 10;           // Damage to the player
+    private Vector2 moveDirection;
+    private float moveSpeed = 20f;
+    private Rigidbody2D rb;
 
-    private Vector2 direction;                           // Direction of movement
-
-    private void Start()
+    private void Awake()
     {
-        // Destroy after lifetime expires
-        Destroy(gameObject, lifetime);
+        rb = GetComponent<Rigidbody2D>();
+        if(rb == null)
+            rb = gameObject.AddComponent<Rigidbody2D>();
+        rb.gravityScale = 0;
+        rb.freezeRotation = true;
+    }
+
+    // Call this when you spawn the wall
+    public void Initialize(Vector2 direction, float speed)
+    {
+        moveDirection = direction.normalized;
+        moveSpeed = speed;
+
+        // Rotate wall to face movement direction
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+
+        // Apply velocity immediately
+        if(rb != null)
+            rb.velocity = moveDirection * moveSpeed;
     }
 
     private void Update()
     {
-        // Move the wall
-        transform.position += (Vector3)(direction * speed * Time.deltaTime);
-    }
-
-    // Call this from the boss script after instantiating
-    public void Initialize(Vector2 dir)
-    {
-        direction = dir.normalized;
-    }
-
-    // Optional: allow boss to override speed at runtime
-    public void SetSpeed(float newSpeed)
-    {
-        speed = newSpeed;
+        // Optional: destroy after leaving screen or after some time
+        // Destroy(gameObject, 10f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if(collision.CompareTag("Player"))
         {
-            // Damage the player
-            GAMEGLOBALMANAGEMENT gameManager = GameObject.FindGameObjectWithTag("GameManager")?.GetComponent<GAMEGLOBALMANAGEMENT>();
-            if (gameManager != null)
-            {
-                gameManager.PlayerGetDamage(damage);
-            }
+            // Deal damage to player
+            GAMEGLOBALMANAGEMENT gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+            if(gameManager != null)
+                gameManager.PlayerGetDamage(20); // or configurable
 
             Destroy(gameObject);
         }
 
-        // Destroy when hitting walls or obstacles
-        if (collision.CompareTag("walls") || collision.CompareTag("Clutter") || collision.CompareTag("Chest"))
+        if(collision.CompareTag("walls") || collision.CompareTag("Clutter") || collision.CompareTag("Chest"))
         {
             Destroy(gameObject);
         }
