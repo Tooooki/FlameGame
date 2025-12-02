@@ -19919,7 +19919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1830036473}
   - component: {fileID: 1830036474}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Hitbox
   m_TagString: BossHitbox
   m_Icon: {fileID: 0}
@@ -20154,7 +20154,7 @@ GameObject:
   - component: {fileID: 1918876186}
   - component: {fileID: 1918876187}
   - component: {fileID: 1918876188}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20326,8 +20326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpBar: {fileID: 1722220437079140077, guid: 09ff97bd98234e548aa2dedd464c8cf2, type: 3}
-  bossHP: 500
-  bossMaxHP: 500
+  bossHP: 1000
+  bossMaxHP: 1000
   bossSlider: {fileID: 464504567}
 --- !u!50 &1918876188
 Rigidbody2D:
@@ -20370,9 +20370,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 4004005095583763965, guid: e0e0fbda1bddd424ebd937b9ee2dd1d6, type: 3}
   projectileSpeed: 15
+  projectileDamage: 15
   bulletsPerCircle: 35
   fireRate: 3.75
   angleStep: 30
+  magicWallPrefab: {fileID: 8321576321115142722, guid: 46d21a26915b6d648bd9429f5a1deb42, type: 3}
+  wallCooldown: 5
+  magicWallSpeed: 5
+  enemyPrefab: {fileID: 4300347555681904611, guid: 2a0ae2482481a764e9963cf8936b1310, type: 3}
+  enemySpawnCooldown: 8
+  maxEnemiesPerSpawn: 3
 --- !u!1 &2006275781
 GameObject:
   m_ObjectHideFlags: 0

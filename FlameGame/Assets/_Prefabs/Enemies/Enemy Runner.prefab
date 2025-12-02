@@ -500,6 +500,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bcd63e69a78dbd4d9a22d362a291e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  avoidanceRadius: 1
+  bossLayer:
+    serializedVersion: 2
+    m_Bits: 65536
 --- !u!114 &2556153298695957255
 MonoBehaviour:
   m_ObjectHideFlags: 0
