@@ -2,42 +2,51 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 public class PlayerDeath : MonoBehaviour
 {
-    public float healingValue = 10f;
+    [Header("Player Settings")]
+    public float passiveDegeneration = 0.1f;
 
-    public float passiveDegeneration;
-
+    [Header("UI Elements")]
+    [SerializeField] private Image deathFadeImage;   // Fullscreen black image
     [SerializeField] private Image healthBar;
 
-    [SerializeField] private GameObject healingPotionPrefab;
-
-
-    GAMEGLOBALMANAGEMENT GAME;
-
+    private GAMEGLOBALMANAGEMENT GAME;
+    private bool isDead = false;
 
     private void Awake()
     {
-        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+        GAME = GameObject.FindGameObjectWithTag("GameManager")
+            .GetComponent<GAMEGLOBALMANAGEMENT>();
 
-        passiveDegeneration = 0.1f;
-        
-        InvokeRepeating("PassiveDegeneration", 0, 1.0f);
-
+        // Ensure player starts with full health
         GAME.playerCurrentHealth = GAME.playerMaxHealth;
-    }
 
-    void Update()
-    {
-        if (GAME.playerCurrentHealth <= 0)
+        // Ensure fade image starts invisible
+        if (deathFadeImage != null)
         {
-            GetComponentInParent<Rigidbody2D>().transform.position = new Vector3(0, 0, 0);
-            SceneManager.LoadScene("Main Menu");
-            GAME.playerCurrentHealth = GAME.playerMaxHealth;
-            //die
+            Color c = deathFadeImage.color;
+            c.a = 0f;
+            deathFadeImage.color = c;
         }
 
-        healthBar.transform.localScale = new Vector3(GAME.playerCurrentHealth / GAME.playerMaxHealth, healthBar.transform.localScale.y);
+        InvokeRepeating(nameof(PassiveDegeneration), 0, 1f);
+    }
+
+    private void Update()
+    {
+
+        // Update health bar scale
+        if (healthBar != null)
+            healthBar.transform.localScale =
+                new Vector3(GAME.playerCurrentHealth / GAME.playerMaxHealth, 1, 1);
+
+        // Trigger death sequence
+        if (!isDead && GAME.playerCurrentHealth <= 0)
+        {
+            StartCoroutine(PlayerDeathSequence());
+        }
     }
 
     private void PassiveDegeneration()
@@ -45,16 +54,75 @@ public class PlayerDeath : MonoBehaviour
         GAME.playerCurrentHealth -= passiveDegeneration;
     }
 
-    public void DamageResult()
+    private IEnumerator PlayerDeathSequence()
     {
-        //GameObject healItem = Instantiate(healingPotionPrefab, transform.position, Quaternion.identity);
-        //StartCoroutine(healPotionSpawnDelay(healItem));
-        GAME.Player.GetComponent<PlayerInRooms>().PlayCameraShake(0.2f);
+        isDead = true;
+        Debug.Log("DEATH STARTED");
+
+        // 1. Block player movement/input
+        BlockPlayerMovement();
+
+        // 2. Fade-in screen
+        if (deathFadeImage != null)
+        {
+            float fadeTime = 2f;
+            float t = 0f;
+
+            while (t < fadeTime)
+            {
+                t += Time.deltaTime;
+                float alpha = Mathf.Clamp01(t / fadeTime);
+
+                Color c = deathFadeImage.color;
+                c.a = alpha;
+                deathFadeImage.color = c;
+
+                yield return null;
+            }
+        }
+
+        // Optional pause before scene load
+        yield return new WaitForSeconds(1f);
+
+        // 3. Load Main Menu asynchronously
+        string sceneName = "Main Menu";
+        if (Application.CanStreamedLevelBeLoaded(sceneName))
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+        }
+        else
+        {
+            Debug.LogError($"Scene '{sceneName}' cannot be found. Check Build Settings!");
+        }
     }
 
-    private IEnumerator healPotionSpawnDelay(GameObject healItem)
+    private void BlockPlayerMovement()
     {
-        yield return new WaitForSeconds(2f);
-        healItem.GetComponent<BoxCollider2D>().enabled = true;
+        if (GAME.Player == null) return;
+
+        // Disable only the PlayerHealthReaction script
+        var healthReaction = GAME.Player.GetComponent<PlayerHealthReaction>();
+        if (healthReaction != null)
+            healthReaction.enabled = false;
+
+        // Stop Rigidbody movement
+        Rigidbody2D rb = GAME.Player.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        Debug.Log("Player movement + PlayerHealthReaction disabled.");
+    }
+
+    // Optional: play camera shake on damage
+    public void DamageResult()
+    {
+        GAME.Player.GetComponent<PlayerInRooms>()?.PlayCameraShake(0.2f);
     }
 }

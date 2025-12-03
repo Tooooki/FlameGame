@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a8f22ddc7d0ecb469d8bd7207e4c008, type: 3}
-  m_Name: Dash Cooldown -1s
+  m_Name: Full Heal
   m_EditorClassIdentifier: 
   cardImage: {fileID: 0}
-  cardText: Reduces dash cooldown by 1s
-  effectType: 8
-  effectValue: -1
+  cardText: Heals All Damage
+  effectType: 1
+  effectValue: 1000
   isUnique: 1
   unlockLevel: 0
