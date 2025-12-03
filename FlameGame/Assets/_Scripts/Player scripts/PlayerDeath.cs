@@ -100,16 +100,21 @@ public class PlayerDeath : MonoBehaviour
         }
     }
 
-    private void BlockPlayerMovement()
+        private void BlockPlayerMovement()
     {
         if (GAME.Player == null) return;
 
-        // Disable only the PlayerHealthReaction script
+        // Disable health reaction
         var healthReaction = GAME.Player.GetComponent<PlayerHealthReaction>();
         if (healthReaction != null)
             healthReaction.enabled = false;
 
-        // Stop Rigidbody movement
+        // Disable movement scripts
+        var movement = GAME.Player.GetComponent<PlayerMovement>();
+        if (movement != null)
+            movement.enabled = false;
+
+        // Stop Rigidbody movement immediately
         Rigidbody2D rb = GAME.Player.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
@@ -119,6 +124,7 @@ public class PlayerDeath : MonoBehaviour
 
         Debug.Log("Player movement + PlayerHealthReaction disabled.");
     }
+
 
     // Optional: play camera shake on damage
     public void DamageResult()
