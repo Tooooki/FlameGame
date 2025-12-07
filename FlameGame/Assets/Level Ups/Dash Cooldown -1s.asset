@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardImage: {fileID: 0}
   cardText: Reduces dash cooldown by 1s
-  effectType: 0
+  effectType: 8
   effectValue: -1
   isUnique: 1
   unlockLevel: 0
