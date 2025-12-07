@@ -3,7 +3,7 @@ using UnityEngine;
 public class audioManager : MonoBehaviour
 {
     [SerializeField] AudioSource musicSource;
-    [SerializeField] AudioSource sfxSource;
+    public AudioSource sfxSource;
 
     public AudioClip step;
     public AudioClip doorShut;
