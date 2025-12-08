@@ -150,12 +150,27 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         playerCurrentExperience += amount;
     }
 
-    public void PlayerGetDamage(float damage)
+            public void PlayerGetDamage(float damage)
     {
+        if (damage <= 0f) return; // ignore tiny/no damage
+
+        float oldHealth = playerCurrentHealth;
+
         playerCurrentHealth -= damage;
+        playerCurrentHealth = Mathf.Max(playerCurrentHealth, 0);
 
         PlayerFlameGetDamage.Play();
 
-        Player.GetComponentInChildren<PlayerDeath>().DamageResult();
+        // Only trigger camera shake if health actually changed
+        if (playerCurrentHealth < oldHealth)
+        {
+            Player.GetComponentInChildren<PlayerDeath>().DamageResult();
+        }
+    }
+
+    public void PlayerHeal(float amount)
+    {
+        playerCurrentHealth += amount;
+        playerCurrentHealth = Mathf.Min(playerCurrentHealth, playerMaxHealth);
     }
 }

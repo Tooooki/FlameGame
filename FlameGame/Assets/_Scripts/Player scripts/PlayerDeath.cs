@@ -9,7 +9,7 @@ public class PlayerDeath : MonoBehaviour
     public float passiveDegeneration = 0.1f;
 
     [Header("UI Elements")]
-    [SerializeField] private Image deathFadeImage;   // Fullscreen black image
+    [SerializeField] private Image deathFadeImage;
     [SerializeField] private Image healthBar;
 
     private GAMEGLOBALMANAGEMENT GAME;
@@ -20,10 +20,9 @@ public class PlayerDeath : MonoBehaviour
         GAME = GameObject.FindGameObjectWithTag("GameManager")
             .GetComponent<GAMEGLOBALMANAGEMENT>();
 
-        // Ensure player starts with full health
+        // Start with full health
         GAME.playerCurrentHealth = GAME.playerMaxHealth;
 
-        // Ensure fade image starts invisible
         if (deathFadeImage != null)
         {
             Color c = deathFadeImage.color;
@@ -36,33 +35,37 @@ public class PlayerDeath : MonoBehaviour
 
     private void Update()
     {
-
-        // Update health bar scale
+        // Update health bar safely
         if (healthBar != null)
-            healthBar.transform.localScale =
-                new Vector3(GAME.playerCurrentHealth / GAME.playerMaxHealth, 1, 1);
+        {
+            float healthNormalized = Mathf.Clamp(GAME.playerCurrentHealth / GAME.playerMaxHealth, 0f, 1f);
+            healthBar.transform.localScale = new Vector3(healthNormalized, 1f, 1f);
+        }
 
-        // Trigger death sequence
+        // Trigger death
         if (!isDead && GAME.playerCurrentHealth <= 0)
         {
             StartCoroutine(PlayerDeathSequence());
         }
     }
 
-    private void PassiveDegeneration()
+        private void PassiveDegeneration()
     {
         GAME.playerCurrentHealth -= passiveDegeneration;
+        GAME.playerCurrentHealth = Mathf.Max(GAME.playerCurrentHealth, 0);
+        
+        // Do NOT call DamageResult() here!
     }
+
 
     private IEnumerator PlayerDeathSequence()
     {
         isDead = true;
         Debug.Log("DEATH STARTED");
 
-        // 1. Block player movement/input
         BlockPlayerMovement();
 
-        // 2. Fade-in screen
+        // Fade to black
         if (deathFadeImage != null)
         {
             float fadeTime = 2f;
@@ -81,54 +84,62 @@ public class PlayerDeath : MonoBehaviour
             }
         }
 
-        // Optional pause before scene load
         yield return new WaitForSeconds(1f);
 
-        // 3. Load Main Menu asynchronously
         string sceneName = "Main Menu";
         if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
+            while (!asyncLoad.isDone) yield return null;
         }
         else
         {
-            Debug.LogError($"Scene '{sceneName}' cannot be found. Check Build Settings!");
+            Debug.LogError($"Scene '{sceneName}' not found in Build Settings!");
         }
     }
 
-        private void BlockPlayerMovement()
+    private void BlockPlayerMovement()
     {
         if (GAME.Player == null) return;
 
         // Disable health reaction
         var healthReaction = GAME.Player.GetComponent<PlayerHealthReaction>();
-        if (healthReaction != null)
-            healthReaction.enabled = false;
+        if (healthReaction != null) healthReaction.enabled = false;
 
-        // Disable movement scripts
+        // Disable movement
         var movement = GAME.Player.GetComponent<PlayerMovement>();
-        if (movement != null)
-            movement.enabled = false;
+        if (movement != null) movement.enabled = false;
 
-        // Stop Rigidbody movement immediately
+        // Disable attack
+        var attack = GAME.Player.GetComponent<PlayerAttack>();
+        if (attack != null) attack.enabled = false;
+
+        // Disable dash
+        var dash = GAME.Player.GetComponent<Dash>();
+        if (dash != null) dash.enabled = false;
+
+        // Freeze Rigidbody
         Rigidbody2D rb = GAME.Player.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
+            rb.bodyType = RigidbodyType2D.Static;
         }
 
-        Debug.Log("Player movement + PlayerHealthReaction disabled.");
+        // Mute all SFX
+        if (GAME.audioManager != null && GAME.audioManager.sfxSource != null)
+        {
+            GAME.audioManager.sfxSource.volume = 0f;
+        }
+
+        Debug.Log("Player frozen, attacks/dash disabled, walking sound muted.");
     }
 
-
-    // Optional: play camera shake on damage
     public void DamageResult()
     {
+        if (isDead) return;
+
         GAME.Player.GetComponent<PlayerInRooms>()?.PlayCameraShake(0.2f);
     }
 }
