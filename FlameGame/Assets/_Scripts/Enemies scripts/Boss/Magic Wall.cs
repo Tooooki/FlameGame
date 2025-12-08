@@ -27,7 +27,7 @@ public class MagicWall : MonoBehaviour
 
         // Apply velocity immediately
         if(rb != null)
-            rb.velocity = moveDirection * moveSpeed;
+            rb.linearVelocity = moveDirection * moveSpeed;
     }
 
     private void Update()

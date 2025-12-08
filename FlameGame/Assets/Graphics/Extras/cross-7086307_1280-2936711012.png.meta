@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: abb214e163a11174cbf9d78588a22f06
+guid: a923c6734f69cb74f82e6b4be10076ee
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8175991997475407729
-    second: Zrzut ekranu 2025-12-03 133231_0
+      213: 6675490347956877022
+    second: cross-7086307_1280-2936711012_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Zrzut ekranu 2025-12-03 133231_0
+      name: cross-7086307_1280-2936711012_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 709
-        height: 411
+        width: 1280
+        height: 1280
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f88ba08b89a098e80800000000000000
-      internalID: -8175991997475407729
+      spriteID: ed6b48b6a1b14ac50800000000000000
+      internalID: 6675490347956877022
       vertices: []
       indices: 
       edges: []
@@ -147,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Zrzut ekranu 2025-12-03 133231_0: -8175991997475407729
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

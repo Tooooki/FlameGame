@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
         direction.Normalize();
 
         // Apply movement
-        rb.velocity = direction * GAME.enemyRunnerMoveVelocity;
+        rb.linearVelocity = direction * GAME.enemyRunnerMoveVelocity;
 
         // Flip sprite based on horizontal movement
         if (direction.x < 0)

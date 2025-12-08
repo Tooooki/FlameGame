@@ -27,7 +27,7 @@ public class BossProjectile : MonoBehaviour
     {
         if(rb != null)
         {
-            rb.velocity = direction.normalized * speed;
+            rb.linearVelocity = direction.normalized * speed;
         }
 
         // Rotate projectile to face direction
@@ -55,7 +55,7 @@ public class BossProjectile : MonoBehaviour
     {
         // Stop movement
         if(rb != null)
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
 
         // Play particle effect if assigned
         if(hitEffect != null)

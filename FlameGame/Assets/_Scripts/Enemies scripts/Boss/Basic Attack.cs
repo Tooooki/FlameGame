@@ -48,7 +48,7 @@ public class BasicAttack : MonoBehaviour
         Vector2 direction = player.position - spawnPos;
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         if (rb != null)
-            rb.velocity = direction.normalized * projectileSpeed;
+            rb.linearVelocity = direction.normalized * projectileSpeed;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         projectile.transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
