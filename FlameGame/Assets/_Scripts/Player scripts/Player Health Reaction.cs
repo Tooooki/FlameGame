@@ -5,22 +5,31 @@ public class PlayerHealthReaction : MonoBehaviour
 {
     [SerializeField] Light2D playerLight;
 
-    [SerializeField] GameObject flame, sprite, wallcollider, hitbox;
+    [SerializeField] GameObject flame;
+    [SerializeField] GameObject sprite;
+    [SerializeField] GameObject wallcollider;
+    [SerializeField] GameObject hitbox;
 
-    GAMEGLOBALMANAGEMENT GAME;
-
-
+    private GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
-        GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
+        GAME = GameObject.FindGameObjectWithTag("GameManager")
+            .GetComponent<GAMEGLOBALMANAGEMENT>();
     }
 
     void Update()
     {
-        sprite.transform.localScale = new Vector3(1, GAME.playerCurrentHealth / GAME.playerMaxHealth);
-        wallcollider.transform.localScale = new Vector3(1, GAME.playerCurrentHealth / GAME.playerMaxHealth);
-        hitbox.transform.localScale = new Vector3(1, GAME.playerCurrentHealth / GAME.playerMaxHealth);
-        flame.transform.localPosition = new Vector3(0f, GAME.playerCurrentHealth * 2.7f / GAME.playerMaxHealth);
+        // Clamp health normalized (0 → 1)
+        float healthNormalized = Mathf.Clamp(GAME.playerCurrentHealth / GAME.playerMaxHealth, 0f, 1f);
+
+        // Apply safe scale
+        sprite.transform.localScale = new Vector3(1f, healthNormalized, 1f);
+        wallcollider.transform.localScale = new Vector3(1f, healthNormalized, 1f);
+        hitbox.transform.localScale = new Vector3(1f, healthNormalized, 1f);
+
+        // Adjust flame height safely
+        float flameY = healthNormalized * 2.7f;
+        flame.transform.localPosition = new Vector3(0f, flameY, 0f);
     }
 }
