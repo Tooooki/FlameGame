@@ -11698,6 +11698,7 @@ MonoBehaviour:
   bottomWall: {fileID: 4612617289496496344}
   leftWall: {fileID: 7189085709001275056}
   rightWall: {fileID: 6107364265998185641}
+  boss: {fileID: 2867424926406269571, guid: dd54c20dcdbaeb4418a579baeef957fb, type: 3}
   clutter:
   - {fileID: 6185867965717081405, guid: fa346b9dfeca24441be892ab91630c09, type: 3}
   - {fileID: 4140920052320000728, guid: a7b2242f7eb9deb49b0990e557752480, type: 3}
@@ -11724,6 +11725,8 @@ MonoBehaviour:
   minEnemies: 1
   maxEnemies: 5
   clutterReady: 0
+  BossRoom: 0
+  bossRoomPos: {x: 0, y: 0, z: 0}
 --- !u!61 &2848748718041198442
 BoxCollider2D:
   m_ObjectHideFlags: 0

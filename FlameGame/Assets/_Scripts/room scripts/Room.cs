@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Room : MonoBehaviour
 {
-    [SerializeField] GameObject topDoor, bottomDoor, leftDoor, rightDoor, topWall, bottomWall, leftWall, rightWall;
+    [SerializeField] GameObject topDoor, bottomDoor, leftDoor, rightDoor, topWall, bottomWall, leftWall, rightWall, boss;
 
     public List<GameObject> clutter;
     public List<GameObject> activeClutter;
@@ -20,18 +21,24 @@ public class Room : MonoBehaviour
 
     private bool up, down, left, right = false;
 
-    public bool clutterReady = true;
+    public bool clutterReady = true, BossRoom = false;
 
     public Vector2Int RoomIndex { get; set; }
+
+    public Vector3 bossRoomPos;
 
     GAMEGLOBALMANAGEMENT GAME;
 
     private void Awake()
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
-        startClutter = Random.Range(minClutter, maxClutter + 1);
-        clutterReady = true;
-        InvokeRepeating("SetClutter", 0f, 0.01f);
+        
+        if(!BossRoom)
+        {
+            startClutter = Random.Range(minClutter, maxClutter + 1);
+            clutterReady = true;
+            InvokeRepeating("SetClutter", 0f, 0.01f);
+        }
     }
 
     public void OpenDoor(Vector2Int direction)
@@ -80,10 +87,10 @@ public class Room : MonoBehaviour
             roomActive = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            StartCoroutine(SpawnEnemy());
-        }
+        //if(Input.GetKeyDown(KeyCode.O))
+        //{
+            //StartCoroutine(SpawnEnemy());
+        //}
     }
 
     private IEnumerator doorClose()
@@ -119,21 +126,30 @@ public class Room : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        //there should be more spawnpoints than maxEnemy value
-        int enemyCount = Random.Range(minEnemies, maxEnemies + 1);
-
-        while(enemyCount > 0)
+        if(BossRoom)
         {
-            int randomItemFromList = Random.Range(0, enemiesSpawnpoints.Count);
-            Vector3 pos = enemiesSpawnpoints[randomItemFromList].position;
-            enemiesSpawnpoints.Remove(enemiesSpawnpoints[randomItemFromList]);
-
-            randomItemFromList = Random.Range(0, avalibleEnemies.Count);
-
-            GameObject enemy = Instantiate(avalibleEnemies[randomItemFromList], pos, Quaternion.identity);
-
-            enemyCount -= 1;
+            GameObject TheBoss = Instantiate(boss,bossRoomPos, Quaternion.identity);
+            TheBoss.SetActive(true);
             yield return null;
+        }
+        else
+        {
+            //there should be more spawnpoints than maxEnemy value
+            int enemyCount = Random.Range(minEnemies, maxEnemies + 1);
+
+            while (enemyCount > 0)
+            {
+                int randomItemFromList = Random.Range(0, enemiesSpawnpoints.Count);
+                Vector3 pos = enemiesSpawnpoints[randomItemFromList].position;
+                enemiesSpawnpoints.Remove(enemiesSpawnpoints[randomItemFromList]);
+
+                randomItemFromList = Random.Range(0, avalibleEnemies.Count);
+
+                GameObject enemy = Instantiate(avalibleEnemies[randomItemFromList], pos, Quaternion.identity);
+
+                enemyCount -= 1;
+                yield return null;
+            }
         }
     }
 
