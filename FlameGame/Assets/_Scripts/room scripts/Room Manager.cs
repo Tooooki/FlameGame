@@ -60,8 +60,9 @@ public class RoomManager : MonoBehaviour
         {
             generationComplete = true;
             GameObject lastRoom = roomObjects.Last();
-            GameObject BOSS = Instantiate(boss, lastRoom.transform.position, Quaternion.identity);
-            BOSS.SetActive(true);
+            lastRoom.GetComponent<Room>().BossRoom = true;
+            lastRoom.GetComponent<Room>().bossRoomPos = lastRoom.transform.position;
+            
             loadingScript.OnGameLoaded();
         }
     }
