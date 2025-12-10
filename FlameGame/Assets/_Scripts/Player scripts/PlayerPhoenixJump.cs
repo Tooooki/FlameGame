@@ -54,7 +54,7 @@ public class PlayerPhoenixJump : MonoBehaviour
             durationCounter -= Time.deltaTime;
             ghost.GetComponent<Rigidbody2D>().linearVelocity = Vector2.up * 150f;
             playerSprite.transform.position = ghost.transform.position;
-            playerLight.intensity = durationCounter - 0.4f;
+            playerLight.intensity = 2.5f * durationCounter - 1f;
             yield return null;
         }
 
@@ -65,10 +65,11 @@ public class PlayerPhoenixJump : MonoBehaviour
             durationCounter -= Time.deltaTime;
             ghost.GetComponent<Rigidbody2D>().linearVelocity = Vector2.down * 150f;
             playerSprite.transform.position = ghost.transform.position;
-            playerLight.intensity = 0.4f - durationCounter;
+            playerLight.intensity = 1f - 2.5f * durationCounter;
             yield return null;
         }
 
+        playerLight.intensity = 1f;
         playerFlame.SetActive(true);
         GAME.Player.transform.position = Pos;
         playerSprite.transform.position = Pos;

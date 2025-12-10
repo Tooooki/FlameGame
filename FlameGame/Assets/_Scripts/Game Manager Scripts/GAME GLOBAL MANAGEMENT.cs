@@ -150,7 +150,7 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         playerCurrentExperience += amount;
     }
 
-            public void PlayerGetDamage(float damage)
+    public void PlayerGetDamage(float damage)
     {
         if (damage <= 0f) return; // ignore tiny/no damage
 
