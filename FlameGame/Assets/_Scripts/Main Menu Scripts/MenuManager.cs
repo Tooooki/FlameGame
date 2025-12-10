@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
 
     public void SettingsButton()
     {
-        
+        SceneManager.LoadScene("Settings");
     }    
 
     public void QuitGame()
