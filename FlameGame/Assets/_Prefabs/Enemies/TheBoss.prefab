@@ -213,10 +213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5935035677087244ba454f9661fb533f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 1722220437079140077, guid: 09ff97bd98234e548aa2dedd464c8cf2, type: 3}
-  bossHP: 1000
   bossMaxHP: 1000
-  bossSlider: {fileID: 0}
+  bossHP: 1000
+  bossSlider: {fileID: 8333315262604605380, guid: d132cd8182fc9a1409377cd3643783c1, type: 3}
 --- !u!50 &3687982526026118863
 Rigidbody2D:
   serializedVersion: 5

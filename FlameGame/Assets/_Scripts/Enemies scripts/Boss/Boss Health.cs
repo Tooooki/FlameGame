@@ -1,80 +1,77 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class BossHealth : MonoBehaviour
 {
-    [SerializeField] GameObject hpBar;   // World-space bar
-    public float bossHP;
+    [Header("Health Settings")]
     public float bossMaxHP = 500f;
+    public float bossHP;
 
-    public Slider bossSlider;              // assign in inspector
-    private GAMEGLOBALMANAGEMENT GAME;
+    [Header("UI")]
+    public Slider bossSlider; // assigned dynamically at runtime
 
+    [Header("Phase Control")]
     private bool phaseTwoActivated = false;
 
-    private void Awake()
+    private GAMEGLOBALMANAGEMENT GAME;
+
+        private void Awake()
     {
         GAME = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GAMEGLOBALMANAGEMENT>();
         bossHP = bossMaxHP;
 
+        // Only hide if slider is already assigned dynamically
         if (bossSlider != null)
-            bossSlider.gameObject.SetActive(false); // hidden initially
+            bossSlider.gameObject.SetActive(false);
     }
+
 
     private void OnEnable()
     {
         if (bossSlider != null)
         {
-            bossSlider.gameObject.SetActive(true);
-            bossSlider.maxValue = bossMaxHP;
+            bossSlider.gameObject.SetActive(true); // show when boss spawns
             bossSlider.value = bossHP;
         }
     }
 
     private void Update()
     {
-        // Update world-space hpBar
-        if (hpBar != null)
-            hpBar.transform.localScale = new Vector3(bossHP / bossMaxHP, 1, 1);
-
-        // Update UI slider
         if (bossSlider != null)
             bossSlider.value = bossHP;
 
-        // Check for phase two trigger
         if (!phaseTwoActivated && bossHP <= bossMaxHP / 2f)
-        {
             ActivatePhaseTwo();
-        }
 
         if (bossHP <= 0)
-        {
             Die();
-        }
     }
 
     public void TakeDamage(float damage)
     {
         bossHP -= damage;
         if (bossHP < 0) bossHP = 0;
+
+        if (bossSlider != null)
+            bossSlider.value = bossHP;
     }
 
-        private void ActivatePhaseTwo()
+    private void ActivatePhaseTwo()
     {
         phaseTwoActivated = true;
 
         var basicAttack = GetComponent<BasicAttack>();
         if (basicAttack != null)
         {
-            basicAttack.StopAttack();   // stops InvokeRepeating
+            basicAttack.StopAttack();
             basicAttack.enabled = false;
         }
-        // Disable first phase attack
+
         var magicSpin = GetComponent<MagicSpin>();
         if (magicSpin != null)
             magicSpin.enabled = false;
 
-        // Enable second phase attack
         var secondPhaseAttack = GetComponent<BossSecondPhaseAttack>();
         if (secondPhaseAttack != null)
             secondPhaseAttack.enabled = true;
@@ -84,20 +81,16 @@ public class BossHealth : MonoBehaviour
 
     private void Die()
     {
-        GAME.PlayerGetExperience(GAME.enemyAssassinExperienceDrop);
+        GAME.PlayerGetExperience(GAME.bossExperienceDrop);
 
-        // Hide the boss slider
         if (bossSlider != null)
             bossSlider.gameObject.SetActive(false);
 
-        // Destroy all active boss projectiles
-        GameObject[] bossProjectiles = GameObject.FindGameObjectsWithTag("BossProjectile");
-        foreach (GameObject proj in bossProjectiles)
-        {
+        // Destroy boss projectiles
+        foreach (var proj in GameObject.FindGameObjectsWithTag("BossProjectile"))
             Destroy(proj);
-        }
 
-        // Destroy the boss
+        BossSceneLoader.Instance.LoadMainMenuWithFade();
         Destroy(gameObject);
     }
 }

@@ -11802,6 +11802,7 @@ MonoBehaviour:
   clutterReady: 0
   BossRoom: 0
   bossRoomPos: {x: 0, y: 0, z: 0}
+  bossSliderPrefab: {fileID: 1700385802942104150, guid: d132cd8182fc9a1409377cd3643783c1, type: 3}
 --- !u!61 &2848748718041198442
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -77,6 +77,9 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
     public bool dashAbility = true;                     //Dash
     public bool phoenixJumpAbility = true;              //Phoenix Jump
 
+    //---------------------- Boss -------------------------------------------------------------------------------------------
+
+
 
 
 
@@ -128,7 +131,7 @@ public class GAMEGLOBALMANAGEMENT : MonoBehaviour
         enemyAssassinAttackDelay = 1f;
 
         bossMaxHealth = 500f;
-        bossExperienceDrop = 300f;
+        bossExperienceDrop = 0f;
 
         spikesDamage = 50f;
 
